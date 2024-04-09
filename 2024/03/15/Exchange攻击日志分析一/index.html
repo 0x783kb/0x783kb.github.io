@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>转载MS Exchange攻击日志分析一</title>
+<meta name="keywords" content="转载MS Exchange攻击日志分析一, 0x783kb,threathunting">
+<meta name="description" content="转载原文地址：https://www.freebuf.com/articles/web/380339.html
+Microsoft Exchange是全球最常用的Email服务器之一,主要用于对企业网络中的Email通信进行集中管理。它在互">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="转载MS Exchange攻击日志分析一">
+<meta property="og:description" content="转载原文地址：https://www.freebuf.com/articles/web/380339.html
+Microsoft Exchange是全球最常用的Email服务器之一,主要用于对企业网络中的Email通信进行集中管理。它在互">
+
+<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives/" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">转载MS Exchange攻击日志分析一</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-03-15</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/Exchange%E6%94%BB%E5%87%BB/">
+              Exchange攻击
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
+              日志分析
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>转载原文地址：<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/380339.html">https://www.freebuf.com/articles/web/380339.html</a></p>
+<p>Microsoft Exchange是全球最常用的Email服务器之一,主要用于对企业网络中的Email通信进行集中管理。它在互联网上普遍性和可访问性使其成为攻击者的首选目标之一。</p>
+<p>近些年来，MS Exchange频频成为攻击者进入企业内网的入口之一，本文将主要介绍如何使用标准系统事件日志检测CVE-2020-0688，在后续文章中将会介绍如何监测分析CVE-2020-16875，CVE-2021-24085等漏洞利用行为。</p>
+<h2 id="客户端访问协议体系结构"><a href="#客户端访问协议体系结构" class="headerlink" title="客户端访问协议体系结构"></a>客户端访问协议体系结构</h2><p>Exchange邮箱服务器上的客户端访问服务负责接受所有形式的客户端连接。客户端访问 (前端) 服务将这些连接代理到目标邮箱服务器上的后端服务， (本地服务器或保存用户邮箱) 的活动副本的远程邮箱服务器。客户端不直接连接到后端服务。这种通信体系结构如下图所示：</p>
+<p><a class="simple-lightbox" href="/1.png"><img src="/images/loading.svg" data-src="/1.png" alt="客户端访问协议体系结构" lazyload></a></p>
+<p>客户端使用的协议决定了用于将请求代理到目标邮箱服务器上的后端服务的协议。例如，如果客户端使用的是HTTP连接，则邮箱服务器使用HTTP将请求代理到目标邮箱服务器（使用自签名证书通过SSL确保安全）。如果客户端使用的是IMAP或POP，则所使用的协议也是IMAP或POP。</p>
+<h3 id="MS-Exchange使用的基本协议"><a href="#MS-Exchange使用的基本协议" class="headerlink" title="MS Exchange使用的基本协议"></a>MS Exchange使用的基本协议</h3><p><a class="simple-lightbox" href="/2.png"><img src="/images/loading.svg" data-src="/2.png" alt="MS Exchange使用的基本协议" lazyload></a></p>
+<h3 id="MS-Exchange主要组成部分"><a href="#MS-Exchange主要组成部分" class="headerlink" title="MS Exchange主要组成部分"></a>MS Exchange主要组成部分</h3><ul>
+<li><p>Outlook Web Access（OWA）：Exchange Server提供的一种Web访问方式，允许用户从Web浏览器中访问其Exchange Server上的邮件、日历、联系人等信息。OWA提供了一种方便、灵活的方式，使用户可以随时随地通过互联网连接到Exchange Server,并访问其邮件、日程和其他Exchange服务。</p>
+</li>
+<li><p>Exchange Control Panel (ECP) ：Exchange Server提供的一种管理控制台，用于管理和配置Exchange Server上的邮件服务。ECP提供了一种直观、易用的方式，使管理员可以方便地监控和管理Exchange Server的运行状况、性能、安全性等方面。ECP还提供了一些高级功能，如备份和恢复、故障排除、安全设置等，使管理员可以更深入地管理和配置Exchange Server。</p>
+</li>
+<li><p>Autodiscover ：Exchange Server提供的一种自动发现机制，用于自动发现和配置Exchange Server上的新邮件服务器。当用户尝试连接到Exchange Server时，Autodiscover会自动检测并连接到可用的邮件服务器，并提供用户所需的配置信息。Autodiscover还提供了一种快速、简单的方式来更新Exchange Server上的配置信息，如邮件服务器地址、端口号等。Autodiscover还可以用于检测和解决连接问题，以及检查Exchange Server的运行状况和安全性等方面。</p>
+</li>
+<li><p>Exchange Web Services (EWS) ：Exchange Server提供的一种Web服务，用于在 Web浏览器和应用程序之间提供Exchange数据的访问和交互。EWS提供了一种简单、灵活的方式，使开发人员可以在其Web应用程序中集成Exchange数据和服务。</p>
+</li>
+<li><p>Exchange ActiveSync (EAS) ：Exchange Server提供的一种同步协议，用于将移动设备上的Exchange数据同步到Exchange Server上。EAS提供了一种简单、高效的方式来管理移动设备和Exchange Server之间的数据同步，使用户可以轻松地管理和处理其移动设备上的Exchange数据。</p>
+</li>
+<li><p>Exchange RPC ：Exchange Server提供的一种远程过程调用协议，用于在Exchange Server之间进行通信和数据交换。RPC提供了一种简单、高效的方式来管理Exchange Server之间的通信和数据同步，使用户可以轻松地管理和处理其Exchange数据。</p>
+</li>
+<li><p>Offline Address Book (OAB) ：Exchange Server提供的一种离线访问方式，用于在Exchange Server关闭或网络连接中断时访问和管理其联系人数据。OAB提供了一种简单、高效的方式来管理Exchange Server上的联系人数据，使用户可以在Exchange Server关闭或网络连接中断时继续访问其联系人数据。</p>
+</li>
+</ul>
+<h2 id="日志和事件"><a href="#日志和事件" class="headerlink" title="日志和事件"></a>日志和事件</h2><p>以下日志对于监测分析针对MS Exchange服务器的攻击行为具有一定的作用。</p>
+<p><a class="simple-lightbox" href="/3.png"><img src="/images/loading.svg" data-src="/3.png" alt="日志和事件" lazyload></a></p>
+<h2 id="CVE-2020-0688"><a href="#CVE-2020-0688" class="headerlink" title="CVE-2020-0688"></a>CVE-2020-0688</h2><h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>漏洞起于Microsoft Exchange服务器在安装时并没有正确创建唯一密钥，经过身份验证的攻击者可以欺骗目标服务器反序列化恶意创建的ViewState数据，使攻击者可以在Exchange Control Panel web应用上执行任意.net代码。</p>
+<p>在Exchange Control Panel （ECP）组件中，所有Microsoft Exchange Server在安装后的web.config文件中都拥有相同的validationKey和decryptionKey。这些密钥用于保证ViewState的安全性，而ViewState是ASP.NET Web应用以序列化格式存储在客户机上的服务端数据。由于密钥是静态的，攻击者有了这两个密钥，就可以使用YSoSerial.net生成序列化后的ViewState数据，从而在Exchange Control Panel web应用上执行任意.net代码。</p>
+<p>想要利用该漏洞我们需要知道四个参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--validationkey = CB2721ABDAF8E9DC516D621D8B8BF13A2C9E8689A25303BF（默认，漏洞产生原因）</span><br><span class="line">--validationalg = SHA1（默认，漏洞产生原因）</span><br><span class="line">--generator=B97B4E27（基本默认）</span><br><span class="line">--viewstateuserkey = ASP.NET_SessionId（手工获取，变量，每次登陆都不一致）</span><br></pre></td></tr></table></figure>
+
+<p>获取到相关参数后，使用YSoSerial.net生成序列化后的恶意的ViewState数据，直接访问Url，导致服务器返回错误代码500。</p>
+<p><a class="simple-lightbox" href="/4.png"><img src="/images/loading.svg" data-src="/4.png" alt="错误代码500" lazyload></a></p>
+<p>具体漏洞分析利用细节可参考CVE-2020-0688：Exchange Server使用固定加密密钥远程代码执行漏洞修复通告</p>
+<h3 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h3><p>被攻击的Exchange服务器上，可利用IIS日志进行分析发现攻击行为。可疑日志如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">020-03-09 17:16:58 172.*.*.27 GET /ecp/default.aspx __VIEWSTATEGENERATOR=B97B4E27&amp;__VIEWSTATE=%2FwEyhAYAAQAAAP%2F%2F%2F%2F8BAAAAAAAAAAwCAAAAXk1pY3Jvc29mdC5Qb3dlclNoZWxsLkVkaXRvciwgVmVyc2lvbj0zLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTMxYmYzODU2YWQzNjRlMzUFAQAAAEJNaWNyb3NvZnQuVmlzdWFsU3R1ZGlvLlRleHQuRm-9ybWF0dGluZy5UZXh0Rm19ybWF0dGluZ1J1blByb3BlcnRpZXMBAAAAD0ZvcmVncm191bmRCcnVzaAECAAAABgMAAACmBDxSZXNvdXJjZURpY3Rpb25hcnkNCiAgeG1sbnM19Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd2luZngvMjAwNi94YW1sL3ByZXNlbnRhdGlvbiINCiAgeG1sbnM6eD0iaHR0cDovL3NjaGVtYXMubWljcm19zb2Z0LmNvbS93aW5meC8yMDA2L3hhbWwiDQogIHhtbG5zOlN5c3RlbT0iY2xyLW5hbWVzcGFjZTpTeXN0ZW07YXNzZW1ibHk9bXNjb3JsaWIiDQogIHhtbG5zOkRpYWc9ImNsci1uYW1lc3BhY2U6U3lzdGVtLkRpYWdub3N0aWNzO2Fzc2VtYmx5PXN5c3RlbSI%2BDQoJIDxPYmplY3REYXRhUHJvdmlkZXIgeDpLZXk9IiIgT2JqZWN0VHlwZSA9ICJ7IHg6VHlwZSBEaWFnOlByb2Nlc3N9IiBNZXRob2ROYW1lID0gIlN0YXJ0IiA%2BDQogICAgIDxPYmplY3REYXRhUHJvdmlkZXIuTWV0aG9kUGFyYW1ldGVycz4NCiAgICAgICAgPFN5c3RlbTpTdHJpbmc%2BY2FsYy5leGU8L1N5c3RlbTpTdHJpbmc%2BDQogICAgIDwvT2JqZWN0RGF0YVByb3ZpZGVyLk1ldGhvZFBhcmFtZXRlcnM%2BDQogICAgPC9PYmplY3REYXRhUHJvdmlkZXI%2BDQo8L1Jlc291cmNlRGljdGlvbmFyeT4LJ%2F5i3bVSrOTrkun3pNej4tluDK0%3D&amp;CorrelationID=&lt;empty&gt;;&amp;cafeReqId=e0874638-b142-4c77-84c1-c0434137e691; 443 limou 10.0.254.139 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64;+rv:73.0)+Gecko/20100101+Firefox/73.0 - 500 0 0 1502</span><br></pre></td></tr></table></figure>
+
+<p>对上述可疑日志中的VIEWSTATE内容进行解码，其调用了计算器进程。</p>
+<p><a class="simple-lightbox" href="/5.png"><img src="/images/loading.svg" data-src="/5.png" alt="计算器进程" lazyload></a></p>
+<p>根据IIS日志信息总结出0688漏洞利用日志分析要点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP请求方法：&quot;GET&quot;</span><br><span class="line">HTTP请求路径：&quot;/ecp/default.aspx&quot;</span><br><span class="line">请求路径中包含：&quot;__VIEWSTATEGENERATOR&quot;、&quot;__VIEWSTATE&quot;</span><br><span class="line">HTTP状态代码：&quot;500&quot;</span><br></pre></td></tr></table></figure>
+
+<p>同样我们也可以在日志中定位到经过身份验证的用户账户是哪个？（limou）。在实际分析过程中，攻击者不可能简简单单的弹一个计算器就结束了，结合网上其他利用方法（如下）。</p>
+<p><a class="simple-lightbox" href="/6.png"><img src="/images/loading.svg" data-src="/6.png" alt="cmd" lazyload></a><br><a class="simple-lightbox" href="/7.png"><img src="/images/loading.svg" data-src="/7.png" alt="powershell" lazyload></a></p>
+<p>我们对其他方法也进行了总结，也可通过Windows安全日志对进程进行检测发现可疑行为，分析要点：Windows事件ID4688，父进程w3wp.exe（IIS）、子进程cmd.exe或者powershell.exe。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在IIS日志中可利用请求方法、路径、状态码等特征进行监测分析；在Windows安全日志中可利用事件ID、子父进程名称进行监测分析，在实际应用过程中，利用IIS日志进行分析较为方便快捷。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/exchange/architecture/architecture?view=exchserver-2019#server-communication-architecture">Exchange体系结构</a></p>
+<p><a target="_blank" rel="noopener" href="https://cyberpolygon.com/materials/okhota-na-ataki-ms-exchange-chast-2-cve-2020-0688-cve-2020-16875-cve-2021-24085/">CVE-2020-0688：Exchange Server使用固定加密密钥远程代码执行漏洞修复通告</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/228735.html">CVE-2020-0688 exchange远程代码执行漏洞复现</a></p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_logging?view=powershell-5.1">关于日志记录-PowerShell</a></p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="top-box-text">客户端访问协议体系结构</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#MS-Exchange%E4%BD%BF%E7%94%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8D%8F%E8%AE%AE"><span class="top-box-text">MS Exchange使用的基本协议</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#MS-Exchange%E4%B8%BB%E8%A6%81%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="top-box-text">MS Exchange主要组成部分</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%97%A5%E5%BF%97%E5%92%8C%E4%BA%8B%E4%BB%B6"><span class="top-box-text">日志和事件</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#CVE-2020-0688"><span class="top-box-text">CVE-2020-0688</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="top-box-text">漏洞利用</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="top-box-text">日志分析</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%80%BB%E7%BB%93"><span class="top-box-text">总结</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="top-box-text">参考链接</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2023/04/07/Threathunting-%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">
+          <h3 class="post-title">
+            下一篇：windows认证/白银票据检测
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>DNSLOG相关知识</title>
+<meta name="keywords" content="DNSLOG相关知识, 0x783kb,threathunting">
+<meta name="description" content="0x01 DNS知识域名系统（Domain Name System），是互联网使用的命名系统，用来便于人们使用的机器名字转换为IP地址。
+0x02 DNS解析2.1 解析过程要点当某一个应用进程需要把主机名解析为IP地址时，该应用进程就调用">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="DNSLOG相关知识">
+<meta property="og:description" content="0x01 DNS知识域名系统（Domain Name System），是互联网使用的命名系统，用来便于人们使用的机器名字转换为IP地址。
+0x02 DNS解析2.1 解析过程要点当某一个应用进程需要把主机名解析为IP地址时，该应用进程就调用">
+
+<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives/" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">DNSLOG相关知识</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-03-16</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/DNSLOG/">
+              DNSLOG
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="0x01-DNS知识"><a href="#0x01-DNS知识" class="headerlink" title="0x01 DNS知识"></a>0x01 DNS知识</h2><p>域名系统（Domain Name System），是互联网使用的命名系统，用来便于人们使用的机器名字转换为IP地址。</p>
+<h2 id="0x02-DNS解析"><a href="#0x02-DNS解析" class="headerlink" title="0x02 DNS解析"></a>0x02 DNS解析</h2><h3 id="2-1-解析过程要点"><a href="#2-1-解析过程要点" class="headerlink" title="2.1 解析过程要点"></a>2.1 解析过程要点</h3><p>当某一个应用进程需要把主机名解析为IP地址时，该应用进程就调用解析程序，并成为DNS的一个客户（DNS Client），把待解析的域名放在DNS请求报文中，以UDP用户数据报方式发给本地域名服务器（使用UDP是为了减少开销）。本地域名服务器在查找域名后，把对应的IP地址放在响应报文中返回。应用进程获得目的主机的IP地址后即可进行通信。若本地域名服务器不能响应该请求，则本地域名服务器就暂时充当DNS的另一个客户，并向其他域名服务器发出查询请求。这种过程直至找到能够响应该请求的域名服务器为止，否则报错。</p>
+<h3 id="2-2-解析过程"><a href="#2-2-解析过程" class="headerlink" title="2.2 解析过程"></a>2.2 解析过程</h3><p>主机向本地域名服务器的查询一般都是采用递归查询。所谓的递归查询就是：若本地域名服务器无法响应主机发出的DNS解析查询（没找到），那么本地域名服务器就以DNS客户的身份向根域名服务器发出查询请求的报文（替主机继续查询），而不是让主机自己进行下一步查询。因此，递归查询返回的结果或着是索要查询的IP地址，或着是报错，报错即是查询不到某域名的IP地址。</p>
+<p>本地域名服务器向根域名服务器的查询通常是采用迭代查询（也可以采用递归查询，取决于最初的查询请求报文的设置）。所谓的迭代查询就是：当根域名服务器收到查询请求时，要么返回查询的IP地址，要么告诉本地域名服务器：“你下一步应当向哪一个域名服务器进行查询”。然后让本地域名服务器进行后续查询。根域名服务器通常是把自己知道的顶级域名服务器的IP地址高速本地域名服务器，让本地域名服务器再向顶级域名服务器查询。本地域名服务器就是以这种方式进行迭代查询。</p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200227153903675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDQyNjg2OQ==,size_16,color_FFFFFF,t_70"><img src="/images/loading.svg" data-src="https://img-blog.csdnimg.cn/20200227153903675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDQyNjg2OQ==,size_16,color_FFFFFF,t_70" alt="DNS原理" lazyload></a></p>
+<h2 id="0x03-DNSLOG是什么？"><a href="#0x03-DNSLOG是什么？" class="headerlink" title="0x03 DNSLOG是什么？"></a>0x03 DNSLOG是什么？</h2><p>当我们发现一个站点存在一个没有数据回显的注入点进行注入时，只能采取盲注，要么用逻辑法（布尔型），要么用延时法（时间注入），这种注入速度非常慢，需要一个一个字符推理猜解，而且很容易被网站BAN掉IP，虽然也可以使用代理IP池，但是还是需要一种快速有效的方法来获取数据。</p>
+<p>DNS在解析的时候会留下日志，可以通过读取多级域名的解析日志来获取信息，即把信息放在多级的域名中，传递到我们指定的DNS服务器，然后在该服务器上读取DNS解析日志，便能够快速的获取数据，这就是DNSLog带外攻击，当然也可以在无回显的命令执行或者无回显的SSRF中利用。</p>
+<p>常见的带外攻击利用平台有：DNSlog、cloundeye、Burp Collaborator client等。</p>
+<p>以上解释来自FREEBUF WIKI</p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200227210853395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDQyNjg2OQ==,size_16,color_FFFFFF,t_70"><img src="/images/loading.svg" data-src="https://img-blog.csdnimg.cn/20200227210853395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDQyNjg2OQ==,size_16,color_FFFFFF,t_70" alt="DNSlog示意图" lazyload></a></p>
+<h2 id="0x04-案例参考"><a href="#0x04-案例参考" class="headerlink" title="0x04 案例参考"></a>0x04 案例参考</h2><p>使用DNSLOG拯救你的盲打盲注</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/184587.html">https://www.freebuf.com/articles/web/184587.html</a></p>
+<p>一次weblogic命令执行利用dnslog进行利用</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/234126.html">https://www.freebuf.com/articles/network/234126.html</a></p>
+<h2 id="0x05-参考链接"><a href="#0x05-参考链接" class="headerlink" title="0x05 参考链接"></a>0x05 参考链接</h2><p>DNSlog</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44426869/article/details/104536108">https://blog.csdn.net/weixin_44426869/article/details/104536108</a></p>
+<p>DNSLog</p>
+<p><a target="_blank" rel="noopener" href="https://wiki.freebuf.com/detail?wiki=19&amp;post=276458">https://wiki.freebuf.com/detail?wiki=19&amp;post=276458</a></p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x01-DNS%E7%9F%A5%E8%AF%86"><span class="top-box-text">0x01 DNS知识</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x02-DNS%E8%A7%A3%E6%9E%90"><span class="top-box-text">0x02 DNS解析</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#2-1-%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B%E8%A6%81%E7%82%B9"><span class="top-box-text">2.1 解析过程要点</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#2-2-%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="top-box-text">2.2 解析过程</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x03-DNSLOG%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="top-box-text">0x03 DNSLOG是什么？</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x04-%E6%A1%88%E4%BE%8B%E5%8F%82%E8%80%83"><span class="top-box-text">0x04 案例参考</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x05-%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="top-box-text">0x05 参考链接</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2019/03/16/HTTP%E5%8D%8F%E8%AE%AE%E4%B9%8B%E5%88%86%E6%AE%B5%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81/">
+          <h3 class="post-title">
+            下一篇：HTTP协议之分段传输/分块编码
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+

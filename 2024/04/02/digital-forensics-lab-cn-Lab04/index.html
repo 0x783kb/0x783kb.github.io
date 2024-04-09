@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>digital-forensics-lab-cn-Lab04</title>
+<meta name="keywords" content="digital-forensics-lab-cn-Lab04, 0x783kb,threathunting">
+<meta name="description" content="网络攻击取证Web应用程序是我们日常生活中不可或缺的一部分，用于各种活动，从在线购物到银行和社交媒体。然而，它们的广泛使用为不良行为者提供了巨大的攻击面，以利用它们并在系统中获得初步立足点。
+在本实验中，我们将了解针对Web应用程序常见的不">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="digital-forensics-lab-cn-Lab04">
+<meta property="og:description" content="网络攻击取证Web应用程序是我们日常生活中不可或缺的一部分，用于各种活动，从在线购物到银行和社交媒体。然而，它们的广泛使用为不良行为者提供了巨大的攻击面，以利用它们并在系统中获得初步立足点。
+在本实验中，我们将了解针对Web应用程序常见的不">
+
+<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives/" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">digital-forensics-lab-cn-Lab04</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-02</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/digital-forensics-lab-cn/">
+              digital-forensics-lab-cn
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h1 id="网络攻击取证"><a href="#网络攻击取证" class="headerlink" title="网络攻击取证"></a>网络攻击取证</h1><p>Web应用程序是我们日常生活中不可或缺的一部分，用于各种活动，从在线购物到银行和社交媒体。然而，它们的广泛使用为不良行为者提供了巨大的攻击面，以利用它们并在系统中获得初步立足点。</p>
+<p>在本实验中，我们将了解针对Web应用程序常见的不同类型的攻击，并通过分析Web应用程序日志和Web应用程序防火墙日志来探索用于检测这些攻击的各种技术，找到攻击点并追踪攻击点。通过识别被利用的漏洞来找出根本原因。</p>
+<h2 id="Web应用程序和WAF日志"><a href="#Web应用程序和WAF日志" class="headerlink" title="Web应用程序和WAF日志"></a>Web应用程序和WAF日志</h2><h2 id="常见网络攻击和日志"><a href="#常见网络攻击和日志" class="headerlink" title="常见网络攻击和日志"></a>常见网络攻击和日志</h2><h3 id="路径遍历-目录遍历"><a href="#路径遍历-目录遍历" class="headerlink" title="路径遍历&#x2F;目录遍历"></a>路径遍历&#x2F;目录遍历</h3><h3 id="远程命令执行"><a href="#远程命令执行" class="headerlink" title="远程命令执行"></a>远程命令执行</h3><h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>这一课主要是针对常见的web应用日志和waf日志分析，介绍常见的攻击方式。这些基础知识对于红蓝队成员并不陌生，因此不做过多笔记。</p>
+<p><strong>练习题</strong></p>
+<h2 id="您是一名网络安全专家，被要求调查重大网络安全漏洞。"><a href="#您是一名网络安全专家，被要求调查重大网络安全漏洞。" class="headerlink" title="您是一名网络安全专家，被要求调查重大网络安全漏洞。"></a>您是一名网络安全专家，被要求调查重大网络安全漏洞。</h2><p>该公司的网络服务器已被攻破，攻击者试图利用多个漏洞。您的任务是拼凑攻击者的意图并揭示损害的程度。考虑到这一点，您面临的挑战是回答以下问题：</p>
+<p>日志可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/tree/main/Lab%2004/files/logs.zip%E4%B8%8B%E8%BD%BD">https://github.com/vonderchild/digital-forensics-lab/tree/main/Lab%2004/files/logs.zip下载</a></p>
+<p>下载日志文件，并解压日志文件，可以看到是apache日志。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -l</span><br><span class="line">total 392</span><br><span class="line">-rw-r----- 1 linus linus   6813 Feb 16  2023 access.log</span><br><span class="line">-rw-r----- 1 linus linus 109647 Feb 16  2023 error.log</span><br><span class="line">-rw-r----- 1 linus linus 281738 Feb 16  2023 modsec_audit.log</span><br><span class="line">-rw-r----- 1 linus linus      0 Feb 14  2023 other_vhosts_access.log</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>攻击似乎源自哪个IP地址？</li>
+</ul>
+<p>分析access.log，发现攻击主要源自：192.168.0.106</p>
+<ul>
+<li>您认为哪些漏洞正在被利用，您有哪些证据支持您的发现？</li>
+</ul>
+<p>目录遍历：access.log GET &#x2F;view.php?image&#x3D;..&#x2F;..&#x2F;..&#x2F;..&#x2F;etc&#x2F;passwd &amp;&amp; [Thu Feb 16 01:35:27.207149 2023] [:error] [pid 273] [client 192.168.0.106:60308] [client 192.168.0.106] ModSecurity: Warning. Matched phrase “etc&#x2F;passwd” at ARGS:image. [file “&#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;rules&#x2F;REQUEST-932-APPLICATION-ATTACK-RCE.conf”] [line “500”] [id “932160”] [msg “Remote Command Execution: Unix Shell Code Found”] [data “Matched Data: etc&#x2F;passwd found within ARGS:image: ..&#x2F;..&#x2F;..&#x2F;..&#x2F;etc&#x2F;passwd”] [severity “CRITICAL”] [ver “OWASP_CRS&#x2F;3.3.2”] [tag “application-multi”] [tag “language-shell”] [tag “platform-unix”] [tag “attack-rce”] [tag “paranoia-level&#x2F;1”] [tag “OWASP_CRS”] [tag “capec&#x2F;1000&#x2F;152&#x2F;248&#x2F;88”] [tag “PCI&#x2F;6.5.2”] [hostname “192.168.0.101”] [uri “&#x2F;view.php”] [unique_id “Y-1CD4t76EP2ZdvYturyYAAAAAM”]</p>
+<p>SQL注入：error.log [Thu Feb 16 01:36:25.133354 2023] [:error] [pid 271] [client 192.168.0.106:46382] [client 192.168.0.106] ModSecurity: Warning. detected SQLi using libinjection with fingerprint ‘s&amp;1c’ [file “&#x2F;usr&#x2F;share&#x2F;modsecurity-crs&#x2F;rules&#x2F;REQUEST-942-APPLICATION-ATTACK-SQLI.conf”] [line “65”] [id “942100”] [msg “SQL Injection Attack Detected via libinjection”] [data “Matched Data: s&amp;1c found within ARGS:search: user2’ and 1&#x3D;1#”] [severity “CRITICAL”] [ver “OWASP_CRS&#x2F;3.3.2”] [tag “application-multi”] [tag “language-multi”] [tag “platform-multi”] [tag “attack-sqli”] [tag “paranoia-level&#x2F;1”] [tag “OWASP_CRS”] [tag “capec&#x2F;1000&#x2F;152&#x2F;248&#x2F;66”] [tag “PCI&#x2F;6.5.2”] [hostname “192.168.0.101”] [uri “&#x2F;users.php”] [unique_id “Y-1CSR1ILvAGFIiKbK7QJwAAAAE”], referer: <a target="_blank" rel="noopener" href="http://192.168.0.101:9090/users.php">http://192.168.0.101:9090/users.php</a></p>
+<p>远程命令执行：</p>
+<p>“POST &#x2F;command.php HTTP&#x2F;1.1<br>Host: 192.168.0.101:9090<br>User-Agent: Mozilla&#x2F;5.0 (X11; Linux x86_64; rv:102.0) Gecko&#x2F;20100101 Firefox&#x2F;102.0<br>Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;avif,image&#x2F;webp,<em>&#x2F;</em>;q&#x3D;0.8<br>Accept-Language: en-US,en;q&#x3D;0.5<br>Accept-Encoding: gzip, deflate<br>Content-Type: application&#x2F;x-www-form-urlencoded<br>Content-Length: 10<br>Origin: <a target="_blank" rel="noopener" href="http://192.168.0.101:9090/">http://192.168.0.101:9090</a><br>Connection: keep-alive<br>Referer: <a target="_blank" rel="noopener" href="http://192.168.0.101:9090/command.php">http://192.168.0.101:9090/command.php</a><br>Upgrade-Insecure-Requests: 1</p>
+<p>–f0015c41-C–<br>cmd&#x3D;whoami<br>–f0015c41-F–”</p>
+<ul>
+<li>我们如何确定攻击者使用的网络浏览器？</li>
+</ul>
+<p>Mozilla&#x2F;5.0 (X11; Linux x86_64; rv:102.0) Gecko&#x2F;20100101 Firefox&#x2F;102.0</p>
+<ul>
+<li>攻击者在攻击过程中是否使用了任何自动化工具？如果是，您能指出该工具的名称及其用途吗？</li>
+</ul>
+<p>sqlmap&#x2F;1.6.11#stable (<a target="_blank" rel="noopener" href="https://sqlmap.org/">https://sqlmap.org</a>)</p>
+<ul>
+<li>攻击者试图访问哪个文件，但由于服务器访问受限而无法访问？</li>
+</ul>
+<p>&#x2F;etc&#x2F;passwd</p>
+<ul>
+<li>攻击者是否获得了任何机密数据的访问权限？如果是，有多少数据被泄露？</li>
+</ul>
+<p>未发现通过sql注入的方式获取到数据的访问权限。cat error.log | grep sqlmap</p>
+<p>但是攻击者通过远程命令执行的方式获取到相关数据。</p>
+<ul>
+<li>一个重要的秘密被泄露了。你能弄清楚吗？提示：您要查找的秘密不在某个.sql文件中。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> modsec_audit.log | grep cmd=</span><br><span class="line">cmd=<span class="built_in">ls</span>+-la</span><br><span class="line">cmd=<span class="built_in">cat</span>+%2Fetc%2Fshadow</span><br><span class="line">cmd=<span class="built_in">whoami</span></span><br><span class="line">cmd=<span class="built_in">ls</span>+-la+%2F</span><br><span class="line">cmd=<span class="built_in">cat</span>+%2Fdatabase.sql</span><br><span class="line">cmd=<span class="built_in">cat</span>+%2Fimportant_note.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO <span class="built_in">users</span> (username, email, password)</span><br><span class="line">VALUES </span><br><span class="line">    (<span class="string">&#x27;user1&#x27;</span>, <span class="string">&#x27;user1@local.host&#x27;</span>, <span class="string">&#x27;password1&#x27;</span>),</span><br><span class="line">    (<span class="string">&#x27;user2&#x27;</span>, <span class="string">&#x27;user2@local.host&#x27;</span>, <span class="string">&#x27;password2&#x27;</span>),</span><br><span class="line">    (<span class="string">&#x27;user3&#x27;</span>, <span class="string">&#x27;user3@local.host&#x27;</span>, <span class="string">&#x27;password3&#x27;</span>),</span><br><span class="line">    (<span class="string">&#x27;user4&#x27;</span>, <span class="string">&#x27;user4@local.host&#x27;</span>, <span class="string">&#x27;password4&#x27;</span>),</span><br><span class="line">    (<span class="string">&#x27;user5&#x27;</span>, <span class="string">&#x27;user5@local.host&#x27;</span>, <span class="string">&#x27;password5&#x27;</span>);  ;  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>攻击者给服务器管理员留下了一条消息。找出该消息的内容，并说明您是如何找到它的。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hey there! Just a heads up - <span class="keyword">if</span> we don<span class="string">&#x27;t add security checks to our web app, our top-secret files might as well be written on a billboard. And trust me, we don&#x27;</span>t want that kind of attention. So <span class="built_in">let</span><span class="string">&#x27;s get those checks in place, okay? We wouldn&#x27;</span>t want the world to know that our password is <span class="string">&#x27;sup3r_s3cr3t_4nd_1mp0rt4nt_p4ssw0rd&#x27;</span>, now would we? ;)</span><br><span class="line">Hey there! Just a heads up - <span class="keyword">if</span> we don<span class="string">&#x27;t add security checks to our web app, our top-secret files might as well be written on a billboard. And trust me, we don&#x27;</span>t want that kind of attention. So <span class="built_in">let</span><span class="string">&#x27;s get those checks in place, okay?</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有哪些指标可以确认发生了攻击？您从这次攻击中得到的主要收获是什么？</li>
+</ul>
+<p>状态码，waf日志记录等</p>
+<ul>
+<li>基于此攻击，哪些指标可用于检测未来的攻击？</li>
+</ul>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E5%8F%96%E8%AF%81"><span class="top-box-text">网络攻击取证</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Web%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%92%8CWAF%E6%97%A5%E5%BF%97"><span class="top-box-text">Web应用程序和WAF日志</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E5%92%8C%E6%97%A5%E5%BF%97"><span class="top-box-text">常见网络攻击和日志</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86"><span class="top-box-text">路径遍历&#x2F;目录遍历</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="top-box-text">远程命令执行</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="top-box-text">SQL注入</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%82%A8%E6%98%AF%E4%B8%80%E5%90%8D%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%93%E5%AE%B6%EF%BC%8C%E8%A2%AB%E8%A6%81%E6%B1%82%E8%B0%83%E6%9F%A5%E9%87%8D%E5%A4%A7%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E%E3%80%82"><span class="top-box-text">您是一名网络安全专家，被要求调查重大网络安全漏洞。</span></a></li></ol></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/04/02/digital-forensics-lab-cn-Lab03/">
+          <h3 class="post-title">
+            下一篇：digital-forensics-lab-cn-Lab03
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

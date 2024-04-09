@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>digital-forensics-lab-cn-Lab01</title>
+<meta name="keywords" content="digital-forensics-lab-cn-Lab01, 0x783kb,threathunting">
+<meta name="description" content="数字取证简介数字取证是一种法律和计算机科学领域的专业实践，它涉及使用科技和计算机取证工具来调查数字设备和电子数据，以收集、分析和保护与犯罪、法律诉讼或其他调查相关的证据。数字取证旨在确保在法律程序中获得的数字证据的完整性、可靠性和法律可接受">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="digital-forensics-lab-cn-Lab01">
+<meta property="og:description" content="数字取证简介数字取证是一种法律和计算机科学领域的专业实践，它涉及使用科技和计算机取证工具来调查数字设备和电子数据，以收集、分析和保护与犯罪、法律诉讼或其他调查相关的证据。数字取证旨在确保在法律程序中获得的数字证据的完整性、可靠性和法律可接受">
+
+<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives/" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">digital-forensics-lab-cn-Lab01</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-02</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/digital-forensics-lab-cn/">
+              digital-forensics-lab-cn
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="数字取证简介"><a href="#数字取证简介" class="headerlink" title="数字取证简介"></a>数字取证简介</h2><p>数字取证是一种法律和计算机科学领域的专业实践，它涉及使用科技和计算机取证工具来调查数字设备和电子数据，以收集、分析和保护与犯罪、法律诉讼或其他调查相关的证据。数字取证旨在确保在法律程序中获得的数字证据的完整性、可靠性和法律可接受性。数字取证被定义为可以由法院使用的计算机证据的保存，识别，提取和记录的过程。</p>
+<p>简而言之，数字取证是使用技术收集证据、调查证据并在法律案件中呈现调查结果的过程。它可以包括检查网络活动、访问日志、搜索历史记录和硬盘和移动设备等数字存储介质，以及分析这些数据以识别犯罪活动或其他不当行为的证据。</p>
+<h2 id="一些用例"><a href="#一些用例" class="headerlink" title="一些用例"></a>一些用例</h2><p>调查网络攻击——如果发生安全漏洞或网络攻击，可以使用数字取证来确定攻击的范围和来源。然后，该信息可用于提高组织对未来攻击的防御能力。</p>
+<p>威胁检测和响应——主动识别和减轻安全威胁非常有用。</p>
+<p>数据恢复——数字取证还可用于恢复在攻击期间可能被盗或删除的数据。</p>
+<p>刑事调查——收集的证据可用于识别嫌疑人、确定动机并将嫌疑人与特定犯罪联系起来。</p>
+<p>共同目标包括收集可用于在法庭上起诉嫌疑人的证据。</p>
+<h2 id="Linux命令行基础知识"><a href="#Linux命令行基础知识" class="headerlink" title="Linux命令行基础知识"></a>Linux命令行基础知识</h2><p>本节介绍数字取证所必需的Linux命令行工具。</p>
+<p>有许多Linux命令可用于取证，但一些最重要的命令包括：</p>
+<h3 id="ls—用于列出目录中的文件和目录"><a href="#ls—用于列出目录中的文件和目录" class="headerlink" title="ls—用于列出目录中的文件和目录"></a>ls—用于列出目录中的文件和目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">Desktop    Downloads  Music             Pictures  snap       Videos</span><br><span class="line">Documents  hhhh       nuclei-templates  Public    Templates</span><br></pre></td></tr></table></figure>
+
+<h3 id="cd—用于更改当前工作目录"><a href="#cd—用于更改当前工作目录" class="headerlink" title="cd—用于更改当前工作目录"></a>cd—用于更改当前工作目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> Desktop/</span><br></pre></td></tr></table></figure>
+
+<h3 id="cat—用于显示文件的内容"><a href="#cat—用于显示文件的内容" class="headerlink" title="cat—用于显示文件的内容"></a>cat—用于显示文件的内容</h3><p>该cat命令（“concatenate”的缩写）可让你打印文件的内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> read.txt </span><br><span class="line">0x783kb</span><br></pre></td></tr></table></figure>
+
+<h3 id="strings—用于显示文件中的可打印字符串"><a href="#strings—用于显示文件中的可打印字符串" class="headerlink" title="strings—用于显示文件中的可打印字符串"></a>strings—用于显示文件中的可打印字符串</h3><p>strings命令是二进制工具集GNU Binutils的一员，用于打印文件中可打印字符串，文件可以是文本文件，但一般用于打印二进制目标文件、库或可执行文件中的可打印字符。字符串默认至少是4个或更多可打印字符的任意序列，可使用选项改变字符串最小长度。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ strings read.txt </span><br><span class="line">0x783kb</span><br></pre></td></tr></table></figure>
+
+<h3 id="grep—用于在一个或多个文件中搜索特定字符串或模式"><a href="#grep—用于在一个或多个文件中搜索特定字符串或模式" class="headerlink" title="grep—用于在一个或多个文件中搜索特定字符串或模式"></a>grep—用于在一个或多个文件中搜索特定字符串或模式</h3><p>该grep命令对于在大文件（例如日志文件）中搜索字符串非常有用。它可以让你搜索URL、电子邮件地址、MD5哈希值等模式，从而显着加快调查速度。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep 0x78 read.txt </span><br><span class="line">0x783kb</span><br></pre></td></tr></table></figure>
+
+<h3 id="find—用于搜索文件和目录"><a href="#find—用于搜索文件和目录" class="headerlink" title="find—用于搜索文件和目录"></a>find—用于搜索文件和目录</h3><p>该find命令可用于定位不同类型的文件、目录、具有特定权限的文件、最近修改的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ find . -<span class="built_in">type</span> d</span><br><span class="line">.</span><br><span class="line">./hhhh</span><br><span class="line">./hhhh/BurpSuitePro</span><br><span class="line">./hhhh/struts2</span><br><span class="line">./hhhh/webshell</span><br></pre></td></tr></table></figure>
+
+<h3 id="md5sum-sha1sum—用于计算文件的MD5和SHA1哈希值"><a href="#md5sum-sha1sum—用于计算文件的MD5和SHA1哈希值" class="headerlink" title="md5sum, sha1sum—用于计算文件的MD5和SHA1哈希值"></a>md5sum, sha1sum—用于计算文件的MD5和SHA1哈希值</h3><p>这两个命令都接受输入并生成固定长度的字符串，也称为哈希或校验和。如果文件的内容发生变化，即使是轻微变化，其哈希值也会有所不同。这对于检测文件是否已被修改或篡改非常有用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">md5sum</span> read.txt </span><br><span class="line">b6eb8ef935243ce65bb2cbd4cf142861  read.txt</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">sha1sum</span> read.txt </span><br><span class="line">19c957fabb21613f3bf2f3228b38ef01716eb3dd  read.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="netstat—用于显示有关系统上网络连接的信息"><a href="#netstat—用于显示有关系统上网络连接的信息" class="headerlink" title="netstat—用于显示有关系统上网络连接的信息"></a>netstat—用于显示有关系统上网络连接的信息</h3><p>该工具提供有关系统上活动连接的有用信息。该工具显示的信息包括活动连接的本地和远程地址以及端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ netstat</span><br><span class="line">Active Internet connections (w/o servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State      </span><br><span class="line">udp        0      0 backbox.shared:bootpc   prl-local-ns-ser:bootps ESTABLISHED</span><br><span class="line">Active UNIX domain sockets (w/o servers)</span><br><span class="line">Proto RefCnt Flags       Type       State         I-Node   Path</span><br><span class="line">unix  2      [ ]         STREAM                   27678    @printer-applet-lock-user-linus</span><br><span class="line">unix  2      [ ]         DGRAM                    24127    /run/user/1000/systemd/notify</span><br><span class="line">unix  3      [ ]         DGRAM      CONNECTED     18521    /run/systemd/notify</span><br><span class="line">unix  2      [ ]         DGRAM                    18549    /run/systemd/journal/syslog</span><br></pre></td></tr></table></figure>
+
+<h3 id="file—用于根据文件内容确定文件的类型"><a href="#file—用于根据文件内容确定文件的类型" class="headerlink" title="file—用于根据文件内容确定文件的类型"></a>file—用于根据文件内容确定文件的类型</h3><p>该file命令可用于识别文本、图像、音频、视频和可执行文件等文件。它还可用于识别可能是恶意的未知文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ file /etc/passwd</span><br><span class="line">/etc/passwd: ASCII text</span><br></pre></td></tr></table></figure>
+
+<h3 id="xxd—用于打印给定文件的十六进制转储"><a href="#xxd—用于打印给定文件的十六进制转储" class="headerlink" title="xxd—用于打印给定文件的十六进制转储"></a>xxd—用于打印给定文件的十六进制转储</h3><p>该xxd命令对于打印给定文件或标准输入的十六进制转储非常有用。它还可以将十六进制转储转换回其原始二进制形式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ xxd read.txt </span><br><span class="line">00000000: 3078 3738 336b 620a                      0x783kb.</span><br></pre></td></tr></table></figure>
+
+<h3 id="hexedit—用于编辑十六进制格式的文件"><a href="#hexedit—用于编辑十六进制格式的文件" class="headerlink" title="hexedit—用于编辑十六进制格式的文件"></a>hexedit—用于编辑十六进制格式的文件</h3><p>该hexedit工具允许您以交互方式编辑文件的原始字节。它通常用于修复损坏的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ hexedit 67.jpg</span><br><span class="line">00000000   FF D8 FF E0  00 10 4A 46  49 46 00 01  01 00 00 01  00 01 00 00  ......JFIF..........</span><br><span class="line">00000014   FF DB 00 43  00 08 06 06  07 06 05 08  07 07 07 09  09 08 0A 0C  ...C................</span><br><span class="line">00000028   14 0D 0C 0B  0B 0C 19 12  13 0F 14 1D  1A 1F 1E 1D  1A 1C 1C 20  ...................</span><br><span class="line">0000003C   24 2E 27 20  22 2C 23 1C  1C 28 37 29  2C 30 31 34  34 34 1F 27  $.<span class="string">&#x27; &quot;,#..(7),01444.&#x27;</span></span><br><span class="line">00000050   39 3D 38 32  3C 2E 33 34  32 FF DB 00  43 01 09 09  09 0C 0B 0C  9=82&lt;.342...C....</span><br></pre></td></tr></table></figure>
+
+<h3 id="ps—用于列出系统上运行的进程"><a href="#ps—用于列出系统上运行的进程" class="headerlink" title="ps—用于列出系统上运行的进程"></a>ps—用于列出系统上运行的进程</h3><p>该ps命令可让您查看计算机上当前运行的所有进程的列表。它提供的信息包括进程 ID、用户、状态和启动进程的命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ps</span><br><span class="line">    PID TTY          TIME CMD</span><br><span class="line">   2180 pts/0    00:00:00 bash</span><br><span class="line">  13793 pts/0    00:00:00 ps</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81%E7%AE%80%E4%BB%8B"><span class="top-box-text">数字取证简介</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%B8%80%E4%BA%9B%E7%94%A8%E4%BE%8B"><span class="top-box-text">一些用例</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="top-box-text">Linux命令行基础知识</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#ls%E2%80%94%E7%94%A8%E4%BA%8E%E5%88%97%E5%87%BA%E7%9B%AE%E5%BD%95%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95"><span class="top-box-text">ls—用于列出目录中的文件和目录</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#cd%E2%80%94%E7%94%A8%E4%BA%8E%E6%9B%B4%E6%94%B9%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95"><span class="top-box-text">cd—用于更改当前工作目录</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#cat%E2%80%94%E7%94%A8%E4%BA%8E%E6%98%BE%E7%A4%BA%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9"><span class="top-box-text">cat—用于显示文件的内容</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#strings%E2%80%94%E7%94%A8%E4%BA%8E%E6%98%BE%E7%A4%BA%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="top-box-text">strings—用于显示文件中的可打印字符串</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#grep%E2%80%94%E7%94%A8%E4%BA%8E%E5%9C%A8%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%96%E6%A8%A1%E5%BC%8F"><span class="top-box-text">grep—用于在一个或多个文件中搜索特定字符串或模式</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#find%E2%80%94%E7%94%A8%E4%BA%8E%E6%90%9C%E7%B4%A2%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95"><span class="top-box-text">find—用于搜索文件和目录</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#md5sum-sha1sum%E2%80%94%E7%94%A8%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%96%87%E4%BB%B6%E7%9A%84MD5%E5%92%8CSHA1%E5%93%88%E5%B8%8C%E5%80%BC"><span class="top-box-text">md5sum, sha1sum—用于计算文件的MD5和SHA1哈希值</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#netstat%E2%80%94%E7%94%A8%E4%BA%8E%E6%98%BE%E7%A4%BA%E6%9C%89%E5%85%B3%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="top-box-text">netstat—用于显示有关系统上网络连接的信息</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#file%E2%80%94%E7%94%A8%E4%BA%8E%E6%A0%B9%E6%8D%AE%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E7%A1%AE%E5%AE%9A%E6%96%87%E4%BB%B6%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="top-box-text">file—用于根据文件内容确定文件的类型</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#xxd%E2%80%94%E7%94%A8%E4%BA%8E%E6%89%93%E5%8D%B0%E7%BB%99%E5%AE%9A%E6%96%87%E4%BB%B6%E7%9A%84%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E8%BD%AC%E5%82%A8"><span class="top-box-text">xxd—用于打印给定文件的十六进制转储</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#hexedit%E2%80%94%E7%94%A8%E4%BA%8E%E7%BC%96%E8%BE%91%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%96%87%E4%BB%B6"><span class="top-box-text">hexedit—用于编辑十六进制格式的文件</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#ps%E2%80%94%E7%94%A8%E4%BA%8E%E5%88%97%E5%87%BA%E7%B3%BB%E7%BB%9F%E4%B8%8A%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="top-box-text">ps—用于列出系统上运行的进程</span></a></li></ol></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/03/16/%E9%87%8D%E5%A4%A7%E6%B4%BB%E5%8A%A8%E4%B8%AD%E7%9A%84%E4%BF%9D%E9%9A%9C%E8%A1%8C%E4%B8%BA/">
+          <h3 class="post-title">
+            下一篇：重大活动中的保障行为
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>深入了解Sigma规则以及如何编写自己的威胁检测规则</title>
+<meta name="keywords" content="深入了解Sigma规则以及如何编写自己的威胁检测规则, 0x783kb,threathunting">
+<meta name="description" content="Sigma是一种检测语言在之前的文章中，介绍了如何构建一套属于自己的小型仿真威胁狩猎平台，并利用事件日志进行威胁狩猎。本文将讲述如何借助Sigma，利用社区的力量来对关键威胁和新的攻击技术做出快速反应。
+与YARA、Snort规则一样，Si">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="深入了解Sigma规则以及如何编写自己的威胁检测规则">
+<meta property="og:description" content="Sigma是一种检测语言在之前的文章中，介绍了如何构建一套属于自己的小型仿真威胁狩猎平台，并利用事件日志进行威胁狩猎。本文将讲述如何借助Sigma，利用社区的力量来对关键威胁和新的攻击技术做出快速反应。
+与YARA、Snort规则一样，Si">
+
+<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives/" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">深入了解Sigma规则以及如何编写自己的威胁检测规则</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-04-18</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
+              日志分析
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/ATT-CK/">
+              ATT&amp;CK
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="Sigma是一种检测语言"><a href="#Sigma是一种检测语言" class="headerlink" title="Sigma是一种检测语言"></a>Sigma是一种检测语言</h2><p>在之前的<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/endpoint/303763.html">文章</a>中，介绍了如何构建一套属于自己的小型仿真威胁狩猎平台，并利用事件日志进行威胁狩猎。本文将讲述如何借助Sigma，利用社区的力量来对关键威胁和新的攻击技术做出快速反应。</p>
+<p>与YARA、Snort规则一样，Sigma是一种通用且开放的签名格式，以直接的方式描述相关的日志事件。规则格式非常灵活，易于编写，适用于任何类型的日志文件。Sigma提供了一种结构化的形式，研究人员或分析师可以在其中描述他们曾设计开发的检测方法，并与他人共享。</p>
+<p>随着SIEM的普及，大多数企业会选择购买或者构建一套适用于自己企业环境的SIEM系统。对于IT系统和网络的攻击都将会被记录下来，并存储在SIEM系统或者其他日志存储和分析平台，这使得SIEM成为检测入侵者的一个重要工具。SIEM检测规则集在早期存在于厂商或特定平台的数据库中。如今，对最新安全事件的检测和分析的需求日益增长，要求不同的厂商能够共享检测情报。Sigma解决了这一问题，使查询规则集与厂商平台无关。</p>
+<p><a class="simple-lightbox" href="/sigma.png"><img src="/images/loading.svg" data-src="/sigma.png" lazyload></a></p>
+<h2 id="Sigma允许防御者使用通用语言共享检测结果"><a href="#Sigma允许防御者使用通用语言共享检测结果" class="headerlink" title="Sigma允许防御者使用通用语言共享检测结果"></a>Sigma允许防御者使用通用语言共享检测结果</h2><p>Sigma满足各种用例：</p>
+<ul>
+<li>Sigma已成为一种通用语言，在研究人员和情报人员之间分享研究成果，如发现、识别新的攻击行为。</li>
+<li>安全团队可以避免局限于单一平台，即通过在Sigma定义规则，可以更轻松地在不同平台之间切换。</li>
+<li>Sigma拥有众多检测方法，可开箱即用。</li>
+<li>利用Sigma与其他威胁情报机构共享签名。</li>
+</ul>
+<p>Sigma规则可以转换为不同的SIEM平台支持的搜索查询语句格式，支持以下SIEM平台：</p>
+<ul>
+<li>Splunk</li>
+<li>ElasticSearch Query Strings and DSL</li>
+<li>Kibana</li>
+<li>Microsoft Defender Advanced Threat Protection (MDATP)</li>
+<li>Azure Sentinel</li>
+<li>QRadar</li>
+<li>LogPoint</li>
+<li>Qualys</li>
+<li>RSA NetWitness</li>
+<li>LimaCharlie</li>
+<li>ArcSight</li>
+<li>PowerShell and Grep</li>
+<li>……</li>
+</ul>
+<h2 id="使用Sigma"><a href="#使用Sigma" class="headerlink" title="使用Sigma"></a>使用Sigma</h2><p>Sigma是一个开源项目，有三个主要组成部分：</p>
+<ul>
+<li>通用Sigma规则格式的语言规范。</li>
+<li>Sigma签名的开放存储库，包含针对多个攻击者行为和技术的1000多条规则。</li>
+<li>Sigmac是一个转换实用程序，用于把Sigma规则转为不同的SIEM工具所支持的搜索查询语句。</li>
+</ul>
+<h3 id="获取存储库"><a href="#获取存储库" class="headerlink" title="获取存储库"></a>获取存储库</h3><p>首先，从GitHub下载Sigma存储库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/SigmaHQ/sigma.git</span><br></pre></td></tr></table></figure>
+
+<p><a class="simple-lightbox" href="/gitclone.png"><img src="/images/loading.svg" data-src="/gitclone.png" alt="gitclone" lazyload></a></p>
+<h3 id="了解Sigma规则"><a href="#了解Sigma规则" class="headerlink" title="了解Sigma规则"></a>了解Sigma规则</h3><p>Sigma规则是用YAML编写的，它定义了在系统日志中查找的内容和位置。每个Sigma规则还可以指定元数据，例如：规则的作者、唯一规则标识符 (UUID)、MITRE ATT&amp;CK技术和参考。</p>
+<p>Sigma支持以下日志类型：</p>
+<ul>
+<li>防火墙日志</li>
+<li>Web应用程序日志</li>
+<li>代理&#x2F;VPN网络日志</li>
+<li>操作系统日志<ul>
+<li>事件日志</li>
+<li>进程创建和审核日志</li>
+<li>系统事件</li>
+</ul>
+</li>
+</ul>
+<p>以存储库中的Sigma规则<code>/sigma/rules/windows/process_creationproc_creation_win_cmd_delete.yml</code>为例，此规则检测使用Windows Cmd命令删除文件。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Windows</span> <span class="string">Cmd</span> <span class="string">Delete</span> <span class="string">File</span></span><br><span class="line"><span class="attr">id:</span> <span class="string">379fa130-190e-4c3f-b7bc-6c8e834485f3</span></span><br><span class="line"><span class="attr">status:</span> <span class="string">experimental</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">`</span></span><br><span class="line">  <span class="string">Adversaries</span> <span class="string">may</span> <span class="string">delete</span> <span class="string">files</span> <span class="string">left</span> <span class="string">behind</span> <span class="string">by</span> <span class="string">the</span> <span class="string">actions</span> <span class="string">of</span> <span class="string">their</span> <span class="string">intrusion</span> <span class="string">activity.</span></span><br><span class="line">  <span class="string">Malware,</span> <span class="string">tools,</span> <span class="string">or</span> <span class="string">other</span> <span class="string">non-native</span> <span class="string">files</span> <span class="string">dropped</span> <span class="string">or</span> <span class="string">created</span> <span class="string">on</span> <span class="string">a</span> <span class="string">system</span> <span class="string">by</span> <span class="string">an</span> <span class="string">adversary</span> <span class="string">may</span> <span class="string">leave</span> <span class="string">traces</span> <span class="string">to</span> <span class="string">indicate</span> <span class="string">to</span> <span class="string">what</span> <span class="string">was</span> <span class="string">done</span> <span class="string">within</span> <span class="string">a</span> <span class="string">network</span> <span class="string">and</span> <span class="string">how.</span></span><br><span class="line">  <span class="string">Removal</span> <span class="string">of</span> <span class="string">these</span> <span class="string">files</span> <span class="string">can</span> <span class="string">occur</span> <span class="string">during</span> <span class="string">an</span> <span class="string">intrusion,</span> <span class="string">or</span> <span class="string">as</span> <span class="string">part</span> <span class="string">of</span> <span class="string">a</span> <span class="string">post-intrusion</span> <span class="string">process</span> <span class="string">to</span> <span class="string">minimize</span> <span class="string">the</span> <span class="string">adversary&#x27;s</span> <span class="string">footprint.`</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">frack113</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2022</span><span class="string">/01/15</span></span><br><span class="line"><span class="attr">references:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1070.004/T1070.004.md</span></span><br><span class="line"><span class="attr">logsource:</span></span><br><span class="line">    <span class="attr">category:</span> <span class="string">process_creation</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">windows</span></span><br><span class="line"><span class="attr">detection:</span></span><br><span class="line">    <span class="attr">selection:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">CommandLine|contains|all:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;del&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/f</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">CommandLine|contains|all:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">rmdir</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/s</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/q</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">selection</span></span><br><span class="line"><span class="attr">falsepositives:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Legitimate</span> <span class="string">script</span></span><br><span class="line"><span class="attr">level:</span> <span class="string">low</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">attack.defense_evasion</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">attack.t1070.004</span></span><br></pre></td></tr></table></figure>
+
+<p>每个规则 (yml) 都有以下部分：</p>
+<ul>
+<li>title(标题)：规则的名称。<code>Windows Cmd Delete File</code>。</li>
+<li>id：唯一标识规则的UUID。<code>379fa130-190e-4c3f-b7bc-6c8e834485f3</code>。</li>
+<li>status(状态)：experimental或者normal，在这种情况下，它是一个experimental规则。<code>experimental</code></li>
+<li>description(描述)：解释规则的上下文。<code>Adversaries may delete files left behind by the actions of their intrusion activity.Malware, tools, or other non-native files dropped or created on a system by an adversary may leave traces to indicate to what was done within a network and how.Removal of these files can occur during an intrusion, or as part of a post-intrusion process to minimize the adversary&#39;s footprint</code></li>
+<li>author(作者)：关于规则创建者的元数据。<code>frack113</code></li>
+<li>date(时间)：规则的创建日期。<code>2022/01/15</code></li>
+<li>references(参考)：参考链接到解释问题的博客文章或推文。<code>https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1070.004/T1070.004.md</code></li>
+<li>logsource(日志来源)：用于范围搜索，支持各种组合。<code>windows</code><ul>
+<li>category(类别)：描述规则类别。<code>process_creation</code></li>
+<li>service(服务)：将字段名称设置为产品日志的事件。<code>windows</code></li>
+</ul>
+</li>
+<li>detection(检测)：在日志数据、关键字、时间范围和条件、类型的特定字段中的搜索值。这里寻找命令行中包含<code>del、/f</code>，或者命令行中包含<code>rmdir、/s、/q</code>。</li>
+<li>selection(选择)：在条件中链接的选择项。</li>
+<li>condition(条件)：判断满足哪些选择。<code>selection</code></li>
+<li>falsepositives(误报)：描述字段，用于解释哪些事件或情况可能触发导致误报的规则。<code>Legitimate script</code></li>
+<li>level(级别)：严重级别低、中、高或严重。<code>low</code></li>
+<li>tags(标签)：ATT&amp;CK标签。<code>attack.defense_evasion</code>，<code>attack.t1070.004</code>。</li>
+</ul>
+<h3 id="深入了解Sigma"><a href="#深入了解Sigma" class="headerlink" title="深入了解Sigma"></a>深入了解Sigma</h3><p>Logsource字段：Sigma YAML中的logsource字段描述了要应用检测的日志数据。Logsource schema如下，它可以使用以下三个属性中的一个或多个：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logsource:</span></span><br><span class="line">   <span class="string">category</span> [<span class="string">optional</span>]</span><br><span class="line">   <span class="string">product</span> [<span class="string">optional</span>]</span><br><span class="line">   <span class="string">service</span> [<span class="string">optional</span>]</span><br><span class="line">   <span class="string">definition</span> [<span class="string">optional</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>category(类别)：</strong></p>
+<ul>
+<li>用于选择某个系列产品生成的所有日志，例如：防火墙和Web服务器日志。</li>
+<li>类别示例包括：防火墙、防病毒、EDR、Web。</li>
+</ul>
+<p><strong>product(产品)：</strong></p>
+<ul>
+<li>用于选择特定产品生成的所有日志，例如：Windows、Apache。</li>
+<li>产品类型可以更进一步划分，例如：Windows日志类型可分为安全日志、系统日志、应用日志、和Windows Defender日志等。</li>
+</ul>
+<p><strong>service(服务)：</strong></p>
+<ul>
+<li>仅用于选择产品日志的子集，例如：Windows系统上的安全事件日志。</li>
+</ul>
+<p>常见的logsource格式示例。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logsource:</span> </span><br><span class="line">  <span class="attr">product:</span> <span class="string">linux</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">audit</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">logsource:</span></span><br><span class="line">  <span class="attr">product:</span> <span class="string">security</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">windows</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"></span><br><span class="line"><span class="attr">logsource:</span></span><br><span class="line">  <span class="attr">product:</span> <span class="string">zeek</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">kerberos</span></span><br></pre></td></tr></table></figure>
+
+<p>detection(检测)字段：本节包含一组搜索标识符，表示对日志数据的搜索及其各自的评估机制，由两个属性控制：selection(选择)和condition(条件)。</p>
+<ul>
+<li>selection(选择)：搜索日志数据的标识符。</li>
+<li>condition(条件)：定义如何评估选择或过滤。</li>
+</ul>
+<p>检测可以由两种不同的数据结构组成：Lists和Maps。</p>
+<p>List YAML类型中包含多个基于字符串的搜索参数，应用于日志数据，并用逻辑”OR”链接。</p>
+<p>例如，此检测将匹配日志中是否包含以下列表中的任何一个值。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">detection:</span></span><br><span class="line">  <span class="attr">keywords:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;nmap&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;sqlmap&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;nessus&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;awvs&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;python2.7&#x27;</span></span><br><span class="line">  <span class="attr">condition:</span> <span class="string">keywords</span></span><br></pre></td></tr></table></figure>
+
+<p>Maps YAML类型由键&#x2F;值对组成，如：字典，其中键是日志数据中的字段，值是字符串或整数值。<br>映射列表用逻辑“OR”连接。映射的所有元素都用逻辑”AND”连接</p>
+<p>例如，在下面的示例中，如果ImageLoaded键包含以下任何值列表，则匹配成功。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logsource:</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">windows</span></span><br><span class="line">    <span class="attr">category:</span> <span class="string">driver_load</span></span><br><span class="line"><span class="attr">detection:</span></span><br><span class="line">    <span class="attr">selection:</span></span><br><span class="line">        <span class="string">ImageLoaded|contains:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;fgexec&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;dumpsvc&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;cachedump&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;mimidrv&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;gsecdump&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;servpw&#x27;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;pwdump&#x27;</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">selection</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，选择(搜索标识符)匹配日志数据中的ImageLoaded字段，并使用转换修饰符(|contains)检查列出的关键字是否存在。</p>
+<p>下面列出了一些修饰符:</p>
+<ul>
+<li>contains</li>
+<li>all</li>
+<li>base64</li>
+<li>endswith</li>
+<li>startswith</li>
+</ul>
+<p>还可以使用通配符来匹配日志数据中的大量关键字。例如，找到rundll32.exe的执行日志，使用<code>\*rundll32.exe</code>即可，而不是通过指定的路径或命令行参数来进行查找。</p>
+<p>对于condition(条件)，可以使用以下语句来搜索标识符:</p>
+<ul>
+<li>合乎逻辑的<code>and/or</code>操作</li>
+<li>选择其中的1个或全部选择，eg:<code>1 of selection</code> or <code>all of selection</code></li>
+<li>使用not，eg:<code>not selection</code></li>
+<li>使用括号对表达式进行分组。eg:<code>(selection1 and selection2 and selection3) or selection4</code></li>
+</ul>
+<p>在下面的示例中，如果触发了条件中的selection1、selection2、selection3，并且没有匹配filter中的任何一项，则会输出匹配结果。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">detection:</span></span><br><span class="line">  <span class="attr">selection1:</span></span><br><span class="line">    <span class="string">ParentImage|endswith:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\winlogon.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\services.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\lsass.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\csrss.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\smss.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\wininit.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\spoolsv.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\searchindexer.exe&#x27;</span></span><br><span class="line">  <span class="attr">selection2:</span></span><br><span class="line">    <span class="string">Image|endswith:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\powershell.exe&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;\cmd.exe&#x27;</span></span><br><span class="line">  <span class="attr">selection3:</span></span><br><span class="line">    <span class="string">User|contains:</span> <span class="comment"># covers many language settings</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;AUTHORI&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;AUTORI&#x27;</span></span><br><span class="line">  <span class="attr">filter:</span></span><br><span class="line">    <span class="string">CommandLine|contains|all:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27; route &#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27; ADD &#x27;</span></span><br><span class="line">  <span class="attr">condition:</span> <span class="string">selection1</span> <span class="string">and</span> <span class="string">selection2</span> <span class="string">and</span> <span class="string">selection3</span> <span class="string">and</span> <span class="string">not</span> <span class="string">filter</span></span><br><span class="line"><span class="attr">fields:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ParentImage</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Image</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">CommandLine</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编译Sigma规则"><a href="#编译Sigma规则" class="headerlink" title="编译Sigma规则"></a>编译Sigma规则</h2><p>为了将Sigma规则转换为任何SIEM平台所支持的搜索查询语句，必须使用Sigma编译器<code>sigmac</code>，这是Sigma本身附带的基于python的工具。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">yyds@12306Br0:~/sigma/tools$ python3 sigmac</span><br><span class="line">Nothing to <span class="keyword">do</span>!</span><br><span class="line">usage: sigmac [-h] [--recurse] [--filter FILTER]</span><br><span class="line">              [--target &#123;humio,elastalert,ala-rule,kibana,sentinel-rule,xpack-watcher,ee-outliers,graylog,crowdstrike,sql,logiq,carbonblack,mdatp,netwitness-epl,netwitness,datadog-logs,streamalert,es-rule-eql,es-rule,splunkdm,uberagent,opensearch-monitor,fireeye-helix,devo,powershell,es-qs-lr,elastalert-dsl,es-eql,qradar,es-dsl,csharp,ala,hawk,grep,qualys,limacharlie,splunk,logpoint,splunkxml,sumologic,fortisiem,sqlite,fieldlist,stix,chronicle,sumologic-cse,sumologic-cse-rule,kibana-ndjson,hedera,sysmon,lacework,arcsight,arcsight-esm,es-qs,athena&#125;]</span><br><span class="line">              [--lists] [--lists-files-after-date LISTS_FILES_AFTER_DATE]</span><br><span class="line">              [--config CONFIG] [--output OUTPUT]</span><br><span class="line">              [--output-fields OUTPUT_FIELDS] [--output-format &#123;json,yaml&#125;]</span><br><span class="line">              [--output-extention OUTPUT_EXTENTION] [--print0]</span><br><span class="line">              [--backend-option BACKEND_OPTION]</span><br><span class="line">              [--backend-config BACKEND_CONFIG] [--backend-help BACKEND_HELP]</span><br><span class="line">              [--defer-abort] [--ignore-backend-errors] [--verbose] [--debug]</span><br><span class="line">              [inputs ...]</span><br></pre></td></tr></table></figure>
+
+<p>sigmac可以将规则转换为想要执行查询的SIEM平台支持的搜索查询语句，如Splunk、Qualys和Qradar等。sigmac还使用字段映射将规则中使用的字段转换为将要执行查询的平台内的实际字段。</p>
+<p>要查看所有可用的目标、配置，运行以下命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sigmac --lists</span><br></pre></td></tr></table></figure>
+
+<p><a class="simple-lightbox" href="/sigma1.png"><img src="/images/loading.svg" data-src="/sigma1.png" alt="sigmac" lazyload></a></p>
+<p><strong>编译一个规则</strong></p>
+<p>为了转换为可支持的任何SIEM平台所支持的搜索查询语句格式，可通过<code>-t</code>配置为可支持的任何SIEM平台，<code>-c</code>设置正确的字段映射:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$python3</span> sigmac -t splunk -c splunk-windows ~/sigma/rules/windows/process_creation/proc_creation_win_cmdkey_recon.yml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((Image<span class="operator">=</span>&quot;*\\cmdkey.exe&quot; <span class="keyword">OR</span> OriginalFileName<span class="operator">=</span>&quot;cmdkey.exe&quot;) (CommandLine<span class="operator">=</span>&quot;* /l*&quot; <span class="keyword">OR</span> CommandLine<span class="operator">=</span>&quot;* -l*&quot;)) <span class="operator">|</span> <span class="keyword">table</span> CommandLine,ParentCommandLine,<span class="keyword">User</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就可以得到一个编译后的规则，在Splunk上查找cmdkey查看缓存凭证的执行情况。</p>
+<p>可以选择监控这些类型的日志，并利用这些日志来检测攻击者：</p>
+<ul>
+<li>操作系统日志<ul>
+<li>账户身份认证<ul>
+<li>大量的登录失败</li>
+<li>特殊账户的变更和使用，以及SID历史</li>
+</ul>
+</li>
+<li>进程创建和执行<ul>
+<li>在非正常的位置执行</li>
+<li>可疑的进程关系</li>
+<li>具有未知哈希的已知可执行文件</li>
+<li>已知恶意哈希</li>
+</ul>
+</li>
+<li>资源访问</li>
+<li>windows事件<ul>
+<li>不常见的服务设施</li>
+<li>新的域信任关系</li>
+</ul>
+</li>
+<li>网络：端口扫描，主机发现</li>
+</ul>
+</li>
+<li>代理日志</li>
+<li>Web服务器访问日志<ul>
+<li>4xx 错误：可能是扫描探测行为</li>
+<li>5xx 错误：可能是利用行为</li>
+</ul>
+</li>
+<li>应用程序错误日志<ul>
+<li>异常或其他特定的消息。eg:<a target="_blank" rel="noopener" href="https://github.com/12306Bro/Threathunting-book/blob/master/Windows/03%E5%88%9D%E5%A7%8B%E8%AE%BF%E9%97%AE/T1190-%E5%8F%AF%E7%96%91%E7%9A%84SQL%E9%94%99%E8%AF%AF%E6%B6%88%E6%81%AF.md">可疑的SQL错误消息</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="挑战：编写自己的Sigma规则"><a href="#挑战：编写自己的Sigma规则" class="headerlink" title="挑战：编写自己的Sigma规则"></a>挑战：编写自己的Sigma规则</h2><p>接下来将学习如何编写Sigma规则，在实际的SIEM平台上运用。建议在本地构建一套小型仿真威胁狩猎平台，在此基础上可以尝试模拟一些攻击行为，并构建自己的检测规则。</p>
+<h3 id="用于检测创建本地用户账户的Sigma规则"><a href="#用于检测创建本地用户账户的Sigma规则" class="headerlink" title="用于检测创建本地用户账户的Sigma规则"></a>用于检测创建本地用户账户的Sigma规则</h3><p>MITRE ATT&amp;CK中提到的<a target="_blank" rel="noopener" href="https://attack.mitre.org/techniques/T1136/001/">创建用户</a>，攻击者可能会创建一个本地帐户来维持对被攻击系统的访问。本地帐户是由组织配置供用户、远程支持、服务使用或用于管理单个系统或服务的帐户。有了足够的权限，可使用net user &#x2F;add命令创建本地帐户。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Microsoft Windows [版本 <span class="number">6.1</span><span class="type">.7601</span>]</span><br><span class="line">版权所有 (c) <span class="number">2009</span> Microsoft Corporation。保留所有权利。</span><br><span class="line"></span><br><span class="line">C:\Windows\system32&gt;net user admin.<span class="number">123</span> admin1 /add</span><br><span class="line">命令成功完成。</span><br></pre></td></tr></table></figure>
+
+<p>此时可以为我们的Sigma规则构建一个基础框架。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">创建本地用户账户行为</span></span><br><span class="line"><span class="attr">status:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">`使用net</span> <span class="string">user</span> <span class="string">/add命令创建本地用户帐户`</span></span><br><span class="line"><span class="attr">references:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">https://attack.mitre.org/techniques/T1136/001/</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2022</span><span class="string">/06/27</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">狂徒张三</span></span><br><span class="line"><span class="attr">level:</span> <span class="string">low</span></span><br></pre></td></tr></table></figure>
+
+<p>观察windows安全日志，是否记录了用户账户创建。windows安全日志<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/security/threat-protection/auditing/event-4720">4720</a>记录了已创建用户账户<code>admin.123</code>。</p>
+<p><a class="simple-lightbox" href="/4720.png"><img src="/images/loading.svg" data-src="/4720.png" alt="4720" lazyload></a></p>
+<p>可将windows安全事件ID<code>4720</code>作为条件，来检测是否存在创建本地用户账户行为。完整的规则如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">创建本地用户账户行为</span></span><br><span class="line"><span class="attr">status:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">`使用net</span> <span class="string">user</span> <span class="string">/add命令创建本地用户帐户`</span></span><br><span class="line"><span class="attr">references:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">https://attack.mitre.org/techniques/T1136/001/</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2022</span><span class="string">/06/27</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">狂徒张三</span></span><br><span class="line"><span class="attr">logsource:</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">windows</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">security</span></span><br><span class="line"><span class="attr">detection:</span></span><br><span class="line">    <span class="attr">selection:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">4720</span> <span class="comment">#已创建用户帐户。</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">selection</span></span><br><span class="line"><span class="attr">fields:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">EventCode</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">AccountName</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">AccountDomain</span></span><br><span class="line"><span class="attr">falsepositives:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">域控制器日志</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">由特权帐户管理工具管理的本地用户账户</span></span><br><span class="line"><span class="attr">level:</span> <span class="string">low</span></span><br></pre></td></tr></table></figure>
+
+<p>事实上关于检测使用<code>net user /add</code>命令创建用户账户行为，还可以通过windows安全事件日志<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/security/threat-protection/auditing/event-4688">4688</a>中的进程名称及命令行参数进行检测。</p>
+<p><a class="simple-lightbox" href="/net1.png"><img src="/images/loading.svg" data-src="/net1.png" alt="net1" lazyload></a></p>
+<p>最后，编写Sigma规则后，使用sigmac将sigma规则转换为其他SIEM平台所支持的格式。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(source<span class="operator">=</span>&quot;WinEventLog:Security&quot; EventCode<span class="operator">=</span>&quot;4720&quot;) <span class="operator">|</span> <span class="keyword">table</span> EventCode,AccountName,AccountDomain</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((Image<span class="operator">=</span>&quot;*\\net.exe&quot; <span class="keyword">OR</span> Image<span class="operator">=</span>&quot;*\\net1.exe&quot;) CommandLine<span class="operator">=</span>&quot;*user*&quot; CommandLine<span class="operator">=</span>&quot;*add*&quot;) <span class="operator">|</span> <span class="keyword">table</span> ComputerName,<span class="keyword">User</span>,CommandLine</span><br></pre></td></tr></table></figure>
+
+<p><strong>你学废了没有？</strong></p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Sigma%E6%98%AF%E4%B8%80%E7%A7%8D%E6%A3%80%E6%B5%8B%E8%AF%AD%E8%A8%80"><span class="top-box-text">Sigma是一种检测语言</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Sigma%E5%85%81%E8%AE%B8%E9%98%B2%E5%BE%A1%E8%80%85%E4%BD%BF%E7%94%A8%E9%80%9A%E7%94%A8%E8%AF%AD%E8%A8%80%E5%85%B1%E4%BA%AB%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C"><span class="top-box-text">Sigma允许防御者使用通用语言共享检测结果</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BD%BF%E7%94%A8Sigma"><span class="top-box-text">使用Sigma</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%98%E5%82%A8%E5%BA%93"><span class="top-box-text">获取存储库</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">了解Sigma规则</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma"><span class="top-box-text">深入了解Sigma</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BC%96%E8%AF%91Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">编译Sigma规则</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%8C%91%E6%88%98%EF%BC%9A%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">挑战：编写自己的Sigma规则</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8B%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E7%9A%84Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">用于检测创建本地用户账户的Sigma规则</span></a></li></ol></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2020/04/17/Threathunting-%E5%88%A9%E7%94%A8SSP%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">
+          <h3 class="post-title">
+            下一篇：监控SSP权限维持行为
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+

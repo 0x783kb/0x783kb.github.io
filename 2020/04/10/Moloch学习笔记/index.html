@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>Moloch安装与使用</title>
+<meta name="keywords" content="Moloch安装与使用, 0x783kb,threathunting">
+<meta name="description" content="0X01 moloch简介Moloch是一款由 AOL 开源的，能够大规模的捕获IPv4数据包（PCAP）、索引和数据库系统。所以我的Capture Machines和Elasticsearch Machines都放在一台上面， 有条件的强">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Moloch安装与使用">
+<meta property="og:description" content="0X01 moloch简介Moloch是一款由 AOL 开源的，能够大规模的捕获IPv4数据包（PCAP）、索引和数据库系统。所以我的Capture Machines和Elasticsearch Machines都放在一台上面， 有条件的强">
+
+<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives/" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">Moloch安装与使用</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-04-10</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/ATT-CK/">
+              ATT&amp;CK
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
+              流量分析
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="0X01-moloch简介"><a href="#0X01-moloch简介" class="headerlink" title="0X01 moloch简介"></a>0X01 moloch简介</h2><p>Moloch是一款由 AOL 开源的，能够大规模的捕获IPv4数据包（PCAP）、索引和数据库系统。所以我的Capture Machines和Elasticsearch Machines都放在一台上面， 有条件的强烈推荐把这2个组件分离开来。</p>
+<p>根据官方介绍，需要留意一下事情：</p>
+<ul>
+<li>1.Moloch不支持32位</li>
+<li>2.内核4.X 有助于抓包性能提升</li>
+</ul>
+<h2 id="0x02-Moloch安装"><a href="#0x02-Moloch安装" class="headerlink" title="0x02 Moloch安装"></a>0x02 Moloch安装</h2><h3 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1.环境配置"></a>1.环境配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[admin@localhost ~]$ <span class="built_in">uname</span> -a</span><br><span class="line">Linux localhost.localdomain 4.18.0-151.el8.x86_64 <span class="comment">#1 SMP Wed Dec 4 17:04:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Moloch下载"><a href="#2-Moloch下载" class="headerlink" title="2.Moloch下载"></a>2.Moloch下载</h3><p><a target="_blank" rel="noopener" href="https://molo.ch/downloads">官网即可下载</a>根据自己的配置环境下载对应的版本的安装包。</p>
+<h3 id="3-Moloch安装"><a href="#3-Moloch安装" class="headerlink" title="3.Moloch安装"></a>3.Moloch安装</h3><p>安装程序之前需要先安装三个依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost admin]<span class="comment"># yum install -y perl-libwww-perl perl-JSON libyaml-devel</span></span><br></pre></td></tr></table></figure>
+
+<p>cnetos8在安装libyaml-devel时会提示找不到依赖库，建议采用以下方法安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@192 admin]<span class="comment"># wget http://mirror.centos.org/centos/8/PowerTools/x86_64/os/Packages/libyaml-devel-0.1.7-5.el8.x86_64.rpm</span></span><br><span class="line">[root@192 admin]<span class="comment"># rpm -ivh libyaml-devel-0.1.7-5.el8.x86_64.rpm</span></span><br></pre></td></tr></table></figure>
+
+<p>依赖包安装成功后，可以继续安装moloch。依赖包libyaml-devel<a target="_blank" rel="noopener" href="https://pkgs.org/download/libyaml-devel">下载地址</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@192 admin]<span class="comment"># rpm -ivh moloch-2.2.2-1.x86_64.rpm</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-安装pfring"><a href="#4-安装pfring" class="headerlink" title="4.安装pfring"></a>4.安装pfring</h3><p>moloch的Capture默认使用libpcap后面我们可以用pfring 提升抓包性能。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@192 admin]<span class="comment">#  cd /etc/yum.repos.d/</span></span><br><span class="line">[root@192 yum.repos.d]<span class="comment"># wget http://packages.ntop.org/centos-stable/ntop.repo -O ntop.repo• wget http://packages.ntop.org/centos-stable/epel-7.repo -O epel.repo•   yum erase zeromq3 #添加pf_ring官方的yum源，系统自带的yum源没有pf_ring的yum包。</span></span><br><span class="line">[root@192 yum.repos.d]<span class="comment"># yum clean all</span></span><br><span class="line">[root@192 yum.repos.d]<span class="comment"># yum update</span></span><br><span class="line">[root@192 yum.repos.d]<span class="comment"># yum install pfring</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x03-elasticsearch安装配置"><a href="#0x03-elasticsearch安装配置" class="headerlink" title="0x03.elasticsearch安装配置"></a>0x03.elasticsearch安装配置</h2><p>es可以选择在配置moloch时候安装 也可以自己单独安装 我选择自己单独安装。</p>
+<p>Es的下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/downloads/elasticsearch">https://www.elastic.co/downloads/elasticsearch</a></p>
+<p>这里使用的是：<a target="_blank" rel="noopener" href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.1.rpm">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.1.rpm</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@192 aaa]<span class="comment"># wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.1.rpm</span></span><br><span class="line">[root@192 aaa]<span class="comment"># rpm -ivh elasticsearch-6.4.1.rpm #需要提前预置java环境</span></span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后，修改相关配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@192 /]<span class="comment"># cd etc/</span></span><br><span class="line">[root@192 etc]<span class="comment"># cd elasticsearch/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-设置虚拟内存"><a href="#1-设置虚拟内存" class="headerlink" title="1.设置虚拟内存"></a>1.设置虚拟内存</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@192 elasticsearch]<span class="comment"># vim jvm.options</span></span><br><span class="line"><span class="comment"># Xms represents the initial size of total heap space</span></span><br><span class="line"><span class="comment"># Xmx represents the maximum size of total heap space</span></span><br><span class="line"></span><br><span class="line">-Xms1g <span class="comment">#设置一下虚拟内存，如果内存够大就多设置，小就少设置。</span></span><br><span class="line">-Xmx1g</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-设置存储告警"><a href="#2-设置存储告警" class="headerlink" title="2.设置存储告警"></a>2.设置存储告警</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@192 elasticsearch]<span class="comment"># vim elasticsearch.yml</span></span><br><span class="line"></span><br><span class="line">cluster.routing.allocation.disk.threshold_enabled: falsenetwork.host: 0.0.0.0 <span class="comment">#抓包经常会把硬盘用完，当硬盘使用空间到80%。es就开始报警，直接把报警关掉。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#network.host: 0.0.0.0 #这里建议 0.0.0.0</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Set a custom port for HTTP:</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#http.port: 9200</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-系统设置修改"><a href="#3-系统设置修改" class="headerlink" title="3.系统设置修改"></a>3.系统设置修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一步：修改/etc/security/limits.conf文件，增加配置，用户退出后重新登录生效</span></span><br><span class="line">*                soft    <span class="built_in">nproc</span>           65535</span><br><span class="line">*                hard    <span class="built_in">nproc</span>           65535</span><br><span class="line">*                soft    nofile          65535</span><br><span class="line">*                hard    nofile          65535</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二步：因为上方是针对所有用户的设置，这样会受系统限制，咱们还需要更改一下系统限制。</span></span><br><span class="line"><span class="comment">#修改/etc/security/limits.d/20-nproc.conf，没有这个文件的可以直接创建</span></span><br><span class="line">*          soft    <span class="built_in">nproc</span>     65535</span><br><span class="line">root       soft    <span class="built_in">nproc</span>     unlimited</span><br><span class="line"></span><br><span class="line"><span class="comment">#第三步：还需要修改虚拟内存大小，修改/etc/sysctl.conf文件在最后面追加下面内容 会永久生效</span></span><br><span class="line">vm.max_map_count=262144</span><br><span class="line">kernel.pid_max = 65535  <span class="comment">#这个可填可不填</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#第四步：使用 如下命令 第一个查看修改后的结果，第二个可多开文件数</span></span><br><span class="line">sysctl -p</span><br><span class="line"><span class="built_in">ulimit</span> -n 65536</span><br><span class="line"></span><br><span class="line"><span class="comment">#第五步：防火墙永久增加端口让其他机器可以访问</span></span><br><span class="line"><span class="comment">#添加</span></span><br><span class="line">[root@192 /]<span class="comment"># firewall-cmd --zone=public --add-port=9200/tcp --permanent</span></span><br><span class="line">success</span><br><span class="line">[root@192 /]<span class="comment"># firewall-cmd --zone=public --add-port=8005/tcp --permanent</span></span><br><span class="line">success</span><br><span class="line">[root@192 /]<span class="comment"># firewall-cmd --reload #重新载入</span></span><br><span class="line">success</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-查看es状态"><a href="#4-查看es状态" class="headerlink" title="4.查看es状态"></a>4.查看es状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@192 /]<span class="comment"># systemctl start elasticsearch.service  #启动ES</span></span><br><span class="line"></span><br><span class="line">[root@192 /]<span class="comment"># systemctl status elasticsearch.service #查看ES启动状态</span></span><br><span class="line">● elasticsearch.service - Elasticsearch <span class="comment">#启动成功，前边为绿色</span></span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; disabled; ven&gt;</span><br><span class="line">   Active: active (running) since Wed 2020-04-08 06:09:13 EDT; 6s ago</span><br><span class="line">     Docs: http://www.elastic.co</span><br><span class="line"> Main PID: 1625 (java)</span><br><span class="line">    Tasks: 4</span><br><span class="line">   Memory: 356.8M</span><br><span class="line">   CGroup: /system.slice/elasticsearch.service</span><br><span class="line">           └─1625 /bin/java -Xms1g -Xmx1g -XX:+UseConcMarkSweepGC -XX:CMSInitia&gt;</span><br><span class="line"></span><br><span class="line">Apr 08 06:09:13 192.168.126.155 systemd[1]: Started Elasticsearch.</span><br></pre></td></tr></table></figure>
+
+<p>最后访问一下：<a target="_blank" rel="noopener" href="http://127.0.0.1:9200/">http://127.0.0.1:9200</a>，出现以下信息证明安装没有问题。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;JskrJLn&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;cluster_name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;elasticsearch&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;cluster_uuid&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;CUduIznDSPiIhyF9fssK7g&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;number&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;6.4.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build_flavor&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;default&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build_type&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;rpm&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build_hash&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;e36acdb&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build_date&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;2018-09-13T22:18:07.696808Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build_snapshot&quot;</span> <span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lucene_version&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;7.4.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;minimum_wire_compatibility_version&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;5.6.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;minimum_index_compatibility_version&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;5.0.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tagline&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x04-moloch设置"><a href="#0x04-moloch设置" class="headerlink" title="0x04.moloch设置"></a>0x04.moloch设置</h2><p>进行安装后的设置目录。运行.&#x2F;configure</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@192 /]<span class="comment"># cd /data/moloch/bin/</span></span><br><span class="line">[root@192 bin]<span class="comment"># ./Configure</span></span><br><span class="line">Found interfaces: ens33;lo;virbr0</span><br><span class="line">Semicolon <span class="string">&#x27;;&#x27;</span> seperated list of interfaces to monitor [eth1] ens33 <span class="comment">#输入你自己对应的网卡</span></span><br><span class="line">Install Elasticsearch server locally <span class="keyword">for</span> demo, must have at least 3G of memory,                                                                                                                                NOT recommended <span class="keyword">for</span> production use (<span class="built_in">yes</span> or no) [no] no <span class="comment">#输入no即可</span></span><br><span class="line">Elasticsearch server URL [http://localhost:9200] http://127.0.0.1:9200 <span class="comment">#elasticsearch服务器地址  一般默认本机或者你指定的地址  必须以http://开头</span></span><br><span class="line">Password to encrypt S2S and other things [no-default] root <span class="comment">#默认的登陆密码,可自行设置</span></span><br><span class="line">Moloch - Creating configuration files</span><br><span class="line">Installing systemd start files, use systemctl</span><br><span class="line">Moloch - Installing /etc/logrotate.d/moloch to rotate files after 7 days</span><br><span class="line">Moloch - Installing /etc/security/limits.d/99-moloch.conf to make core and memlo                                                                                                                               ck unlimited</span><br><span class="line">Download GEO files? (<span class="built_in">yes</span> or no) [<span class="built_in">yes</span>] <span class="built_in">yes</span> <span class="comment">#下载一些文件。直接“yes”即可</span></span><br></pre></td></tr></table></figure>
+
+<p>具体关于moloch设置信息详情参考官网，也可参考<a target="_blank" rel="noopener" href="https://woj.app/3872.html">https://woj.app/3872.html</a></p>
+<h3 id="1-升级初始化"><a href="#1-升级初始化" class="headerlink" title="1.升级初始化"></a>1.升级初始化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/data/moloch/db/db.pl  http://localhost:9200  init    <span class="comment">##第一次安装初始化、或者想删除所有数据</span></span><br><span class="line">/data/moloch/db/db.pl  http://localhost:9200 upgrade  <span class="comment">##升级moloch 数据包</span></span><br><span class="line"><span class="comment">#记得输入UPGRADE</span></span><br><span class="line">/data/moloch/bin/moloch_add_user.sh admin <span class="string">&quot;Admin User&quot;</span> moloch --admin  <span class="comment">##新增admin账户，密码是moloch</span></span><br><span class="line">systemctl <span class="built_in">enable</span> molochcapture.service <span class="comment">##开机启动Capture</span></span><br><span class="line">systemctl start molochcapture.service  <span class="comment">##启动Capture</span></span><br><span class="line">systemctl <span class="built_in">enable</span> molochviewer.service  <span class="comment">##开机启动Viewer</span></span><br><span class="line">systemctl start molochviewer.service   <span class="comment">##启动Viewer</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>如果不是特别讲究的话，操作到这里就可以了。</strong></p>
+<h3 id="2-数据删除"><a href="#2-数据删除" class="headerlink" title="2.数据删除"></a>2.数据删除</h3><p>由于是虚拟机部署的，所以需要及时清理数据，否则虚拟机很快会因为数据过大，卡顿。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关于pcap的数据包，可使用moloch来控制删除</span></span><br><span class="line">[root@moloch ~]<span class="comment"># vim /data/moloch/etc/config.ini #不同版本的moloch，路径也不同</span></span><br><span class="line"><span class="comment"># moloch 默认是freeSpaceG = 5%，也就是磁盘空间会保留5%。</span></span><br><span class="line">freeSpaceG = 5%</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># es使用moloch自带的脚本来控制删除</span></span><br><span class="line">[root@moloch db]<span class="comment"># vim daily.sh</span></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"><span class="comment"># This script is only needed for Moloch deployments that monitor live traffic.</span></span><br><span class="line"><span class="comment"># It drops the old index and optimizes yesterdays index.</span></span><br><span class="line"><span class="comment"># It should be run once a day during non peak time.</span></span><br><span class="line"><span class="comment"># CONFIG</span></span><br><span class="line">ESHOSTPORT=10.100.10.7:9200</span><br><span class="line">RETAINNUMDAYS=1</span><br><span class="line">/data/moloch/db/db.pl <span class="variable">$ESHOSTPORT</span> expire daily <span class="variable">$RETAINNUMDAYS</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再做个定时任务 每天晚上跑一次</span></span><br><span class="line">[root@moloch ~]<span class="comment"># crontab -e</span></span><br><span class="line">01 04 * * * /data/moloch/db/daily.sh &gt;&gt; /var/log/moloch/daily.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-网卡优化"><a href="#3-网卡优化" class="headerlink" title="3.网卡优化"></a>3.网卡优化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set ring buf size, see max with ethool -g eth0</span></span><br><span class="line">ethtool -G eth0 rx 4096 tx 4096</span><br><span class="line"><span class="comment"># Turn off feature, see available features with ethtool -k eth0</span></span><br><span class="line">ethtool -K eth0 rx off tx off gs off tso off gso off</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-High-Performance-Settings-高性能设置"><a href="#4-High-Performance-Settings-高性能设置" class="headerlink" title="4.High Performance Settings 高性能设置"></a>4.High Performance Settings 高性能设置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MOST IMPORTANT, use basic magicMode, libfile kills performance</span></span><br><span class="line">magicMode=basic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 官方称pfring效果更好</span></span><br><span class="line"><span class="comment"># pfring/snf might be better</span></span><br><span class="line">pcapReadMethod=tpacketv3</span><br><span class="line"></span><br><span class="line"><span class="comment"># Increase by 1 if still getting Input Drops</span></span><br><span class="line">tpacketv3NumThreads=2</span><br><span class="line"></span><br><span class="line"><span class="comment"># Defaults</span></span><br><span class="line">pcapWriteMethod=simple</span><br><span class="line">pcapWriteSize = 2560000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start with 5 packet threads, increase by 1 if getting thread drops</span></span><br><span class="line">packetThreads=5</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set to number of packets a second</span></span><br><span class="line">maxPacketsInQueue = 200000</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-pfring-配置"><a href="#5-pfring-配置" class="headerlink" title="5.pfring 配置"></a>5.pfring 配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@moloch ~]<span class="comment"># vim /data/moloch/etc/config.ini</span></span><br><span class="line">rootPlugins=reader-pfring.so</span><br><span class="line">pcapReadMethod=pfring</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x05-moloch使用"><a href="#0x05-moloch使用" class="headerlink" title="0x05.moloch使用"></a>0x05.moloch使用</h2><p>作为二线分析人员，大部分情况下不需要进行实时抓包分析流量的，那么我们只需要导入数据包进行分析即可。需要把moloch抓包功能关闭掉。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入离线pcap文件，如果遇到提示GEO存在问题的，建议重新初始化即可</span></span><br><span class="line"><span class="built_in">cd</span> /data/moloch/bin</span><br><span class="line">./capture/moloch-capture –R /offline-pcap-dir &lt;--recursive&gt; &lt;--copy&gt;</span><br><span class="line"></span><br><span class="line">./moloch-capture -r /data/moloch/raw/infile.pcap</span><br><span class="line"></span><br><span class="line">-r <span class="comment">#pcapfile脱机pcap文件</span></span><br><span class="line">-R <span class="comment">#pcapdir脱机pcap目录，将处理所有*.pcap文件</span></span><br><span class="line">--recursive <span class="comment">#可以遍历子目录</span></span><br><span class="line">--copy <span class="comment">#可以将pcap文件拷贝到config.ini中指定的pcapDir</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除pcap文件</span></span><br><span class="line">./moloch-capture --copy --delete /home/jx/test.pcapng <span class="comment">#路径</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#网页查看导入数据</span></span><br><span class="line">file == <span class="string">&quot;/home/admin/http.pcap&quot;</span> <span class="comment">#导入数据路径</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x06-总结"><a href="#0x06-总结" class="headerlink" title="0x06.总结"></a>0x06.总结</h2><p>记录一下本文中提到的服务启动命令吧。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start elasticsearch.service  <span class="comment">#es启动命令，访问127.0.0.1:9200即可</span></span><br><span class="line">systemctl start molochviewer.service molochcapture.service <span class="comment">#moloch启动命令、访问IP:8005即可，密码是自己设置的。</span></span><br></pre></td></tr></table></figure>
+
+<p>添加用户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/data/moloch/bin/moloch_add_user.sh admin <span class="string">&quot;Admin User&quot;</span> moloch --admin  <span class="comment">##新增admin账户，密码是moloch</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x07-参考推荐"><a href="#0x07-参考推荐" class="headerlink" title="0x07.参考推荐"></a>0x07.参考推荐</h2><p>Moloch快速安装部署:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yaoyaojcy/p/11727122.html">https://www.cnblogs.com/yaoyaojcy/p/11727122.html</a></p>
+<p>Moloch优化及安装部署:<a target="_blank" rel="noopener" href="https://woj.app/3872.html/comment-page-1">https://woj.app/3872.html/comment-page-1</a></p>
+<p>Moloch配置及汉化说明:<a target="_blank" rel="noopener" href="https://woj.app/4008.html">https://woj.app/4008.html</a></p>
+<p>Moloch-zh:<a target="_blank" rel="noopener" href="https://github.com/xazlsec/Moloch-zh">https://github.com/xazlsec/Moloch-zh</a></p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0X01-moloch%E7%AE%80%E4%BB%8B"><span class="top-box-text">0X01 moloch简介</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x02-Moloch%E5%AE%89%E8%A3%85"><span class="top-box-text">0x02 Moloch安装</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="top-box-text">1.环境配置</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#2-Moloch%E4%B8%8B%E8%BD%BD"><span class="top-box-text">2.Moloch下载</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#3-Moloch%E5%AE%89%E8%A3%85"><span class="top-box-text">3.Moloch安装</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#4-%E5%AE%89%E8%A3%85pfring"><span class="top-box-text">4.安装pfring</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x03-elasticsearch%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="top-box-text">0x03.elasticsearch安装配置</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#1-%E8%AE%BE%E7%BD%AE%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="top-box-text">1.设置虚拟内存</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#2-%E8%AE%BE%E7%BD%AE%E5%AD%98%E5%82%A8%E5%91%8A%E8%AD%A6"><span class="top-box-text">2.设置存储告警</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#3-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E4%BF%AE%E6%94%B9"><span class="top-box-text">3.系统设置修改</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#4-%E6%9F%A5%E7%9C%8Bes%E7%8A%B6%E6%80%81"><span class="top-box-text">4.查看es状态</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x04-moloch%E8%AE%BE%E7%BD%AE"><span class="top-box-text">0x04.moloch设置</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#1-%E5%8D%87%E7%BA%A7%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="top-box-text">1.升级初始化</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#2-%E6%95%B0%E6%8D%AE%E5%88%A0%E9%99%A4"><span class="top-box-text">2.数据删除</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#3-%E7%BD%91%E5%8D%A1%E4%BC%98%E5%8C%96"><span class="top-box-text">3.网卡优化</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#4-High-Performance-Settings-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%BE%E7%BD%AE"><span class="top-box-text">4.High Performance Settings 高性能设置</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#5-pfring-%E9%85%8D%E7%BD%AE"><span class="top-box-text">5.pfring 配置</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x05-moloch%E4%BD%BF%E7%94%A8"><span class="top-box-text">0x05.moloch使用</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x06-%E6%80%BB%E7%BB%93"><span class="top-box-text">0x06.总结</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#0x07-%E5%8F%82%E8%80%83%E6%8E%A8%E8%8D%90"><span class="top-box-text">0x07.参考推荐</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2020/04/08/%E4%BD%BF%E7%94%A8windows%E6%97%A5%E5%BF%97%E7%9B%91%E6%8E%A7AD%E5%AE%89%E5%85%A8%E6%80%A7%E7%9A%84%E4%BA%94%E5%A4%A7%E6%8C%91%E6%88%98/">
+          <h3 class="post-title">
+            下一篇：使用windows日志监控AD安全性的五大挑战
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
