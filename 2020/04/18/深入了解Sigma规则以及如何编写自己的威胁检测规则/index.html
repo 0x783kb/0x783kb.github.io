@@ -20,7 +20,7 @@
 <meta property="og:description" content="Sigma是一种检测语言在之前的文章中，介绍了如何构建一套属于自己的小型仿真威胁狩猎平台，并利用事件日志进行威胁狩猎。本文将讲述如何借助Sigma，利用社区的力量来对关键威胁和新的攻击技术做出快速反应。
 与YARA、Snort规则一样，Si">
 
-<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style/main.css">
 
   <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
@@ -31,7 +31,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://example.com">
-        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
       <a href="http://example.com">
         <h1 class="site-title">0x783kb</h1>
@@ -53,13 +53,13 @@
     
   
     
-      <a href="/tags/" class="menu purple-link">
+      <a href="/tags" class="menu purple-link">
         标签
       </a>
     
   
     
-      <a href="/archives/" class="menu purple-link">
+      <a href="/archives" class="menu purple-link">
         归档
       </a>
     
@@ -85,15 +85,15 @@
           <span>
           <i class="icon icon-pricetags-outline"></i>
             
-              <a href="/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
-              日志分析
+              <a href="/tags/ATT-CK/">
+              ATT&amp;CK
                 
                   ，
                 
               </a>
             
-              <a href="/tags/ATT-CK/">
-              ATT&amp;CK
+              <a href="/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
+              日志分析
                 
               </a>
             
@@ -105,8 +105,9 @@
           <h2 id="Sigma是一种检测语言"><a href="#Sigma是一种检测语言" class="headerlink" title="Sigma是一种检测语言"></a>Sigma是一种检测语言</h2><p>在之前的<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/endpoint/303763.html">文章</a>中，介绍了如何构建一套属于自己的小型仿真威胁狩猎平台，并利用事件日志进行威胁狩猎。本文将讲述如何借助Sigma，利用社区的力量来对关键威胁和新的攻击技术做出快速反应。</p>
 <p>与YARA、Snort规则一样，Sigma是一种通用且开放的签名格式，以直接的方式描述相关的日志事件。规则格式非常灵活，易于编写，适用于任何类型的日志文件。Sigma提供了一种结构化的形式，研究人员或分析师可以在其中描述他们曾设计开发的检测方法，并与他人共享。</p>
 <p>随着SIEM的普及，大多数企业会选择购买或者构建一套适用于自己企业环境的SIEM系统。对于IT系统和网络的攻击都将会被记录下来，并存储在SIEM系统或者其他日志存储和分析平台，这使得SIEM成为检测入侵者的一个重要工具。SIEM检测规则集在早期存在于厂商或特定平台的数据库中。如今，对最新安全事件的检测和分析的需求日益增长，要求不同的厂商能够共享检测情报。Sigma解决了这一问题，使查询规则集与厂商平台无关。</p>
-<p><a class="simple-lightbox" href="/sigma.png"><img src="/images/loading.svg" data-src="/sigma.png" lazyload></a></p>
-<h2 id="Sigma允许防御者使用通用语言共享检测结果"><a href="#Sigma允许防御者使用通用语言共享检测结果" class="headerlink" title="Sigma允许防御者使用通用语言共享检测结果"></a>Sigma允许防御者使用通用语言共享检测结果</h2><p>Sigma满足各种用例：</p>
+<a class="simple-lightbox" href="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/sigma.png"><img src="/images/loading.svg" data-src="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/sigma.png" class title="sigma" lazyload></a>
+
+<h2 id="使用通用语言共享检测结果"><a href="#使用通用语言共享检测结果" class="headerlink" title="使用通用语言共享检测结果"></a>使用通用语言共享检测结果</h2><p>Sigma满足各种用例：</p>
 <ul>
 <li>Sigma已成为一种通用语言，在研究人员和情报人员之间分享研究成果，如发现、识别新的攻击行为。</li>
 <li>安全团队可以避免局限于单一平台，即通过在Sigma定义规则，可以更轻松地在不同平台之间切换。</li>
@@ -138,7 +139,8 @@
 <h3 id="获取存储库"><a href="#获取存储库" class="headerlink" title="获取存储库"></a>获取存储库</h3><p>首先，从GitHub下载Sigma存储库。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/SigmaHQ/sigma.git</span><br></pre></td></tr></table></figure>
 
-<p><a class="simple-lightbox" href="/gitclone.png"><img src="/images/loading.svg" data-src="/gitclone.png" alt="gitclone" lazyload></a></p>
+<a class="simple-lightbox" href="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/gitclone.png"><img src="/images/loading.svg" data-src="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/gitclone.png" class title="gitclone" lazyload></a>
+
 <h3 id="了解Sigma规则"><a href="#了解Sigma规则" class="headerlink" title="了解Sigma规则"></a>了解Sigma规则</h3><p>Sigma规则是用YAML编写的，它定义了在系统日志中查找的内容和位置。每个Sigma规则还可以指定元数据，例如：规则的作者、唯一规则标识符 (UUID)、MITRE ATT&amp;CK技术和参考。</p>
 <p>Sigma支持以下日志类型：</p>
 <ul>
@@ -237,7 +239,8 @@
 <p>要查看所有可用的目标、配置，运行以下命令即可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 sigmac --lists</span><br></pre></td></tr></table></figure>
 
-<p><a class="simple-lightbox" href="/sigma1.png"><img src="/images/loading.svg" data-src="/sigma1.png" alt="sigmac" lazyload></a></p>
+<a class="simple-lightbox" href="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/sigma1.png"><img src="/images/loading.svg" data-src="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/sigma1.png" class title="sigma1" lazyload></a>
+
 <p><strong>编译一个规则</strong></p>
 <p>为了转换为可支持的任何SIEM平台所支持的搜索查询语句格式，可通过<code>-t</code>配置为可支持的任何SIEM平台，<code>-c</code>设置正确的字段映射:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$python3</span> sigmac -t splunk -c splunk-windows ~/sigma/rules/windows/process_creation/proc_creation_win_cmdkey_recon.yml</span><br></pre></td></tr></table></figure>
@@ -281,19 +284,21 @@
 </li>
 </ul>
 <h2 id="挑战：编写自己的Sigma规则"><a href="#挑战：编写自己的Sigma规则" class="headerlink" title="挑战：编写自己的Sigma规则"></a>挑战：编写自己的Sigma规则</h2><p>接下来将学习如何编写Sigma规则，在实际的SIEM平台上运用。建议在本地构建一套小型仿真威胁狩猎平台，在此基础上可以尝试模拟一些攻击行为，并构建自己的检测规则。</p>
-<h3 id="用于检测创建本地用户账户的Sigma规则"><a href="#用于检测创建本地用户账户的Sigma规则" class="headerlink" title="用于检测创建本地用户账户的Sigma规则"></a>用于检测创建本地用户账户的Sigma规则</h3><p>MITRE ATT&amp;CK中提到的<a target="_blank" rel="noopener" href="https://attack.mitre.org/techniques/T1136/001/">创建用户</a>，攻击者可能会创建一个本地帐户来维持对被攻击系统的访问。本地帐户是由组织配置供用户、远程支持、服务使用或用于管理单个系统或服务的帐户。有了足够的权限，可使用net user &#x2F;add命令创建本地帐户。</p>
+<h3 id="检测创建本地用户账户的Sigma规则"><a href="#检测创建本地用户账户的Sigma规则" class="headerlink" title="检测创建本地用户账户的Sigma规则"></a>检测创建本地用户账户的Sigma规则</h3><p>MITRE ATT&amp;CK中提到的<a target="_blank" rel="noopener" href="https://attack.mitre.org/techniques/T1136/001/">创建用户</a>，攻击者可能会创建一个本地帐户来维持对被攻击系统的访问。本地帐户是由组织配置供用户、远程支持、服务使用或用于管理单个系统或服务的帐户。有了足够的权限，可使用net user &#x2F;add命令创建本地帐户。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Microsoft Windows [版本 <span class="number">6.1</span><span class="type">.7601</span>]</span><br><span class="line">版权所有 (c) <span class="number">2009</span> Microsoft Corporation。保留所有权利。</span><br><span class="line"></span><br><span class="line">C:\Windows\system32&gt;net user admin.<span class="number">123</span> admin1 /add</span><br><span class="line">命令成功完成。</span><br></pre></td></tr></table></figure>
 
 <p>此时可以为我们的Sigma规则构建一个基础框架。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">创建本地用户账户行为</span></span><br><span class="line"><span class="attr">status:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">`使用net</span> <span class="string">user</span> <span class="string">/add命令创建本地用户帐户`</span></span><br><span class="line"><span class="attr">references:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">https://attack.mitre.org/techniques/T1136/001/</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2022</span><span class="string">/06/27</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">狂徒张三</span></span><br><span class="line"><span class="attr">level:</span> <span class="string">low</span></span><br></pre></td></tr></table></figure>
 
 <p>观察windows安全日志，是否记录了用户账户创建。windows安全日志<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/security/threat-protection/auditing/event-4720">4720</a>记录了已创建用户账户<code>admin.123</code>。</p>
-<p><a class="simple-lightbox" href="/4720.png"><img src="/images/loading.svg" data-src="/4720.png" alt="4720" lazyload></a></p>
+<a class="simple-lightbox" href="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/4720.png"><img src="/images/loading.svg" data-src="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/4720.png" class title="This is an test image" lazyload></a>
+
 <p>可将windows安全事件ID<code>4720</code>作为条件，来检测是否存在创建本地用户账户行为。完整的规则如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">创建本地用户账户行为</span></span><br><span class="line"><span class="attr">status:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">`使用net</span> <span class="string">user</span> <span class="string">/add命令创建本地用户帐户`</span></span><br><span class="line"><span class="attr">references:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">https://attack.mitre.org/techniques/T1136/001/</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2022</span><span class="string">/06/27</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">狂徒张三</span></span><br><span class="line"><span class="attr">logsource:</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">windows</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">security</span></span><br><span class="line"><span class="attr">detection:</span></span><br><span class="line">    <span class="attr">selection:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">4720</span> <span class="comment">#已创建用户帐户。</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">selection</span></span><br><span class="line"><span class="attr">fields:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">EventCode</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">AccountName</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">AccountDomain</span></span><br><span class="line"><span class="attr">falsepositives:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">域控制器日志</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">由特权帐户管理工具管理的本地用户账户</span></span><br><span class="line"><span class="attr">level:</span> <span class="string">low</span></span><br></pre></td></tr></table></figure>
 
 <p>事实上关于检测使用<code>net user /add</code>命令创建用户账户行为，还可以通过windows安全事件日志<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/security/threat-protection/auditing/event-4688">4688</a>中的进程名称及命令行参数进行检测。</p>
-<p><a class="simple-lightbox" href="/net1.png"><img src="/images/loading.svg" data-src="/net1.png" alt="net1" lazyload></a></p>
+<a class="simple-lightbox" href="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/net1.png"><img src="/images/loading.svg" data-src="/2020/04/18/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B%E8%A7%84%E5%88%99/net1.png" class title="net1" lazyload></a>
+
 <p>最后，编写Sigma规则后，使用sigmac将sigma规则转换为其他SIEM平台所支持的格式。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(source<span class="operator">=</span>&quot;WinEventLog:Security&quot; EventCode<span class="operator">=</span>&quot;4720&quot;) <span class="operator">|</span> <span class="keyword">table</span> EventCode,AccountName,AccountDomain</span><br></pre></td></tr></table></figure>
 
@@ -304,7 +309,7 @@
         </div>
           
         <div class="top-div">
-          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Sigma%E6%98%AF%E4%B8%80%E7%A7%8D%E6%A3%80%E6%B5%8B%E8%AF%AD%E8%A8%80"><span class="top-box-text">Sigma是一种检测语言</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Sigma%E5%85%81%E8%AE%B8%E9%98%B2%E5%BE%A1%E8%80%85%E4%BD%BF%E7%94%A8%E9%80%9A%E7%94%A8%E8%AF%AD%E8%A8%80%E5%85%B1%E4%BA%AB%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C"><span class="top-box-text">Sigma允许防御者使用通用语言共享检测结果</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BD%BF%E7%94%A8Sigma"><span class="top-box-text">使用Sigma</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%98%E5%82%A8%E5%BA%93"><span class="top-box-text">获取存储库</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">了解Sigma规则</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma"><span class="top-box-text">深入了解Sigma</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BC%96%E8%AF%91Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">编译Sigma规则</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%8C%91%E6%88%98%EF%BC%9A%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">挑战：编写自己的Sigma规则</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8B%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E7%9A%84Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">用于检测创建本地用户账户的Sigma规则</span></a></li></ol></li></ol>
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Sigma%E6%98%AF%E4%B8%80%E7%A7%8D%E6%A3%80%E6%B5%8B%E8%AF%AD%E8%A8%80"><span class="top-box-text">Sigma是一种检测语言</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BD%BF%E7%94%A8%E9%80%9A%E7%94%A8%E8%AF%AD%E8%A8%80%E5%85%B1%E4%BA%AB%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C"><span class="top-box-text">使用通用语言共享检测结果</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BD%BF%E7%94%A8Sigma"><span class="top-box-text">使用Sigma</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%98%E5%82%A8%E5%BA%93"><span class="top-box-text">获取存储库</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E4%BA%86%E8%A7%A3Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">了解Sigma规则</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Sigma"><span class="top-box-text">深入了解Sigma</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BC%96%E8%AF%91Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">编译Sigma规则</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%8C%91%E6%88%98%EF%BC%9A%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">挑战：编写自己的Sigma规则</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A3%80%E6%B5%8B%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E7%9A%84Sigma%E8%A7%84%E5%88%99"><span class="top-box-text">检测创建本地用户账户的Sigma规则</span></a></li></ol></li></ol>
         </div>
           
       </div>
@@ -312,9 +317,9 @@
 
     
       <div class="next-post">
-        <a class="purple-link" href="/2020/04/17/Threathunting-%E5%88%A9%E7%94%A8SSP%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">
+        <a class="purple-link" href="/2020/04/17/%E7%9B%91%E6%B5%8BSSP%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E8%A1%8C%E4%B8%BA/">
           <h3 class="post-title">
-            下一篇：监控SSP权限维持行为
+            下一篇：监测SSP权限维持行为
           </h3>
         </a>
       </div>
@@ -335,7 +340,7 @@
   <div class="social-container">
     
       
-        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+        <a aria-label="跳转至github" href="https://github.com/f-dong" target="_blank">
           <i class="icon icon-github"></i>
         </a>
       

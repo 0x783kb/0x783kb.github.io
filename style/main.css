@@ -638,9 +638,13 @@ nav {
 }
 .post-content table {
   border-collapse: collapse;
+  overflow-x: auto;
+  display: table;
+  margin: 1rem auto;
+}
+.post-content figure table {
   margin: 1rem 0;
   display: block;
-  overflow-x: auto;
 }
 .post-content tr {
   border-top: 1px solid #dfe2e5;
@@ -1044,4 +1048,18 @@ html.dark #twikoo .tk-ruser,
 html.dark .tk-footer a,
 html.dark .tk-actions a {
   color: #409eff;
+}
+pre[class*=language-] {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+pre[class*=language-] code {
+  color: #476582;
+}
+pre[class*=language-].line-numbers {
+  background: #fafafa;
+}
+:not(pre) > code[class*=language-],
+pre[class*=language-] {
+  background: none;
 }

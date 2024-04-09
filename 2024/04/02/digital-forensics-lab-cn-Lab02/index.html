@@ -20,7 +20,7 @@
 <meta property="og:description" content="常见的Windows程序Windows操作系统由大量程序组成，包括文件、目录、日志、注册表、浏览器历史记录、用户帐户和其他对其正常运行至关重要的重要数据。
 在本实验室中，我们将探索一些在进行取证调查时有用的此类程序，我们将了解此类程序的放置">
 
-<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style/main.css">
 
   <meta name="generator" content="Hexo 7.1.1"></head>
@@ -31,7 +31,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://example.com">
-        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
       <a href="http://example.com">
         <h1 class="site-title">0x783kb</h1>
@@ -53,13 +53,13 @@
     
   
     
-      <a href="/tags/" class="menu purple-link">
+      <a href="/tags" class="menu purple-link">
         标签
       </a>
     
   
     
-      <a href="/archives/" class="menu purple-link">
+      <a href="/archives" class="menu purple-link">
         归档
       </a>
     
@@ -181,14 +181,16 @@
 <li>Microsoft-Windows-PowerShell%4Operational.evtx</li>
 </ul>
 <p>然而，值得注意的是，这些并不是在数字取证调查期间唯一可能有用的文件，但对于本实验室，我们只对这些文件感兴趣。每个事件都有一个与其关联的特定ID，可用于识别和过滤感兴趣的特定事件。</p>
-<h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><h3 id="1-给定被入侵系统的注册表文件，回答以下问题："><a href="#1-给定被入侵系统的注册表文件，回答以下问题：" class="headerlink" title="1.给定被入侵系统的注册表文件，回答以下问题："></a>1.给定被入侵系统的注册表文件，回答以下问题：</h3><p>注册表文件可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;NTUSER.DAT下载</p>
+<h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><h3 id="科目一"><a href="#科目一" class="headerlink" title="科目一"></a>科目一</h3><p>1.给定被入侵系统的注册表文件，回答以下问题：</p>
+<p>注册表文件可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;NTUSER.DAT下载</p>
 <p>鼠标双击速度是多少？10秒（直接搜索关键词：Mouse，查看MouseSensitivity值）</p>
 <p>注册表中记录的最近访问的输入路径是什么？C:\Windows\System32\calc.exe（搜索关键词：TypedPaths，查看值）</p>
 <p>为了在系统上建立持久性，恶意软​​件向注册表添加的新值是什么？C:\Users\w\Desktop\malware.exe （直接搜索关键词：Run）</p>
 <p>参考链接：</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dsli/p/7298388.html">详解Windows注册表分析取证</a></p>
 <p><a target="_blank" rel="noopener" href="https://forensafe.com/blogs/typedpaths.html">Investigating Typed Paths</a></p>
-<h3 id="2-根据嫌疑人的Firefox个人资料，回答以下问题："><a href="#2-根据嫌疑人的Firefox个人资料，回答以下问题：" class="headerlink" title="2.根据嫌疑人的Firefox个人资料，回答以下问题："></a>2.根据嫌疑人的Firefox个人资料，回答以下问题：</h3><p>保存的登录信息中存储的用户名和密码是什么？主要是firefox_decrypt的使用。</p>
+<h3 id="科目二"><a href="#科目二" class="headerlink" title="科目二"></a>科目二</h3><p>2.根据嫌疑人的Firefox个人资料，回答以下问题：</p>
+<p>保存的登录信息中存储的用户名和密码是什么？主要是firefox_decrypt的使用。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ python3 firefox_decrypt.py /home/linus/Downloads/Firefox/Profiles/s6upyldt.default-release/</span><br><span class="line">2024-04-01 18:02:38,620 - WARNING - profile.ini not found <span class="keyword">in</span> /home/linus/Downloads/Firefox/Profiles/s6upyldt.default-release/</span><br><span class="line">2024-04-01 18:02:38,620 - WARNING - Continuing and assuming <span class="string">&#x27;/home/linus/Downloads/Firefox/Profiles/s6upyldt.default-release/&#x27;</span> is a profile location</span><br><span class="line"></span><br><span class="line">Website:   https://www.reddit.com</span><br><span class="line">Username: <span class="string">&#x27;hackerman&#x27;</span></span><br><span class="line">Password: <span class="string">&#x27;sup3rs3cur3p4ssw0rd&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>最常访问的网站是什么？通过浏览器日志，可以看到经常访问亚马逊网站，（<a target="_blank" rel="noopener" href="http://www.amazon.com)/">www.amazon.com）</a></p>
@@ -209,7 +211,8 @@
 </ul>
 <p>这些.sqlite文件都是火狐浏览器的重要组成部分，它们共同确保了浏览器的正常运行和用户体验。在一般情况下，用户不需要直接操作这些文件，除非进行高级的数据恢复或迁移操作。如果对这些文件进行了不当的修改或删除，可能会导致浏览器数据丢失或功能异常。因此，在进行任何操作之前，请务必备份好重要的数据。</p>
 <p><a target="_blank" rel="noopener" href="https://kb.mozillazine.org/Places.sqlite">Places.sqlite说明</a></p>
-<h3 id="3-根据受感染系统的PowerShell事件日志，回答以下问题："><a href="#3-根据受感染系统的PowerShell事件日志，回答以下问题：" class="headerlink" title="3.根据受感染系统的PowerShell事件日志，回答以下问题："></a>3.根据受感染系统的PowerShell事件日志，回答以下问题：</h3><p>攻击者在系统上下载文件所执行的命令是什么？这道题整体比较简单，对powershell日志有一定的了解即可解答这道题，日志ID4104。</p>
+<h3 id="科目三"><a href="#科目三" class="headerlink" title="科目三"></a>科目三</h3><p>3.根据受感染系统的PowerShell事件日志，回答以下问题：</p>
+<p>攻击者在系统上下载文件所执行的命令是什么？这道题整体比较简单，对powershell日志有一定的了解即可解答这道题，日志ID4104。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-WebRequest -UseBasicParsing -Uri https://raw.githubusercontent.com/vonderchild/digital-forensics-lab/main/Lab%202/files/file.ps1 -OutFile <span class="string">&quot;file.ps1&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>您能分析下载的文件并了解该文件的用途吗？</p>
@@ -219,7 +222,7 @@
         </div>
           
         <div class="top-div">
-          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84Windows%E7%A8%8B%E5%BA%8F"><span class="top-box-text">常见的Windows程序</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Windows%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="top-box-text">Windows注册表</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#NTUSER-DAT"><span class="top-box-text">NTUSER.DAT</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#LNK%E6%96%87%E4%BB%B6"><span class="top-box-text">LNK文件</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="top-box-text">网络浏览器</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%81%AB%E7%8B%90%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="top-box-text">火狐浏览器</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="top-box-text">谷歌浏览器</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#windows%E6%97%A5%E5%BF%97"><span class="top-box-text">windows日志</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="top-box-text">练习题</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#1-%E7%BB%99%E5%AE%9A%E8%A2%AB%E5%85%A5%E4%BE%B5%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%9E%E7%AD%94%E4%BB%A5%E4%B8%8B%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="top-box-text">1.给定被入侵系统的注册表文件，回答以下问题：</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#2-%E6%A0%B9%E6%8D%AE%E5%AB%8C%E7%96%91%E4%BA%BA%E7%9A%84Firefox%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99%EF%BC%8C%E5%9B%9E%E7%AD%94%E4%BB%A5%E4%B8%8B%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="top-box-text">2.根据嫌疑人的Firefox个人资料，回答以下问题：</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#3-%E6%A0%B9%E6%8D%AE%E5%8F%97%E6%84%9F%E6%9F%93%E7%B3%BB%E7%BB%9F%E7%9A%84PowerShell%E4%BA%8B%E4%BB%B6%E6%97%A5%E5%BF%97%EF%BC%8C%E5%9B%9E%E7%AD%94%E4%BB%A5%E4%B8%8B%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="top-box-text">3.根据受感染系统的PowerShell事件日志，回答以下问题：</span></a></li></ol></li></ol></li></ol>
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84Windows%E7%A8%8B%E5%BA%8F"><span class="top-box-text">常见的Windows程序</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Windows%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="top-box-text">Windows注册表</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#NTUSER-DAT"><span class="top-box-text">NTUSER.DAT</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#LNK%E6%96%87%E4%BB%B6"><span class="top-box-text">LNK文件</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="top-box-text">网络浏览器</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%81%AB%E7%8B%90%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="top-box-text">火狐浏览器</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="top-box-text">谷歌浏览器</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#windows%E6%97%A5%E5%BF%97"><span class="top-box-text">windows日志</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="top-box-text">练习题</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%A7%91%E7%9B%AE%E4%B8%80"><span class="top-box-text">科目一</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%A7%91%E7%9B%AE%E4%BA%8C"><span class="top-box-text">科目二</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%A7%91%E7%9B%AE%E4%B8%89"><span class="top-box-text">科目三</span></a></li></ol></li></ol></li></ol>
         </div>
           
       </div>
@@ -250,7 +253,7 @@
   <div class="social-container">
     
       
-        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+        <a aria-label="跳转至github" href="https://github.com/f-dong" target="_blank">
           <i class="icon icon-github"></i>
         </a>
       

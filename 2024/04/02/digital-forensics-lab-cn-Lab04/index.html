@@ -20,7 +20,7 @@
 <meta property="og:description" content="网络攻击取证Web应用程序是我们日常生活中不可或缺的一部分，用于各种活动，从在线购物到银行和社交媒体。然而，它们的广泛使用为不良行为者提供了巨大的攻击面，以利用它们并在系统中获得初步立足点。
 在本实验中，我们将了解针对Web应用程序常见的不">
 
-<link rel="shortcut icon" href="/images1/avatar.ico">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style/main.css">
 
   <meta name="generator" content="Hexo 7.1.1"></head>
@@ -31,7 +31,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://example.com">
-        <img class="avatar" src="/images1/avatar.ico" alt="logo" width="32px" height="32px">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
       <a href="http://example.com">
         <h1 class="site-title">0x783kb</h1>
@@ -53,13 +53,13 @@
     
   
     
-      <a href="/tags/" class="menu purple-link">
+      <a href="/tags" class="menu purple-link">
         标签
       </a>
     
   
     
-      <a href="/archives/" class="menu purple-link">
+      <a href="/archives" class="menu purple-link">
         归档
       </a>
     
@@ -99,7 +99,8 @@
 <p>在本实验中，我们将了解针对Web应用程序常见的不同类型的攻击，并通过分析Web应用程序日志和Web应用程序防火墙日志来探索用于检测这些攻击的各种技术，找到攻击点并追踪攻击点。通过识别被利用的漏洞来找出根本原因。</p>
 <h2 id="Web应用程序和WAF日志"><a href="#Web应用程序和WAF日志" class="headerlink" title="Web应用程序和WAF日志"></a>Web应用程序和WAF日志</h2><h2 id="常见网络攻击和日志"><a href="#常见网络攻击和日志" class="headerlink" title="常见网络攻击和日志"></a>常见网络攻击和日志</h2><h3 id="路径遍历-目录遍历"><a href="#路径遍历-目录遍历" class="headerlink" title="路径遍历&#x2F;目录遍历"></a>路径遍历&#x2F;目录遍历</h3><h3 id="远程命令执行"><a href="#远程命令执行" class="headerlink" title="远程命令执行"></a>远程命令执行</h3><h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>这一课主要是针对常见的web应用日志和waf日志分析，介绍常见的攻击方式。这些基础知识对于红蓝队成员并不陌生，因此不做过多笔记。</p>
 <p><strong>练习题</strong></p>
-<h2 id="您是一名网络安全专家，被要求调查重大网络安全漏洞。"><a href="#您是一名网络安全专家，被要求调查重大网络安全漏洞。" class="headerlink" title="您是一名网络安全专家，被要求调查重大网络安全漏洞。"></a>您是一名网络安全专家，被要求调查重大网络安全漏洞。</h2><p>该公司的网络服务器已被攻破，攻击者试图利用多个漏洞。您的任务是拼凑攻击者的意图并揭示损害的程度。考虑到这一点，您面临的挑战是回答以下问题：</p>
+<h2 id="科目一"><a href="#科目一" class="headerlink" title="科目一"></a>科目一</h2><p>您是一名网络安全专家，被要求调查重大网络安全漏洞。</p>
+<p>该公司的网络服务器已被攻破，攻击者试图利用多个漏洞。您的任务是拼凑攻击者的意图并揭示损害的程度。考虑到这一点，您面临的挑战是回答以下问题：</p>
 <p>日志可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/tree/main/Lab%2004/files/logs.zip%E4%B8%8B%E8%BD%BD">https://github.com/vonderchild/digital-forensics-lab/tree/main/Lab%2004/files/logs.zip下载</a></p>
 <p>下载日志文件，并解压日志文件，可以看到是apache日志。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -l</span><br><span class="line">total 392</span><br><span class="line">-rw-r----- 1 linus linus   6813 Feb 16  2023 access.log</span><br><span class="line">-rw-r----- 1 linus linus 109647 Feb 16  2023 error.log</span><br><span class="line">-rw-r----- 1 linus linus 281738 Feb 16  2023 modsec_audit.log</span><br><span class="line">-rw-r----- 1 linus linus      0 Feb 14  2023 other_vhosts_access.log</span><br></pre></td></tr></table></figure>
@@ -156,7 +157,7 @@
         </div>
           
         <div class="top-div">
-          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E5%8F%96%E8%AF%81"><span class="top-box-text">网络攻击取证</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Web%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%92%8CWAF%E6%97%A5%E5%BF%97"><span class="top-box-text">Web应用程序和WAF日志</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E5%92%8C%E6%97%A5%E5%BF%97"><span class="top-box-text">常见网络攻击和日志</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86"><span class="top-box-text">路径遍历&#x2F;目录遍历</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="top-box-text">远程命令执行</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="top-box-text">SQL注入</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%82%A8%E6%98%AF%E4%B8%80%E5%90%8D%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%93%E5%AE%B6%EF%BC%8C%E8%A2%AB%E8%A6%81%E6%B1%82%E8%B0%83%E6%9F%A5%E9%87%8D%E5%A4%A7%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E%E3%80%82"><span class="top-box-text">您是一名网络安全专家，被要求调查重大网络安全漏洞。</span></a></li></ol></li></ol>
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E5%8F%96%E8%AF%81"><span class="top-box-text">网络攻击取证</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Web%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%92%8CWAF%E6%97%A5%E5%BF%97"><span class="top-box-text">Web应用程序和WAF日志</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E5%92%8C%E6%97%A5%E5%BF%97"><span class="top-box-text">常见网络攻击和日志</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86"><span class="top-box-text">路径遍历&#x2F;目录遍历</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="top-box-text">远程命令执行</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="top-box-text">SQL注入</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%A7%91%E7%9B%AE%E4%B8%80"><span class="top-box-text">科目一</span></a></li></ol></li></ol>
         </div>
           
       </div>
@@ -187,7 +188,7 @@
   <div class="social-container">
     
       
-        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+        <a aria-label="跳转至github" href="https://github.com/f-dong" target="_blank">
           <i class="icon icon-github"></i>
         </a>
       
