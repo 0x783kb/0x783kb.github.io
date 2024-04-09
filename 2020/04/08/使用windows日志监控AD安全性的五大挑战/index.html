@@ -28,10 +28,10 @@
 <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="https://0x783kb.github.io">
+      <a href="http://example.com">
         <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
-      <a href="https://0x783kb.github.io">
+      <a href="http://example.com">
         <h1 class="site-title">0x783kb</h1>
       </a>
     </div>
@@ -104,7 +104,7 @@
 <h2 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01.前言"></a>0x01.前言</h2><p>随着恶意活动的增加，攻击者用来破坏凭据和数据的方法也各种各样，监控Active Directory（AD）等关键系统变得越来越重要。大多数客户转向使用安全信息和事件管理（SIEM）产品来进行监控。虽然这些解决方案可能非常强大，但它们最终依赖于Active Directory中的Windows事件日志。windows事件日志非常复杂，可能无法提供监视AD中的几个关键攻击向量所需的信息。依靠windows事件日志，我们面临着一些影响我们威胁狩猎的挑战，在本文中，我们将探讨其中的五个挑战。</p>
 <h2 id="0x02-组成员变更"><a href="#0x02-组成员变更" class="headerlink" title="0x02 组成员变更"></a>0x02 组成员变更</h2><p>Active Directory安全组是用户被授予跨服务器，工作站和应用程序进行特权操作和信息访问权的主要方式。域管理员、企业管理员和架构管理员等用户组在AD环境中为相关组用户提供了较大的权限。除了这些组之外，典型的组织（或企业）还将拥有大量的其他安全组，这些组可以为跨域环境的访问提供特权。</p>
 <p>攻击者可以针对这些群组及其组内用户进行攻击以便获得更高的权限。因此，监控这些组的变化是非常重要的。虽然AD事件日志会跟踪安全组的变更，但是缺少关键信息。</p>
-<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vaUI4MC5wbmc?x-oss-process=image/format,png"><img src="/0x783kb/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vaUI4MC5wbmc?x-oss-process=image/format,png" alt="事件ID 5136" lazyload></a></p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vaUI4MC5wbmc?x-oss-process=image/format,png"><img src="/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vaUI4MC5wbmc?x-oss-process=image/format,png" alt="事件ID 5136" lazyload></a></p>
 <p>例如，如果您将用户添加到Domain Admins组，AD将会生成一个事件ID，如上图所示。此事件包含的有价值信息，例如：</p>
 <ul>
 <li>执行更改的用户ID；</li>
@@ -118,14 +118,14 @@
 <h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h3><p>在Active Directory（AD）环境中对具有较大权限的组进行更改是许多黑客的进行权限提升和建立立足点的重要目标。但是，这类攻击会导致安全分析人员无法进行正常有效的分析。</p>
 <h2 id="0x03-组策略的变更"><a href="#0x03-组策略的变更" class="headerlink" title="0x03 组策略的变更"></a>0x03 组策略的变更</h2><p>组策略用于控制和管理加入Active Directory的所有计算机的设置。这包括关键安全设置，例如谁具有对系统的管理访问权限以及许多其他设置。对组策略对象的简单更改可能会产生严重的安全影响或导致生产中断。</p>
 <p>监控这些变化是至关重要的。但是，Active Directory无法记录对组策略设置所做的更改。更改组策略后，您将看到一个事件，如下图中显示的事件。</p>
-<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vU0dHVC5wbmc?x-oss-process=image/format,png"><img src="/0x783kb/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vU0dHVC5wbmc?x-oss-process=image/format,png" alt="5136事件ID" lazyload></a></p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vU0dHVC5wbmc?x-oss-process=image/format,png"><img src="/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vU0dHVC5wbmc?x-oss-process=image/format,png" alt="5136事件ID" lazyload></a></p>
 <p>此事件提供了一些有意义的信息，例如谁进行了更改以及组策略对象的标识符。但是，这些事件内容缺乏有价值的信息。</p>
 <h3 id="1-设置细节"><a href="#1-设置细节" class="headerlink" title="1.设置细节"></a>1.设置细节</h3><p>组策略支持数百种开箱即用和自定义设置。设置的范围可以从设置用户的浏览器主页到提供整个组织计算机的关键管理控制。这些事件不会记录已更改的设置及更改的设置，所产生的事件对GPO的变更调查提供的价值很小。因此，有必要实施其他监控来跟踪GPO更改。</p>
 <h3 id="2-变化的来源"><a href="#2-变化的来源" class="headerlink" title="2.变化的来源"></a>2.变化的来源</h3><p>与组成员更改相似，此类事件不显示更改的来源。分析人员可以根据组策略更改的来源信息结合上下文的事件信息进而分析出攻击者更改的意图。大多数的更改来自少数几个位置，能够识别和响应来自关键位置的变化对于快速检测网内的攻击行为是非常重要的。</p>
 <h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h3><p>在Active Directory中无法记录对组策略设置所做的更改，这可能会导致安全分析人员无法对分析攻击过程进行有效的分析，导致分析中断。</p>
 <h2 id="0x04-监控目录读取"><a href="#0x04-监控目录读取" class="headerlink" title="0x04 监控目录读取"></a>0x04 监控目录读取</h2><p>检测Active Directory攻击的另一个方面是了解用户如何查看和枚举AD对象。当攻击者在您的组织（即AD环境）中获得立足点时，在最初的阶段，攻击者会进行内部侦察，枚举关键帐户，组和服务器。这些信息是攻击者进行权限提升所必需的信息。通过监控可疑的读取事件，您可以检测到侦察活动，并在攻击完成之前阻断攻击。遗憾的是，Active Directory没有提供监控这些类型事件的简便方法。</p>
 <h3 id="1-干扰数据增多"><a href="#1-干扰数据增多" class="headerlink" title="1.干扰数据增多"></a>1.干扰数据增多</h3><p>Microsoft能够记录读取事件，方便分析人员查看谁正在探索Active Directory，但是这样做会在事件日志中产生海量的噪音数据，几乎不可能找到任何有价值的信息。例如，如果用户要查看Domain Admins组，则可以在事件日志中生成200多个事件。这包括如上图所示的事件，表示已读取域管理员的属性。除了列出OU的内容和阅读有关组成员的信息等其他事件之外，无论用户在看什么，都将生成数十个这样的事件。</p>
-<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L241SGxHUi5wbmc?x-oss-process=image/format,png"><img src="/0x783kb/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L241SGxHUi5wbmc?x-oss-process=image/format,png" alt="事件ID4662" lazyload></a></p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L241SGxHUi5wbmc?x-oss-process=image/format,png"><img src="/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L241SGxHUi5wbmc?x-oss-process=image/format,png" alt="事件ID4662" lazyload></a></p>
 <p>对于用户查看组的单个实例出现数百个事件，将有意义的信息与无关信息分开变得极具挑战性。</p>
 <h3 id="2-读取来自哪里"><a href="#2-读取来自哪里" class="headerlink" title="2.读取来自哪里"></a>2.读取来自哪里</h3><p>即使可能以某种方式读取理解域对象生成的事件，但也无法识别读取事件日志源自何处。在上图中，您可以清楚地看到哪个用户参与了域管理员的阅读，但您不知道这个阅读来自哪台计算机。如果您希望确定网内是否存在恶意侦察的读取行为，这是你判断网内存在恶意侦察行为的至关重要信息。</p>
 <h3 id="3-监视访问被拒绝的事件"><a href="#3-监视访问被拒绝的事件" class="headerlink" title="3.监视访问被拒绝的事件"></a>3.监视访问被拒绝的事件</h3><p>监视目录访问事件的一个常见原因是确定用户尝试读取他们无权查看的信息的位置。有价值的信息可以存储在Active Directory属性中，这些属性可以被攻击者查询并最终被攻击者利用。例如，通过利用本地管理员密码解决方案（<a target="_blank" rel="noopener" href="https://blog.stealthbits.com/running-laps-in-the-race-to-security/">LAPS</a>），Active Directory将为用户属性中的管理帐户存储明文密码。如果日志显示用户试图读取这些属性，则可能表示用户试图破坏这些特权凭证。不幸的是，为任何目的查看用户对象的每个用户都将为他们无权读取行为而生成访问失败事件日志，即使他们不打算阅读这些属性。因此，使用事件日志监视失败的访问事件作为攻击的标志不是可行的选择。</p>
@@ -188,7 +188,7 @@
 <h3 id="3-总结-1"><a href="#3-总结-1" class="headerlink" title="3 总结"></a>3 总结</h3><p>监控身份验证模式和基于身份验证的攻击将会产生海量的数据阻止安全人员进行任何有意义的分析。</p>
 <h2 id="0x06-权限更改和对象更改"><a href="#0x06-权限更改和对象更改" class="headerlink" title="0x06 权限更改和对象更改"></a>0x06 权限更改和对象更改</h2><p>在Active Directory中您需要监视的一些最重要的更改，如权限和对象的安全更改。权限控制谁可以通过更改组策略，攻击者可以利用向管理组添加成员等众多方式来提升权限。</p>
 <p>受权限影响很大，有必要知道权限何时发生变化并了解这些更改的产生的影响。虽然Active Directory会记录进行权限更改事件，但这些事件中的信息非常难以理解。在windows中有关权限更改的详细信息使用安全描述符定义语言（SDDL）表示。</p>
-<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vOTBDNi5wbmc?x-oss-process=image/format,png"><img src="/0x783kb/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vOTBDNi5wbmc?x-oss-process=image/format,png" alt="5156 SDDL" lazyload></a></p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vOTBDNi5wbmc?x-oss-process=image/format,png"><img src="/images/loading.svg" data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zMi5heDF4LmNvbS8yMDE5LzA5LzE3L25vOTBDNi5wbmc?x-oss-process=image/format,png" alt="5156 SDDL" lazyload></a></p>
 <p>此类信息看起来比较神秘难易直观理解，你需要翻译此类信息转化为可用信息，但此信息不会识别许可更改的内容。想要了解系统发生了什么更改，你需要查看事件日志中的两个事件ID。原始权限将在第一个事件中表示，表示删除了原始权限。此事件的上下文第二个事件显示了新的权限。要了解两者之间的差异，您必须比较两者以查看更改内容。</p>
 <p>这适用于权限更改，同样也适用于对象保护。对象保护是Active Directory的一项功能，可帮助防止意外删除用户，组和OU等对象。关闭此选项后，删除对象非常容易，因此在大多数关键对象上都启用了此功能。关闭此功能绝对值得监控，但是，此更改由类似于图4的事件表示，您可以在其中看到SDDL中表示的详细信息。</p>
 <p>使用这种神秘的语言表示权限更改和对象保护更改使得很难理解Active Directory的安全性如何变化以及更改是否值得警告。</p>
