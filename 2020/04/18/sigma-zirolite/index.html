@@ -20,20 +20,20 @@ ZircoliteZircolite是一个用于">
 <meta property="og:description" content="在之前的文章《深入了解Sigma规则以及如何编写自己的威胁检测规则》中，介绍过如何编写属于自己的Sigma规则。本文将讲述如何利用开源工具Zircolite结合Sigma规则集在端点进行检测。
 ZircoliteZircolite是一个用于">
 
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="stylesheet" href="/style/main.css">
+<link rel="shortcut icon" href="/0x783kb/favicon.ico">
+<link rel="stylesheet" href="/0x783kb/style/main.css">
 
-  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
+  <link rel="stylesheet" href="/0x783kb/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 7.1.1"></head>
   <body>
     <div id="app" class="main">
 
 <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="http://example.com">
-        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      <a href="https://github.com/0x783kb">
+        <img class="avatar" src="/0x783kb/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
-      <a href="http://example.com">
+      <a href="https://github.com/0x783kb">
         <h1 class="site-title">0x783kb</h1>
       </a>
     </div>
@@ -47,25 +47,25 @@ ZircoliteZircolite是一个用于">
 <nav class="menu-list">
   
     
-      <a href="/" class="menu purple-link">
+      <a href="/0x783kb/" class="menu purple-link">
         首页
       </a>
     
   
     
-      <a href="/tags" class="menu purple-link">
+      <a href="/0x783kb/tags" class="menu purple-link">
         标签
       </a>
     
   
     
-      <a href="/archives" class="menu purple-link">
+      <a href="/0x783kb/archives" class="menu purple-link">
         归档
       </a>
     
   
     
-      <a href="/about" class="menu purple-link">
+      <a href="/0x783kb/about" class="menu purple-link">
         关于
       </a>
     
@@ -85,14 +85,14 @@ ZircoliteZircolite是一个用于">
           <span>
           <i class="icon icon-pricetags-outline"></i>
             
-              <a href="/tags/ATT-CK/">
+              <a href="/0x783kb/tags/ATT-CK/">
               ATT&amp;CK
                 
                   ，
                 
               </a>
             
-              <a href="/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
+              <a href="/0x783kb/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
               日志分析
                 
               </a>
@@ -102,14 +102,14 @@ ZircoliteZircolite是一个用于">
       </div>
       <div class="post-content-wrapper">
         <div class="post-content">
-          <p>在之前的文章<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/endpoint/337439.html">《深入了解Sigma规则以及如何编写自己的威胁检测规则》</a>中，介绍过如何编写属于自己的Sigma规则。本文将讲述如何利用开源工具<a target="_blank" rel="noopener" href="https://github.com/wagga40/Zircolite">Zircolite</a>结合Sigma规则集在端点进行检测。</p>
+          <p>在之前的文章<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/endpoint/337439.html">《深入了解Sigma规则以及如何编写自己的威胁检测规则》</a>中，介绍过如何编写属于自己的Sigma规则。本文将讲述如何利用开源工具<a href="https://github.com/wagga40/Zircolite">Zircolite</a>结合Sigma规则集在端点进行检测。</p>
 <h2 id="Zircolite"><a href="#Zircolite" class="headerlink" title="Zircolite"></a>Zircolite</h2><p>Zircolite是一个用于Python3编写的独立工具，它允许在MS Windows EVTX（EVTX和JSONL格式）、Linux Audit日志和Sysmon日志上使用Sigma规则。</p>
 <ul>
 <li>Zircolite可直接用于端点调查；</li>
 <li>Zircolite相对较快，可以在几秒钟内解析大型数据集；</li>
 <li>Zircolite基于Sigma后端(SQLite)，不使用内部Sigma转换；</li>
 </ul>
-<p>Zircolite可以直接在Python中使用，也可以使用发行版中提供的二进制文件（仅限Microsoft Windows和Linux）。参考文档在<a target="_blank" rel="noopener" href="https://github.com/wagga40/Zircolite/tree/master/docs">这里</a>。</p>
+<p>Zircolite可以直接在Python中使用，也可以使用发行版中提供的二进制文件（仅限Microsoft Windows和Linux）。参考文档在<a href="https://github.com/wagga40/Zircolite/tree/master/docs">这里</a>。</p>
 <h2 id="Zircolite安装"><a href="#Zircolite安装" class="headerlink" title="Zircolite安装"></a>Zircolite安装</h2><p>使用以下命令来安装依赖项:<code>pip3 install -r requirements.txt</code></p>
 <p>evtx_dump的使用是可选的，但默认情况下是必需的（因为它现在要快得多），如果你不想使用它，则必须使用<code>--noexternal</code>选项。如果你克隆Zircolite存储库，则会提供该工具。对于Apple M1计算机，首选<code>--noexternal</code>选项。</p>
 <h2 id="Zircolite基本用法"><a href="#Zircolite基本用法" class="headerlink" title="Zircolite基本用法"></a>Zircolite基本用法</h2><p>可以使用<code>zircolite.py -h</code>来查看帮助</p>
@@ -142,7 +142,7 @@ ZircoliteZircolite是一个用于">
 <h3 id="使用sigmatools"><a href="#使用sigmatools" class="headerlink" title="使用sigmatools"></a>使用sigmatools</h3><p>Zircolite使用JSON格式的SIGMA规则。要生成规则集，需要使用官方sigmatools（最低0.21版）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/SigmaHQ/sigma.git</span><br><span class="line"><span class="built_in">cd</span> sigma</span><br></pre></td></tr></table></figure>
 
-<p>安装Sigma依赖项，请<a target="_blank" rel="noopener" href="https://github.com/SigmaHQ/sigma#installation">在此处查看</a></p>
+<p>安装Sigma依赖项，请<a href="https://github.com/SigmaHQ/sigma#installation">在此处查看</a></p>
 <h4 id="Sysmon规则集（当终端有Sysmon日志时）"><a href="#Sysmon规则集（当终端有Sysmon日志时）" class="headerlink" title="Sysmon规则集（当终端有Sysmon日志时）"></a>Sysmon规则集（当终端有Sysmon日志时）</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">tools/sigmac</span> <span class="string">\</span></span><br><span class="line"> <span class="string">-t</span> <span class="string">sqlite</span> <span class="string">\</span></span><br><span class="line"> <span class="string">-c</span> <span class="string">tools/config/generic/sysmon.yml</span> <span class="string">\</span></span><br><span class="line"> <span class="string">-c</span> <span class="string">tools/config/generic/powershell.yml</span> <span class="string">\</span></span><br><span class="line"> <span class="string">-c</span> <span class="string">tools/config/zircolite.yml</span> <span class="string">\</span></span><br><span class="line"> <span class="string">-d</span> <span class="string">rules/windows/</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--output-fields</span> <span class="string">title,id,description,author,tags,level,falsepositives,filename,status</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--output-format</span> <span class="string">json</span> <span class="string">\</span></span><br><span class="line"> <span class="string">-r</span> <span class="string">\</span></span><br><span class="line"> <span class="string">-o</span> <span class="string">rules_sysmon.json</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--backend-option</span> <span class="string">table=logs</span></span><br></pre></td></tr></table></figure>
 
 <p>解释说明：</p>
@@ -170,7 +170,7 @@ ZircoliteZircolite是一个用于">
 
 <h4 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 sigmac</span><br><span class="line">sudo python3 sigmac -t sqlite -d /hacker/sigma/rules/windows/  --output-fields title,<span class="built_in">id</span>,description,author,tags,level,falsepositives,filename,status --output-format json -c /hacker/sigma/tools/config/zircolite.yml -r -o rules_test.json --backend-option table=logs</span><br></pre></td></tr></table></figure>
 
-<h3 id="下载样例日志"><a href="#下载样例日志" class="headerlink" title="下载样例日志"></a>下载样例日志</h3><p><a target="_blank" rel="noopener" href="https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES">下载地址</a></p>
+<h3 id="下载样例日志"><a href="#下载样例日志" class="headerlink" title="下载样例日志"></a>下载样例日志</h3><p><a href="https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES">下载地址</a></p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>执行以下命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 zircolite.py --evtx dicovery_4661_net_group_domain_admins_target.evtx --ruleset /hacker/Zircolite/rules/rules_test.json </span><br></pre></td></tr></table></figure>
 
@@ -199,11 +199,11 @@ ZircoliteZircolite是一个用于">
 <li>2.受限于Sigma规则质量影响，可能会出现重复告警、误报等情况。</li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>Zircolite官方手册</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wagga40/Zircolite/blob/master/docs/Usage.md#usage">https://github.com/wagga40/Zircolite/blob/master/docs/Usage.md#usage</a></p>
+<p><a href="https://github.com/wagga40/Zircolite/blob/master/docs/Usage.md#usage">https://github.com/wagga40/Zircolite/blob/master/docs/Usage.md#usage</a></p>
 <p>Windows EVTX日志样例</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES">https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES</a></p>
+<p><a href="https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES">https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES</a></p>
 <p>Sigma官网Github库</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/SigmaHQ/sigma">https://github.com/SigmaHQ/sigma</a></p>
+<p><a href="https://github.com/SigmaHQ/sigma">https://github.com/SigmaHQ/sigma</a></p>
 
         </div>
           
@@ -216,7 +216,7 @@ ZircoliteZircolite是一个用于">
 
     
       <div class="next-post">
-        <a class="purple-link" href="/2020/04/18/%E4%BD%BF%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E5%A8%81%E8%83%81%E7%8B%A9%E7%8C%8E/">
+        <a class="purple-link" href="/0x783kb/2020/04/18/%E4%BD%BF%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E5%A8%81%E8%83%81%E7%8B%A9%E7%8C%8E/">
           <h3 class="post-title">
             下一篇：使用防火墙日志进行安全分析
           </h3>
@@ -239,7 +239,7 @@ ZircoliteZircolite是一个用于">
   <div class="social-container">
     
       
-        <a aria-label="跳转至github" href="https://github.com/f-dong" target="_blank">
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
           <i class="icon icon-github"></i>
         </a>
       
@@ -270,13 +270,13 @@ ZircoliteZircolite是一个用于">
     
 <script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
 
-<script src="/js/main.js"></script>
+<script src="/0x783kb/js/main.js"></script>
 
 
 
 
 
 
-  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+  <script src="/0x783kb/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
 </html>
 

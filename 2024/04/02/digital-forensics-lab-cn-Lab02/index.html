@@ -20,8 +20,8 @@
 <meta property="og:description" content="常见的Windows程序Windows操作系统由大量程序组成，包括文件、目录、日志、注册表、浏览器历史记录、用户帐户和其他对其正常运行至关重要的重要数据。
 在本实验室中，我们将探索一些在进行取证调查时有用的此类程序，我们将了解此类程序的放置">
 
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="stylesheet" href="/style/main.css">
+<link rel="shortcut icon" href="/0x783kb/favicon.ico">
+<link rel="stylesheet" href="/0x783kb/style/main.css">
 
   <meta name="generator" content="Hexo 7.1.1"></head>
   <body>
@@ -30,10 +30,10 @@
 <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="http://example.com">
-        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      <a href="https://github.com/0x783kb">
+        <img class="avatar" src="/0x783kb/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
-      <a href="http://example.com">
+      <a href="https://github.com/0x783kb">
         <h1 class="site-title">0x783kb</h1>
       </a>
     </div>
@@ -47,25 +47,25 @@
 <nav class="menu-list">
   
     
-      <a href="/" class="menu purple-link">
+      <a href="/0x783kb/" class="menu purple-link">
         首页
       </a>
     
   
     
-      <a href="/tags" class="menu purple-link">
+      <a href="/0x783kb/tags" class="menu purple-link">
         标签
       </a>
     
   
     
-      <a href="/archives" class="menu purple-link">
+      <a href="/0x783kb/archives" class="menu purple-link">
         归档
       </a>
     
   
     
-      <a href="/about" class="menu purple-link">
+      <a href="/0x783kb/about" class="menu purple-link">
         关于
       </a>
     
@@ -85,7 +85,7 @@
           <span>
           <i class="icon icon-pricetags-outline"></i>
             
-              <a href="/tags/digital-forensics-lab-cn/">
+              <a href="/0x783kb/tags/digital-forensics-lab-cn/">
               digital-forensics-lab-cn
                 
               </a>
@@ -159,14 +159,14 @@
 </ul>
 <p>LECmd（Link Explorer Command Line）是一个命令行工具，它允许用户查询LNK文件并提取有关这些文件的元数据。通过使用LECmd，可以获取LNK文件指向的原始文件的完整路径、文件的创建日期和时间、上次修改时间、上次访问时间等信息。这对于取证分析或系统管理员来说可能非常有用，特别是在需要追踪用户活动或识别潜在恶意软件活动时。</p>
 <p>LECmd还可以提取其他信息，如桌面名称（即创建LNK文件的特定用户的桌面环境的名称）以及创建LNK文件的系统的MAC地址（如果LNK文件包含这样的信息）。这些信息对于确定文件创建的环境和可能的来源非常有价值。</p>
-<p>该工具可以从<a target="_blank" rel="noopener" href="https://github.com/EricZimmerman/LECmd%E4%B8%8B%E8%BD%BD%E3%80%82">https://github.com/EricZimmerman/LECmd下载。</a></p>
+<p>该工具可以从<a href="https://github.com/EricZimmerman/LECmd%E4%B8%8B%E8%BD%BD%E3%80%82">https://github.com/EricZimmerman/LECmd下载。</a></p>
 <h2 id="网络浏览器"><a href="#网络浏览器" class="headerlink" title="网络浏览器"></a>网络浏览器</h2><p>网络浏览器在全球范围内用于访问网站。在数字取证的背景下，网络浏览器可以提供有关用户浏览历史记录、cookie、下载的文件、保存的密码等的大量信息。此信息可用于确定用户可能在做什么，并识别任何潜在的可疑活动。</p>
 <p>网上有许多浏览器，但我们只探讨两种最常用的浏览器：Firefox和Chrome。</p>
 <h3 id="火狐浏览器"><a href="#火狐浏览器" class="headerlink" title="火狐浏览器"></a>火狐浏览器</h3><p>Firefox将其在数字取证调查期间可能有价值的数据存储在该目录下C:\Users%USERNAME%\AppData\Roaming\Mozilla\Firefox\Profiles。这包括cookie、保存的登录信息、浏览历史记录、书签以及存储在文件中的一些其他有用.sqlite信息.json。</p>
 <p>要查看.json文件，我们可以使用任何文本编辑器来查看。然而，这些.sqlite文件需要一个数据库浏览器，例如sqlitebrowser Kali Linux内置的数据库浏览器。如果系统默认没有安装可以使用apt instll命令安装.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install sqlitebrowser</span><br><span class="line">[sudo] password <span class="keyword">for</span> linus: </span><br><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree... Done</span><br><span class="line">Reading state information... Done</span><br><span class="line">The following packages were automatically installed and are no longer required:</span><br><span class="line">  linux-headers-5.15.0-88 linux-headers-5.15.0-88-generic linux-image-5.15.0-88-generic</span><br><span class="line">  linux-modules-5.15.0-88-generic linux-modules-extra-5.15.0-88-generic</span><br><span class="line">Use <span class="string">&#x27;sudo apt autoremove&#x27;</span> to remove them.</span><br><span class="line">The following additional packages will be installed:</span><br><span class="line">  libqscintilla2-qt5-15 libqscintilla2-qt5-l10n</span><br><span class="line">Suggested packages:</span><br><span class="line">  libqscintilla2-doc</span><br></pre></td></tr></table></figure>
 
-<p>Firefox使用配置文件目录中文件中的主密钥对保存的登录信息进行加密。要提取用户名和密码，我们可以使用一个名为firefox_decrypt的工具，可以从<a target="_blank" rel="noopener" href="https://github.com/unode/firefox_decrypt%E4%B8%8B%E8%BD%BD%E3%80%82">https://github.com/unode/firefox_decrypt下载。</a></p>
+<p>Firefox使用配置文件目录中文件中的主密钥对保存的登录信息进行加密。要提取用户名和密码，我们可以使用一个名为firefox_decrypt的工具，可以从<a href="https://github.com/unode/firefox_decrypt%E4%B8%8B%E8%BD%BD%E3%80%82">https://github.com/unode/firefox_decrypt下载。</a></p>
 <p>安装及使用：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/unode/firefox_decrypt </span><br><span class="line">$ python3 firefox_decrypt.py -h</span><br></pre></td></tr></table></figure>
 
@@ -182,7 +182,7 @@
 </ul>
 <p>然而，值得注意的是，这些并不是在数字取证调查期间唯一可能有用的文件，但对于本实验室，我们只对这些文件感兴趣。每个事件都有一个与其关联的特定ID，可用于识别和过滤感兴趣的特定事件。</p>
 <h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><h3 id="科目一"><a href="#科目一" class="headerlink" title="科目一"></a>科目一</h3><p>1.给定被入侵系统的注册表文件，回答以下问题：</p>
-<p>注册表文件可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;NTUSER.DAT下载</p>
+<p>注册表文件可以从<a href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;NTUSER.DAT下载</p>
 <p>鼠标双击速度是多少？10秒（直接搜索关键词：Mouse，查看MouseSensitivity值）</p>
 <p>注册表中记录的最近访问的输入路径是什么？C:\Windows\System32\calc.exe（搜索关键词：TypedPaths，查看值）</p>
 <p>为了在系统上建立持久性，恶意软​​件向注册表添加的新值是什么？C:\Users\w\Desktop\malware.exe （直接搜索关键词：Run）</p>
@@ -195,7 +195,7 @@
 
 <p>最常访问的网站是什么？通过浏览器日志，可以看到经常访问亚马逊网站，（<a target="_blank" rel="noopener" href="http://www.amazon.com)/">www.amazon.com）</a></p>
 <p>嫌疑人下载的文件的名称是什么？file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;w&#x2F;Downloads&#x2F;python-3.11.1-amd64(1).exe</p>
-<p>Firefox配置文件可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;Firefox.zip下载。</p>
+<p>Firefox配置文件可以从<a href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;Firefox.zip下载。</p>
 <p>辅助：火狐各类sqlite文件说明</p>
 <p>在火狐浏览器（Firefox）中，这些.sqlite文件都扮演着重要的角色，用于存储和管理各种浏览器数据。以下是这些文件的具体作用和解释：</p>
 <ul>
@@ -217,7 +217,7 @@
 
 <p>您能分析下载的文件并了解该文件的用途吗？</p>
 <p>文件可以直接在相关路径下查看。借助大模型基本上可以知道下面的情况：这段代码将一段Base64编码的字符串解码为原始字符串，并将解码后的字符串输出到控制台。但是，它使用了ASCII解码方式，这可能不是最佳实践，因为Base64编码的文本可能包含非 ASCII字符。执行这段代码后，你将看到解码后的$flag变量的内容输出到PowerShell控制台。</p>
-<p>事件日志文件可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;Microsoft-Windows-PowerShell%254Operational.evtx下载</p>
+<p>事件日志文件可以从<a href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 02&#x2F;files&#x2F;Microsoft-Windows-PowerShell%254Operational.evtx下载</p>
 
         </div>
           
@@ -230,7 +230,7 @@
 
     
       <div class="next-post">
-        <a class="purple-link" href="/2024/04/02/digital-forensics-lab-cn-Lab01/">
+        <a class="purple-link" href="/0x783kb/2024/04/02/digital-forensics-lab-cn-Lab01/">
           <h3 class="post-title">
             下一篇：digital-forensics-lab-cn-Lab01
           </h3>
@@ -253,7 +253,7 @@
   <div class="social-container">
     
       
-        <a aria-label="跳转至github" href="https://github.com/f-dong" target="_blank">
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
           <i class="icon icon-github"></i>
         </a>
       
@@ -284,7 +284,7 @@
     
 <script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
 
-<script src="/js/main.js"></script>
+<script src="/0x783kb/js/main.js"></script>
 
 
 

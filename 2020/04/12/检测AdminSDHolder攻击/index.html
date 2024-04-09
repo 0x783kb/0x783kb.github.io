@@ -18,8 +18,8 @@
 <meta property="og:title" content="检测AdminSDHolder攻击">
 <meta property="og:description" content="来自ATT&amp;CK的描述帐户操作可以帮助攻击者维持在环境中对凭据和某些权限级别的访问。账户操作可能包括修改权限，修改凭据，添加或更改权限组，修改帐户设置或修改执行身份验证等方式。为了创建或操纵帐户，攻击者必须已经对系统或域具有足够的权">
 
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="stylesheet" href="/style/main.css">
+<link rel="shortcut icon" href="/0x783kb/favicon.ico">
+<link rel="stylesheet" href="/0x783kb/style/main.css">
 
   <meta name="generator" content="Hexo 7.1.1"></head>
   <body>
@@ -28,10 +28,10 @@
 <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="http://example.com">
-        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      <a href="https://github.com/0x783kb">
+        <img class="avatar" src="/0x783kb/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
-      <a href="http://example.com">
+      <a href="https://github.com/0x783kb">
         <h1 class="site-title">0x783kb</h1>
       </a>
     </div>
@@ -45,25 +45,25 @@
 <nav class="menu-list">
   
     
-      <a href="/" class="menu purple-link">
+      <a href="/0x783kb/" class="menu purple-link">
         首页
       </a>
     
   
     
-      <a href="/tags" class="menu purple-link">
+      <a href="/0x783kb/tags" class="menu purple-link">
         标签
       </a>
     
   
     
-      <a href="/archives" class="menu purple-link">
+      <a href="/0x783kb/archives" class="menu purple-link">
         归档
       </a>
     
   
     
-      <a href="/about" class="menu purple-link">
+      <a href="/0x783kb/about" class="menu purple-link">
         关于
       </a>
     
@@ -83,14 +83,14 @@
           <span>
           <i class="icon icon-pricetags-outline"></i>
             
-              <a href="/tags/ATT-CK/">
+              <a href="/0x783kb/tags/ATT-CK/">
               ATT&amp;CK
                 
                   ，
                 
               </a>
             
-              <a href="/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
+              <a href="/0x783kb/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/">
               日志分析
                 
               </a>
@@ -152,7 +152,7 @@
 <h2 id="检测规则-思路"><a href="#检测规则-思路" class="headerlink" title="检测规则&#x2F;思路"></a>检测规则&#x2F;思路</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Windows-AdminSDHolder</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">Windows</span> <span class="string">server</span> <span class="number">2008 </span><span class="string">R2（AD域控）</span></span><br><span class="line"><span class="attr">references:</span> <span class="string">https://github.com/infosecn1nja/AD-Attack-Defense/blob/master/README.md</span> <span class="string">OR</span> <span class="string">https://github.com/0Kee-Team/WatchAD/blob/master/modules/detect/event_log/persistence/AdminSDHolder.py</span></span><br><span class="line"><span class="attr">tags:</span> <span class="number">1098</span></span><br><span class="line"><span class="attr">status:</span> <span class="string">experimental</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">12306Bro</span></span><br><span class="line"><span class="attr">logsource:</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">windows</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">security</span></span><br><span class="line"><span class="attr">detection:</span></span><br><span class="line">    <span class="attr">selection1:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">5136</span>  <span class="comment">#已修改目录服务对象。AdminSDHolder更改，一般用作权限维持，因为更改情况极少</span></span><br><span class="line">    <span class="attr">selection2:</span></span><br><span class="line">        <span class="attr">EventID:</span> <span class="number">4780</span>  <span class="comment">#ACL设置在管理员组成员的帐户上</span></span><br><span class="line">    <span class="attr">timeframe:</span> <span class="string">last</span> <span class="string">1h</span> <span class="comment">#默认等待60分钟之后生效，具体原因可参考下面SDPROP说明</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">all</span> <span class="string">of</span> <span class="string">them</span></span><br><span class="line"><span class="attr">level:</span> <span class="string">medium</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="参考推荐"><a href="#参考推荐" class="headerlink" title="参考推荐"></a>参考推荐</h2><p>域渗透——AdminSDHolder:<a target="_blank" rel="noopener" href="https://anquan.baidu.com/article/877">https://anquan.baidu.com/article/877</a></p>
-<p>PowerView:<a target="_blank" rel="noopener" href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1">https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1</a></p>
+<p>PowerView:<a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1">https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1</a></p>
 <p>SDPROP说明:<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7276">https://xz.aliyun.com/t/7276</a></p>
 <p>MITRE-ATT&amp;CK-T1098:<a target="_blank" rel="noopener" href="https://attack.mitre.org/techniques/T1098/">https://attack.mitre.org/techniques/T1098/</a></p>
 
@@ -167,7 +167,7 @@
 
     
       <div class="next-post">
-        <a class="purple-link" href="/2020/04/11/DSRM%E5%AF%86%E7%A0%81%E9%87%8D%E7%BD%AE%E4%B8%8E%E6%A3%80%E6%B5%8B/">
+        <a class="purple-link" href="/0x783kb/2020/04/11/DSRM%E5%AF%86%E7%A0%81%E9%87%8D%E7%BD%AE%E4%B8%8E%E6%A3%80%E6%B5%8B/">
           <h3 class="post-title">
             下一篇：DSRM密码重置与检测
           </h3>
@@ -190,7 +190,7 @@
   <div class="social-container">
     
       
-        <a aria-label="跳转至github" href="https://github.com/f-dong" target="_blank">
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
           <i class="icon icon-github"></i>
         </a>
       
@@ -221,7 +221,7 @@
     
 <script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
 
-<script src="/js/main.js"></script>
+<script src="/0x783kb/js/main.js"></script>
 
 
 
