@@ -18,8 +18,8 @@
 <meta property="og:title" content="digital-forensics-lab-cn-Lab03">
 <meta property="og:description" content="文档分析和隐写术微软office文档是发送或存储消息、报告、视频或想法等信息的常见方式。MS Office文档、图像和音频文件是我们日常生活中常用的一些格式。然而，除了我们在Word文档中看到的内容或在音频文件中听到的内容之外，这些文档还可">
 
-<link rel="shortcut icon" href="/0x783kb/favicon.ico">
-<link rel="stylesheet" href="/0x783kb/style/main.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
 
   <meta name="generator" content="Hexo 7.1.1"></head>
   <body>
@@ -28,10 +28,10 @@
 <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="https://github.com/0x783kb">
-        <img class="avatar" src="/0x783kb/images/avatar.png" alt="logo" width="32px" height="32px">
+      <a href="https://0x783kb.github.io">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
       </a>
-      <a href="https://github.com/0x783kb">
+      <a href="https://0x783kb.github.io">
         <h1 class="site-title">0x783kb</h1>
       </a>
     </div>
@@ -45,25 +45,25 @@
 <nav class="menu-list">
   
     
-      <a href="/0x783kb/" class="menu purple-link">
+      <a href="/" class="menu purple-link">
         首页
       </a>
     
   
     
-      <a href="/0x783kb/tags" class="menu purple-link">
+      <a href="/tags" class="menu purple-link">
         标签
       </a>
     
   
     
-      <a href="/0x783kb/archives" class="menu purple-link">
+      <a href="/archives" class="menu purple-link">
         归档
       </a>
     
   
     
-      <a href="/0x783kb/about" class="menu purple-link">
+      <a href="/about" class="menu purple-link">
         关于
       </a>
     
@@ -83,7 +83,7 @@
           <span>
           <i class="icon icon-pricetags-outline"></i>
             
-              <a href="/0x783kb/tags/digital-forensics-lab-cn/">
+              <a href="/tags/digital-forensics-lab-cn/">
               digital-forensics-lab-cn
                 
               </a>
@@ -145,7 +145,7 @@
 </ul>
 <p>有关文档中可能存在的任何其他文件的信息可以在链接<a target="_blank" rel="noopener" href="http://officeopenxml.com/anatomyofOOXML.php%E4%B8%8A%E6%89%BE%E5%88%B0%E3%80%82">http://officeopenxml.com/anatomyofOOXML.php上找到。</a></p>
 <h2 id="启用宏的文档"><a href="#启用宏的文档" class="headerlink" title="启用宏的文档"></a>启用宏的文档</h2><p>启用宏的文档是包含宏的文档，宏是自动执行任务的指令集。宏可以用Visual Basic for Applications (VBA)编写，可用于执行各种任务，例如格式化文本、执行计算和自动执行复杂的过程。然而，攻击者经常利用Office文档的这一功能进行网络钓鱼攻击，并嵌入恶意宏来执行恶意操作并在系统上安装恶意软件。</p>
-<p>这些文档的扩展名包括.docm、.pptm、xlsm等。例子可参考：（<a href="https://github.com/ExpOrx/digital-forensics-lab/blob/main/Lab%2003/README.md%EF%BC%89">https://github.com/ExpOrx/digital-forensics-lab/blob/main/Lab%2003/README.md）</a></p>
+<p>这些文档的扩展名包括.docm、.pptm、xlsm等。例子可参考：（<a target="_blank" rel="noopener" href="https://github.com/ExpOrx/digital-forensics-lab/blob/main/Lab%2003/README.md%EF%BC%89">https://github.com/ExpOrx/digital-forensics-lab/blob/main/Lab%2003/README.md）</a></p>
 <p>根据OOXML文件的剖析，宏现在存储在内部word&#x2F;vbaProject.bin，但是，我们无法读取它，因为它是二进制形式的。但是，我们可以使用一系列工具来oletools分析和从OLE文件（例如Microsoft Office文档）中提取宏。</p>
 <p>要安装oletools，请使用命令：sudo -H pip install -U oletools。</p>
 <p>让我们用它oleid来检测我们的文档是否嵌入了任何宏。</p>
@@ -169,7 +169,7 @@
 <p>要检测音频隐写术，可以使用Sonic Visualizer或Audacity等工具。</p>
 <p><strong>练习题</strong></p>
 <h2 id="科目一"><a href="#科目一" class="headerlink" title="科目一"></a>科目一</h2><p>1 您的组织中报告了网络钓鱼攻击，其中一名员工在一封看似来自可信来源的电子邮件中收到了恶意Word文档。该员工打开了其中包含宏的文档，导致攻击者获得了对该员工计算机的访问权限。宏代码中嵌入了一个会泄露攻击者身份的秘密。您的任务是分析宏代码并提取嵌入的秘密。秘密有格式flag{s0me_str1ng}。</p>
-<p>Word文档可以从<a href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 03&#x2F;files&#x2F;YearlyBonus.docm下载。</p>
+<p>Word文档可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 03&#x2F;files&#x2F;YearlyBonus.docm下载。</p>
 <p>解题：</p>
 <ul>
 <li>使用oleid检测我们的文件是否嵌入了宏。</li>
@@ -188,7 +188,7 @@
 
 
 <h2 id="科目二"><a href="#科目二" class="headerlink" title="科目二"></a>科目二</h2><p>2 政府内部的一名内奸向一名间谍泄露了绝密信息。内奸了解间谍技术，使用隐写术将信息隐藏在图像中，然后将其交给他的处理者。间谍收到该图像并将其粘贴到PowerPoint文档中，并用多张随机图像覆盖以隐藏它。我们的一名间谍已进入敌方间谍的计算机并恢复了PowerPoint文档。你的任务是提取第一张图像，提取绝密信息以及他在政府内部的消息来源的姓名和位置。</p>
-<p>PowerPoint文档可以从<a href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 03&#x2F;files&#x2F;Presentation.pptx下载。</p>
+<p>PowerPoint文档可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 03&#x2F;files&#x2F;Presentation.pptx下载。</p>
 <ul>
 <li>首先解压pptx文件</li>
 </ul>
@@ -206,7 +206,7 @@
 
 <p>目前只做到了这里。</p>
 <h2 id="科目三"><a href="#科目三" class="headerlink" title="科目三"></a>科目三</h2><p>3 根据音频隐写术部分提供的音频文件，了解如何使用Audacity查看频谱图并恢复标志。提交截图。</p>
-<p>音频文件可以从<a href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 03&#x2F;files&#x2F;super_secret_audio.wav下载。</p>
+<p>音频文件可以从<a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 03&#x2F;files&#x2F;super_secret_audio.wav下载。</p>
 
         </div>
           
@@ -219,7 +219,7 @@
 
     
       <div class="next-post">
-        <a class="purple-link" href="/0x783kb/2024/04/02/digital-forensics-lab-cn-Lab02/">
+        <a class="purple-link" href="/2024/04/02/digital-forensics-lab-cn-Lab02/">
           <h3 class="post-title">
             下一篇：digital-forensics-lab-cn-Lab02
           </h3>
@@ -273,7 +273,7 @@
     
 <script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
 
-<script src="/0x783kb/js/main.js"></script>
+<script src="/js/main.js"></script>
 
 
 
