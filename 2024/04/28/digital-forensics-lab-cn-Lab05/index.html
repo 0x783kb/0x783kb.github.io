@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>digital-forensics-lab-cn-Lab05</title>
+<meta name="keywords" content="digital-forensics-lab-cn-Lab05, 0x783kb,threathunting">
+<meta name="description" content="网络流量取证在今天的世界中，网络是我们日常生活的一个基本组成部分，它使我们能够进行通信、获取信息并开展各种在线活动。然而，网络也是坏人攻击的主要目标，他们试图通过利用漏洞造成伤害。
+在这个实验中，我们将从网络基础知识入手，包括IP地址、协议">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="digital-forensics-lab-cn-Lab05">
+<meta property="og:description" content="网络流量取证在今天的世界中，网络是我们日常生活的一个基本组成部分，它使我们能够进行通信、获取信息并开展各种在线活动。然而，网络也是坏人攻击的主要目标，他们试图通过利用漏洞造成伤害。
+在这个实验中，我们将从网络基础知识入手，包括IP地址、协议">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">digital-forensics-lab-cn-Lab05</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-28</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/digital-forensics-lab-cn/">
+              digital-forensics-lab-cn
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h1 id="网络流量取证"><a href="#网络流量取证" class="headerlink" title="网络流量取证"></a>网络流量取证</h1><p>在今天的世界中，网络是我们日常生活的一个基本组成部分，它使我们能够进行通信、获取信息并开展各种在线活动。然而，网络也是坏人攻击的主要目标，他们试图通过利用漏洞造成伤害。</p>
+<p>在这个实验中，我们将从网络基础知识入手，包括IP地址、协议和端口，对这些元素如何协同工作以促进设备间的通信进行复习。</p>
+<p>接下来，我们将进行网络流量的取证分析。我们将分析捕获的流量以寻找可疑或恶意活动，这将涉及查找流量模式中的异常，识别未经授权的访问尝试，并追踪任何攻击的来源。</p>
+<h2 id="基础网络知识复习"><a href="#基础网络知识复习" class="headerlink" title="基础网络知识复习"></a>基础网络知识复习</h2><p>简而言之，网络是一组连接在一起以进行通信、共享信息、文件和资源的设备。这些设备需要具有IP地址、协议和端口才能相互通信，了解这些对于任何数字取证分析员至关重要，因为这些基础知识是调查网络上任何恶意活动的基本构建模块。</p>
+<h3 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h3><p>IP地址是分配给网络上每个设备的唯一标识符。它用于识别设备的位置并促进与其他设备的通信。IP地址的一个示例是“192.168.1.1”。</p>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>协议是指导网络上设备间通信的一组规则。一些常见的协议包括HTTP、SSH和FTP。</p>
+<p>例如，当你浏览一个网站时，你的计算机会向web服务器发送一个HTTP请求，服务器会以包含你请求的网页的HTTP响应做出回应。</p>
+<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><p>端口是用来标识设备上特定应用程序或服务的编号。当设备接收网络流量时，它使用端口号来确定流量所针对的应用程序或服务。</p>
+<h2 id="网络流量取证-1"><a href="#网络流量取证-1" class="headerlink" title="网络流量取证"></a>网络流量取证</h2><p>捕获网络流量<br>进行网络流量取证的先决条件是捕获网络流量。这可以通过使用网络数据包捕获或嗅探工具来实现，比如Wireshark或tcpdump。在本实验中，我们主要将使用Wireshark，因此请确保您已在计算机上安装了它。</p>
+<p>要捕获实时网络流量，请执行以下步骤：</p>
+<ul>
+<li>在Linux终端中输入wireshark，或在Windows的“开始”菜单中找到Wireshark并打开。</li>
+<li>一旦打开，选择你想要捕获流量的网络接口。在大多数情况下，这是eth0。</li>
+<li>点击窗口左上角的蓝色鲨鱼鳍图标，开始捕获流量。</li>
+<li>在大多数情况下，您应该已经看到Wireshark上出现了数据包。如果没有，可以尝试通过浏览器访问某个网站（如<a target="_blank" rel="noopener" href="https://www.google.com/%EF%BC%89%E6%9D%A5%E7%94%9F%E6%88%90%E4%B8%80%E4%BA%9B%E6%B5%81%E9%87%8F%E3%80%82">https://www.google.com/）来生成一些流量。</a></li>
+<li>要停止捕获流量，点击左上角的红色停止按钮。</li>
+<li>要保存捕获的流量，转到文件→另存为，并选择一个名称和位置来保存捕获文件。</li>
+</ul>
+<p>注意：默认情况下，文件扩展名应该是.pcapng。另一个常用的捕获文件扩展名为.pcap。</p>
+<p>在这一部分，让我们探讨用于捕获和分析网络流量、提取有价值信息、检测可疑行为以及调查网络攻击的工具和技术。</p>
+<p>例如，当你使用HTTP访问一个网站时，你的浏览器会将请求发送到web服务器上的80号端口。</p>
+<h3 id="分析网络流量"><a href="#分析网络流量" class="headerlink" title="分析网络流量"></a>分析网络流量</h3><p>网络流量取证的下一步是分析捕获的网络流量。这涉及到检查网络流量以识别可疑活动、未授权访问尝试,并提取如下信息:</p>
+<ul>
+<li>源和目标IP地址及端口</li>
+<li>协议</li>
+<li>传输的数据&#x2F;有效载荷</li>
+<li>活动的时间和日期</li>
+</ul>
+<p>尽管Wireshark有许多网络取证功能,但一些最常用的包括查看协议层次结构、应用过滤器、查看数据包详细信息和数据包字节、跟踪TCP流,以及导出对象。</p>
+<p>要开始分析样本捕获的网络流量,请从 <a target="_blank" rel="noopener" href="https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab%2005/files/capture.pcapng">https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab%2005/files/capture.pcapng</a> 下载文件,并在Wireshark中打开。</p>
+<p><strong>关于wireshark的相关教程网络上已经有很多，感觉没必要在这里介绍，自行学习即可</strong></p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E5%8F%96%E8%AF%81"><span class="top-box-text">网络流量取证</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%9F%BA%E7%A1%80%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0"><span class="top-box-text">基础网络知识复习</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#IP%E5%9C%B0%E5%9D%80"><span class="top-box-text">IP地址</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%8D%8F%E8%AE%AE"><span class="top-box-text">协议</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%AB%AF%E5%8F%A3"><span class="top-box-text">端口</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E5%8F%96%E8%AF%81-1"><span class="top-box-text">网络流量取证</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%88%86%E6%9E%90%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F"><span class="top-box-text">分析网络流量</span></a></li></ol></li></ol></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/04/02/digital-forensics-lab-cn-Lab04/">
+          <h3 class="post-title">
+            下一篇：digital-forensics-lab-cn-Lab04
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

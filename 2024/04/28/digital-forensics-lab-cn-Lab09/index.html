@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>digital-forensics-lab-cn-Lab09</title>
+<meta name="keywords" content="digital-forensics-lab-cn-Lab09, 0x783kb,threathunting">
+<meta name="description" content="容器取证容器使我们能够以更快、更可靠的方式构建和部署应用程序，从而彻底改变了现代软件开发。因此，近年来，容器化变得越来越流行。但是，与任何技术一样，它们也不能幸免于安全风险和漏洞。犯罪分子还可以将它们用于恶意目的，例如托管恶意软件或进行任何">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="digital-forensics-lab-cn-Lab09">
+<meta property="og:description" content="容器取证容器使我们能够以更快、更可靠的方式构建和部署应用程序，从而彻底改变了现代软件开发。因此，近年来，容器化变得越来越流行。但是，与任何技术一样，它们也不能幸免于安全风险和漏洞。犯罪分子还可以将它们用于恶意目的，例如托管恶意软件或进行任何">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.1.1"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">0x783kb</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">digital-forensics-lab-cn-Lab09</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-28</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/digital-forensics-lab-cn/">
+              digital-forensics-lab-cn
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h1 id="容器取证"><a href="#容器取证" class="headerlink" title="容器取证"></a>容器取证</h1><p>容器使我们能够以更快、更可靠的方式构建和部署应用程序，从而彻底改变了现代软件开发。因此，近年来，容器化变得越来越流行。但是，与任何技术一样，它们也不能幸免于安全风险和漏洞。犯罪分子还可以将它们用于恶意目的，例如托管恶意软件或进行任何其他非法活动。</p>
+<p>在本实验中，我们将了解容器的基础知识，然后我们将探讨可用于对容器化环境进行调查以识别潜在安全威胁和恶意活动的工具和技术。 </p>
+<h2 id="容器-它们是什么？"><a href="#容器-它们是什么？" class="headerlink" title="容器-它们是什么？"></a>容器-它们是什么？</h2><p>容器是软件包，其中包含在任何环境中运行所需的所有元素。通过这种方式，容器虚拟化了操作系统，并在任何地方运行，从私有数据中心到公共云，甚至在开发人员的个人笔记本电脑上。从 Gmail 到 YouTube 再到 Google 搜索，Google 的所有内容都在容器中运行。 </p>
+<p>简单地说，容器就像一个应用程序的捆绑包，它拥有运行所需的一切，包括应用程序的代码和配置，以及依赖项和库。 </p>
+<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><p>想象一下，您正在开发一个应用程序，并且代码需要特定版本的编程语言和库才能运行。您可以将它们安装在自己的计算机上，但这可能会导致与您可能已安装的其他语言或库版本发生冲突。即使您设法解决了计算机上的所有冲突，也可能会在将要部署应用程序的托管服务器上遇到类似的冲突。</p>
+<p>或者，您可以将应用程序及其依赖项打包到一个容器中，该容器将使用所需的编程语言和库版本运行应用程序，而不会与主机上安装的版本发生任何冲突。然后，您可以将此容器移动到另一台计算机或服务器，应用程序将与您自己的计算机上完全相同。 </p>
+<h2 id="容器和虚拟机-有何区别？"><a href="#容器和虚拟机-有何区别？" class="headerlink" title="容器和虚拟机-有何区别？"></a>容器和虚拟机-有何区别？</h2><p>你可能已经熟悉VM：虚拟操作系统（如 Linux 或 Windows）在可访问底层硬件的主机操作系统上运行。容器通常与虚拟机 （VM） 进行比较。与虚拟机一样，容器允许您将应用程序与库和其他依赖项打包在一起，从而为运行软件服务提供隔离的环境。 </p>
+<h2 id="什么是Docker？"><a href="#什么是Docker？" class="headerlink" title="什么是Docker？"></a>什么是Docker？</h2><p>Docker 是一种容器编排工具，可帮助我们管理容器的整个生命周期，包括构建、运行和终止容器。它有时也被称为“容器引擎”或“容器运行时”，还有其他类似的工具，如 Podman、Cri-o、Runc、Containerd 等也提供这些功能。 </p>
+<h2 id="获取证据"><a href="#获取证据" class="headerlink" title="获取证据"></a>获取证据</h2><p>在容器取证的上下文中，我们的证据将主要包括我们可以从容器（正在运行或停止）获取的任何信息、容器映像、容器日志、容器运行时&#x2F;引擎日志等。我们可以通过多种方式获取与容器相关的证据，包括导出其文件系统、检查容器与其基础映像之间的差异、检查容器的元数据和配置、查看容器日志、检查映像历史记录以及获取容器内运行的进程的内存转储。因此，让我们逐一探索这些方法中的每一种： </p>
+<h3 id="导出文件系统"><a href="#导出文件系统" class="headerlink" title="导出文件系统"></a>导出文件系统</h3><p>我们获取证据的一种方法是将容器的文件系统导出为 tar 存档。</p>
+<p>为了说明这个过程，让我们启动一个容器： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it alpine sh</span><br><span class="line">/ <span class="comment"># ls</span></span><br><span class="line">bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var</span><br></pre></td></tr></table></figure>
+
+<p>在容器中，让我们创建一个名为 hello_world 里面有文字“你好，世界！ </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/ echo &quot;Hello, World!&quot; &gt; hello_world</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来，在保持容器运行的同时，打开另一个终端并检查容器的 ID： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps --all</span><br><span class="line">CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS                     PORTS     NAMES</span><br><span class="line">87908a159c5b   alpine           <span class="string">&quot;sh&quot;</span>                     6 minutes ago   Exited (0) 6 minutes ago             agitated_matsumoto</span><br></pre></td></tr></table></figure>
+
+<p>现在，让我们将容器的文件系统导出为 tar 存档： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">export</span> 87908a159c5b -o output.tar</span><br></pre></td></tr></table></figure>
+
+<p>然后，我们可以提取文件系统并确认 hello_world 通过运行以下命令显示文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> output</span><br><span class="line"></span><br><span class="line">$ tar -xf output.tar -C output</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ls</span> -la output</span><br><span class="line">total 4.0K</span><br><span class="line">drwxr-xr-x 1 w w 156 Apr 12 05:59 .</span><br><span class="line">drwxr-xr-x 1 w w  52 Apr 12 05:58 ..</span><br><span class="line">-rwxr-xr-x 1 w w   0 Apr 12 05:47 .dockerenv</span><br><span class="line">drwxr-xr-x 1 w w 862 Mar 29 19:45 bin</span><br><span class="line">drwxr-xr-x 1 w w  26 Apr 12 05:47 dev</span><br><span class="line">drwxr-xr-x 1 w w 566 Apr 12 05:47 etc</span><br><span class="line">-rw-r--r-- 1 w w  14 Apr 12 05:47 hello_world</span><br><span class="line">drwxr-xr-x 1 w w   0 Mar 29 19:45 home</span><br><span class="line">drwxr-xr-x 1 w w 282 Mar 29 19:45 lib</span><br><span class="line">drwxr-xr-x 1 w w  28 Mar 29 19:45 media</span><br><span class="line">drwxr-xr-x 1 w w   0 Mar 29 19:45 mnt</span><br><span class="line">drwxr-xr-x 1 w w   0 Mar 29 19:45 opt</span><br><span class="line">dr-xr-xr-x 1 w w   0 Mar 29 19:45 proc</span><br><span class="line">drwx------ 1 w w  24 Apr 12 05:47 root</span><br><span class="line">drwxr-xr-x 1 w w   0 Mar 29 19:45 run</span><br><span class="line">drwxr-xr-x 1 w w 782 Mar 29 19:45 sbin</span><br><span class="line">drwxr-xr-x 1 w w   0 Mar 29 19:45 srv</span><br><span class="line">drwxr-xr-x 1 w w   0 Mar 29 19:45 sys</span><br><span class="line">drwxr-xr-x 1 w w   0 Mar 29 19:45 tmp</span><br><span class="line">drwxr-xr-x 1 w w  40 Mar 29 19:45 usr</span><br><span class="line">drwxr-xr-x 1 w w  86 Mar 29 19:45 var</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> output/hello_world </span><br><span class="line">Hello, World!</span><br></pre></td></tr></table></figure>
+
+<h3 id="识别容器和基础映像之间的差异"><a href="#识别容器和基础映像之间的差异" class="headerlink" title="识别容器和基础映像之间的差异"></a>识别容器和基础映像之间的差异</h3><p>这涉及将正在运行或停止的容器的当前状态与其基本映像进行比较，以识别所做的任何更改。这在检测恶意软件或未经授权的实体可能对容器所做的任何更改时特别有用。</p>
+<p>识别差异的一种方法是使用 docker diff 命令，根据 Docker 的文档，跟踪三种类型的更改： </p>
+<p>我们可以在上一个示例中创建的容器上试用它： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker diff 87908a159c5b</span><br><span class="line">C /root</span><br><span class="line">A /root/.ash_history</span><br><span class="line">A /hello_world</span><br></pre></td></tr></table></figure>
+<p>从输出中可以看出， &#x2F;root 目录已更改，并添加了一个名为 &#x2F;root&#x2F;.ash_history （当我们在容器内执行第一个命令时自动创建），并添加了 &#x2F;hello_world 我们创建的文件。</p>
+<p>💡 值得注意的是，Alpine 的默认 shell 是 ash，因此历史文件被命名为 .ash_history 而不是 .sh_history，即使我们指定了 sh 在我们的 docker run 命令。</p>
+<h3 id="检查容器元数据和配置"><a href="#检查容器元数据和配置" class="headerlink" title="检查容器元数据和配置"></a>检查容器元数据和配置</h3><p>检查容器配置涉及检查容器的配置详细信息，例如其网络设置、环境变量和存储配置。</p>
+<p>检查容器配置的一种方法是使用 docker inspect 命令，它提供容器配置和元数据的详细视图： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect 87908a159c5b</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;Id&quot;</span>: <span class="string">&quot;87908a159c5b20ef2d251f023fc666d03309e2739743f4cedf77f049cf634169&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Created&quot;</span>: <span class="string">&quot;2023-04-12T00:47:25.919621316Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Path&quot;</span>: <span class="string">&quot;sh&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Args&quot;</span>: [],</span><br><span class="line">        <span class="string">&quot;State&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Status&quot;</span>: <span class="string">&quot;exited&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Running&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;Paused&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;Restarting&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;OOMKilled&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;Dead&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">&quot;Pid&quot;</span>: 0,</span><br><span class="line">            <span class="string">&quot;ExitCode&quot;</span>: 0,</span><br><span class="line">            <span class="string">&quot;Error&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;StartedAt&quot;</span>: <span class="string">&quot;2023-04-12T00:47:26.302842966Z&quot;</span>,</span><br><span class="line">            <span class="string">&quot;FinishedAt&quot;</span>: <span class="string">&quot;2023-04-12T00:47:50.743670453Z&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>我们可以利用 –format 用于提取特定信息（例如实例的 IP 地址）的选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format=<span class="string">&#x27;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&#x27;</span> 87908a159c5b</span><br><span class="line">172.17.0.2</span><br></pre></td></tr></table></figure>
+
+<p>或者实例的 MAC 地址： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format=<span class="string">&#x27;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.MacAddress&#125;&#125;&#123;&#123;end&#125;&#125;&#x27;</span> 87908a159c5b</span><br><span class="line">02:42:ac:11:00:02</span><br></pre></td></tr></table></figure>
+
+<p>或者主机上容器的进程 ID： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect --format=<span class="string">&#x27;&#123;&#123;.State.Pid&#125;&#125;&#x27;</span> 87908a159c5b</span><br><span class="line">27666</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以通过运行 ps 命令： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps -fp 27666</span><br><span class="line">UID          PID    PPID  C STIME TTY          TIME CMD</span><br><span class="line">root       27666   27646  0 07:54 pts/0    00:00:00 sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看容器日志"><a href="#查看容器日志" class="headerlink" title="查看容器日志"></a>查看容器日志</h3><p>要查找可能在容器内执行的任何命令，或可能在容器内运行的任何服务的日志，我们可以利用 docker logs 命令： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs 87908a159c5b</span><br><span class="line">/ <span class="comment"># ls</span></span><br><span class="line">bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var</span><br><span class="line">/ <span class="comment"># echo &quot;Hello, World!&quot; &gt; hello_world</span></span><br><span class="line">/ <span class="comment"># exit</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="检查图像历史记录"><a href="#检查图像历史记录" class="headerlink" title="检查图像历史记录"></a>检查图像历史记录</h3><p>检查图像的历史记录有助于识别对其所做的任何更改，包括潜在的恶意修改或添加恶意文件或图层。这在检查图像在原始生成后是否被篡改时特别有用。</p>
+<p>这可以使用 docker history 命令，它按时间倒序显示图像的历史记录，显示添加到图像的每个图层： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">history</span> alpine --no-trunc</span><br><span class="line">IMAGE                                                                     CREATED       CREATED BY                                                                                          SIZE      COMMENT</span><br><span class="line">sha256:9ed4aefc74f6792b5a804d1d146fe4b4a2299147b0f50eaf2b08435d7b38c27e   13 days ago   /bin/sh -c <span class="comment">#(nop)  CMD [&quot;/bin/sh&quot;]                                                                  0B        </span></span><br><span class="line">&lt;missing&gt;                                                                 13 days ago   /bin/sh -c <span class="comment">#(nop) ADD file:9a4f77dfaba7fd2aa78186e4ef0e7486ad55101cefc1fabbc1b385601bb38920 in /    7.04MB</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取容器的内存转储"><a href="#获取容器的内存转储" class="headerlink" title="获取容器的内存转储"></a>获取容器的内存转储</h3><p>获取容器进程的内存转储可用于调查其运行时状态、检测恶意活动或提取机密。</p>
+<p>我们可以使用这样的工具 dd， gdb或 gcore 获取容器进程的内存转储。在这些选项中，我们将使用 gcore，这需要进程 ID（请查看有关检查容器元数据和配置的部分）作为输入： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gcore 27666</span><br><span class="line">warning: Target and debugger are <span class="keyword">in</span> different PID namespaces; thread lists and other data are likely unreliable.  Connect to gdbserver inside the container.</span><br><span class="line">0x00007f48fa0993c1 <span class="keyword">in</span> ?? () from target:/lib/ld-musl-x86_64.so.1</span><br><span class="line">Saved corefile core.27666</span><br><span class="line">[Inferior 1 (process 27666) detached]</span><br></pre></td></tr></table></figure>
+
+<p>一旦我们有了内存转储，我们就可以搜索任何有趣的信息，例如机密或恶意字符串。例如，由于我们在本实验开始时将“Hello， World”写入容器内的文件中，因此让我们尝试使用 strings 命令： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ strings core.27666 | grep <span class="string">&quot;Hello, World&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello, World!&quot;</span> &gt; hello_world</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello, World!&quot;</span> &gt; hello_world</span><br></pre></td></tr></table></figure>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>总而言之，我们了解了容器的基础知识，并探索了在容器化环境中进行取证的几种技术，但重要的是要注意，还有其他技术和工具可以自动执行这些过程。其中一些工具包括 docker 取证工具包 、 docker 浏览器 、 容器浏览器 和 docker 层提取 。</p>
+<p>话虽如此，如果您有兴趣进一步了解容器和安全，我强烈建议您查看 Liz Rice 的《容器安全 》一书。它提供了对容器安全世界的宝贵见解，对于初学者和有经验的专业人士来说都是一个很好的资源。 </p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E5%AE%B9%E5%99%A8%E5%8F%96%E8%AF%81"><span class="top-box-text">容器取证</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%AE%B9%E5%99%A8-%E5%AE%83%E4%BB%AC%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="top-box-text">容器-它们是什么？</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BE%8B"><span class="top-box-text">例</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%AE%B9%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA-%E6%9C%89%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="top-box-text">容器和虚拟机-有何区别？</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDocker%EF%BC%9F"><span class="top-box-text">什么是Docker？</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%8E%B7%E5%8F%96%E8%AF%81%E6%8D%AE"><span class="top-box-text">获取证据</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="top-box-text">导出文件系统</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%AF%86%E5%88%AB%E5%AE%B9%E5%99%A8%E5%92%8C%E5%9F%BA%E7%A1%80%E6%98%A0%E5%83%8F%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="top-box-text">识别容器和基础映像之间的差异</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A3%80%E6%9F%A5%E5%AE%B9%E5%99%A8%E5%85%83%E6%95%B0%E6%8D%AE%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="top-box-text">检查容器元数据和配置</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97"><span class="top-box-text">查看容器日志</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A3%80%E6%9F%A5%E5%9B%BE%E5%83%8F%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95"><span class="top-box-text">检查图像历史记录</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E8%8E%B7%E5%8F%96%E5%AE%B9%E5%99%A8%E7%9A%84%E5%86%85%E5%AD%98%E8%BD%AC%E5%82%A8"><span class="top-box-text">获取容器的内存转储</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BB%93%E8%AE%BA"><span class="top-box-text">结论</span></a></li></ol></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/04/28/digital-forensics-lab-cn-Lab08/">
+          <h3 class="post-title">
+            下一篇：digital-forensics-lab-cn-Lab08
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/0x783kb" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
